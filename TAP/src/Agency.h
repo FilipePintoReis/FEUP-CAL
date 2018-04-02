@@ -17,6 +17,8 @@
 class Agency {
 private:
 	Graph<City> graph;
+
+
 public:
 	Agency();
 	virtual ~Agency();

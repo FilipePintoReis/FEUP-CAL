@@ -10,7 +10,7 @@
 
 	}
 
-	City::City(int id, string n, Coordinates c, vector<Hotel*> ht, vector<bool> pd) {
+	City::City(int id, string n, Coordinates c, vector<Hotel*> ht, vector<int> pd) {
 
 		this->id = id;
 		this->name = n;
@@ -37,11 +37,11 @@
 
 	vector<Hotel*> City::getHotels(){
 
-		return hotels;
+		return this->hotels;
 	}
-	vector<bool> City::getPossibleDestinations(){
+	vector<int> City::getPossibleDestinations(){
 
-		return possibleDestinations;
+		return this->possibleDestinations;
 	}
 
 	void City::setID(int id){
@@ -64,7 +64,7 @@
 		this->hotels = h;
 	}
 
-	void City::setDestinations(vector<bool> pd){
+	void City::setDestinations(vector<int> pd){
 
 		this->possibleDestinations = pd;
 	}

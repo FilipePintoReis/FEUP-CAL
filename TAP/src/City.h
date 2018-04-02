@@ -15,11 +15,11 @@ private:
 	string name;
 	Coordinates coord;
 	vector<Hotel*> hotels;
-	vector<bool> possibleDestinations;
+	vector<int> possibleDestinations;
 	int queueIndex;
 
 public:
-	City(int id, string n, Coordinates c, vector<Hotel*> ht, vector<bool> pd);
+	City(int id, string n, Coordinates c, vector<Hotel*> ht, vector<int> pd);
 	City();
 	virtual ~City();
 
@@ -27,13 +27,13 @@ public:
 	string getName();
 	Coordinates getCoordinates();
 	vector<Hotel*> getHotels();
-	vector<bool> getPossibleDestinations();
+	vector<int> getPossibleDestinations();
 
 	void setID(int id);
 	void setName(string n);
 	void setCoordinates(Coordinates c);
 	void setHotels(vector<Hotel*> h);
-	void setDestinations(vector<bool> pd);
+	void setDestinations(vector<int> pd);
 };
 
 #endif /* SRC_CITY_H_ */

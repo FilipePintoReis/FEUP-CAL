@@ -19,8 +19,6 @@ Agency::Agency() {
 	Porto.getCoordinates().setX(15);
 	Porto.getCoordinates().setY(12);*/
 
-
-
 }
 
 Agency::~Agency() {
@@ -43,7 +41,7 @@ void Agency::readFromFiles(){
 			//standart price
 		//)
 		//terminated by string "STOP" or wtv
-		//List of boolean
+		//List of cities ids
 
 		// end of file, addVertex
 	}
