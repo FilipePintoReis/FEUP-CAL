@@ -23,6 +23,8 @@ public:
 	Agency();
 	virtual ~Agency();
 	void readFromFiles();
+	Graph<City> getGraph();
+	void printShortestPath(const City origin, const City destiny);
 };
 
 #endif /* SRC_AGENCY_H_ */
