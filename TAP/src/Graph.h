@@ -6,6 +6,10 @@
 
 #include <vector>
 #include <queue>
+#include "MutablePriorityQueue.h"
+
+#define INF 10 //Example, this value must be set to
+//the shortest distance in graph I THINK, got this from moodle
 using namespace std;
 
 template <class T> class Edge;
@@ -55,9 +59,11 @@ public:
 	bool removeEdge(const T &sourc, const T &dest);
 	vector<T> dfs() const;
 	vector<T> bfs(const T &source) const;
-	vector<T> topsort() const;
 	int maxNewChildren(const T &source, T &inf) const;
 	bool isDAG() const;
+	Vertex<T> *initSingleSource(const T &origin);
+	bool relax(Vertex<T> *v, Vertex<T> *w, double weight);
+	void dijkstraShortestPath(const T &origin);
 };
 
 /****************** Provided constructors and functions ********************/
@@ -193,8 +199,8 @@ vector<T> Graph<T>::dfs() const {
 	for (auto v : vertexSet)
 		v->visited = false;
 	for (auto v : vertexSet)
-	    if (! v->visited)
-	    	dfsVisit(v, res);
+		if (! v->visited)
+			dfsVisit(v, res);
 	return res;
 }
 
@@ -208,8 +214,8 @@ void Graph<T>::dfsVisit(Vertex<T> *v, vector<T> & res) const {
 	res.push_back(v->info);
 	for (auto & e : v->adj) {
 		auto w = e.dest;
-	    if ( ! w->visited)
-	    	dfsVisit(w, res);
+		if ( ! w->visited)
+			dfsVisit(w, res);
 	}
 }
 
@@ -238,59 +244,15 @@ vector<T> Graph<T>::bfs(const T & source) const {
 		res.push_back(v->info);
 		for (auto & e : v->adj) {
 			auto w = e.dest;
-		    if ( ! w->visited ) {
+			if ( ! w->visited ) {
 				q.push(w);
 				w->visited = true;
-		    }
+			}
 		}
 	}
 	return res;
 }
 
-/****************** 2c) toposort ********************/
-
-/*
- * Performs a topological sorting of the vertices of a graph (this).
- * Returns a vector with the contents of the vertices by topological order.
- * If the graph has cycles, returns an empty vector.
- * Follows the algorithm described in theoretical classes.
- */
-
-template<class T>
-vector<T> Graph<T>::topsort() const {
-	vector<T> res;
-
-	for (auto v : vertexSet)
-		v->indegree = 0;
-	for (auto v : vertexSet)
-		for (auto & e : v->adj)
-			e.dest->indegree++;
-
-	queue<Vertex<T>*> q;
-	for (auto v : vertexSet)
-		if (v->indegree == 0)
-			q.push(v);
-
-	while( !q.empty() ) {
-		Vertex<T>* v = q.front();
-		q.pop();
-		res.push_back(v->info);
-		for(auto & e : v->adj) {
-			auto w = e.dest;
-			w->indegree--;
-			if(w->indegree == 0)
-				q.push(w);
-		}
-	}
-
-	if ( res.size() != vertexSet.size() ) {
-		cout << "Ordenacao Impossivel!" << endl;
-		res.clear();
-		return res;
-	}
-
-	return res;
-}
 
 /****************** 3a) maxNewChildren  ********************/
 
@@ -306,7 +268,7 @@ template <class T>
 int Graph<T>::maxNewChildren(const T & source, T &inf) const {
 	auto s = findVertex(source);
 	if (s == NULL)
-			return 0;
+		return 0;
 	queue<Vertex<T> *> q;
 	int maxChildren = 0;
 	inf = s->info;
@@ -351,9 +313,9 @@ bool Graph<T>::isDAG() const {
 		v->processing = false;
 	}
 	for (auto v : vertexSet)
-	    if (! v->visited)
-	    	if ( ! dfsIsDAG(v) )
-	    		return false;
+		if (! v->visited)
+			if ( ! dfsIsDAG(v) )
+				return false;
 	return true;
 }
 
@@ -367,14 +329,74 @@ bool Graph<T>::dfsIsDAG(Vertex<T> *v) const {
 	v->processing = true;
 	for (auto & e : v->adj) {
 		auto w = e.dest;
-    	if (w->processing)
-    		return false;
-	    if (! w->visited)
-	    	if (! dfsIsDAG(w))
-	    		return false;
+		if (w->processing)
+			return false;
+		if (! w->visited)
+			if (! dfsIsDAG(w))
+				return false;
 	}
 	v->processing = false;
 	return true;
 }
 
+
+/****************** Dijkstra  ********************/
+
+
+/**
+ * Initializes single-source shortest path data (path, dist).
+ * Receives the content of the source vertex and returns a pointer to the source vertex.
+ * Used by all single-source shortest path algorithms.
+ */
+template<class T>
+Vertex<T> * Graph<T>::initSingleSource(const T &origin) {
+	for (auto v : vertexSet) {
+		v->dist = INF;
+		v->path = nullptr;
+	}
+	auto s = findVertex(origin);
+	s->dist = 0;
+	return s;
+}
+
+
+/**
+ * Analyzes an edge in single-source shortest path algorithm.
+ * Returns true if the target vertex was relaxed (dist, path).
+ * Used by all single-source shortest path algorithms.
+ */
+template<class T>
+bool Graph<T>::relax(Vertex<T> *v, Vertex<T> *w, double weight) {
+	if (v->dist + weight < w->dist) {
+		w->dist = v->dist + weight;
+		w->path = v;
+		return true;
+	}
+	else
+		return false;
+}
+
+
+
+/**
+ * Dijkstra algorithm.
+ */
+template<class T>
+void Graph<T>::dijkstraShortestPath(const T &origin) {
+	auto s = initSingleSource(origin);
+	MutablePriorityQueue<Vertex<T>> q;
+	q.insert(s);
+	while ( ! q.empty() ) {
+		auto v = q.extractMin();
+		for (auto e : v->adj) {
+			auto oldDist = e.dest->dist;
+			if (relax(v, e.dest, e.weight)) {
+				if (oldDist == INF)
+					q.insert(e.dest);
+				else
+					q.decreaseKey(e.dest);
+			}
+		}
+	}
+}
 #endif /* GRAPH_H_ */

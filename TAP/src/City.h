@@ -16,6 +16,7 @@ private:
 	Coordinates coord;
 	vector<Hotel*> hotels;
 	vector<bool> possibleDestinations;
+	int queueIndex;
 
 public:
 	City(int id, string n, Coordinates c, vector<Hotel*> ht, vector<bool> pd);
