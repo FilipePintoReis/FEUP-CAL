@@ -17,6 +17,8 @@
 	Trip::Trip(Date d){
 
 		this->departureDate = d;
+		this->arrivalDate = Date();
+
 	}
 
 
