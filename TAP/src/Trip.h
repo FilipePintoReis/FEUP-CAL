@@ -15,7 +15,6 @@ private:
 
 public:
 	Trip();
-
 	Trip(Date d, Date a);
 	Trip(Date d);
 	virtual ~Trip();

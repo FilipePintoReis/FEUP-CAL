@@ -202,7 +202,6 @@ public:
 	getPath(const T &origin, const T &dest) const;
 };
 
-
 template <class T>
 int Graph<T>::getNumVertex() const {
 	return vertexSet.size();
@@ -215,7 +214,6 @@ Vertex<T> * Graph<T>::findVertex(const T &in) const {
 			return v;
 	return NULL;
 }
-
 
 template <class T>
 bool Graph<T>::addVertex(const T &in) {
@@ -338,7 +336,6 @@ int Graph<T>::maxNewChildren(const T & source, T &inf) const {
 	return maxChildren;
 }
 
-
 template <class T>
 bool Graph<T>::isDAG() const {
 	for (auto v : vertexSet) {
@@ -351,7 +348,6 @@ bool Graph<T>::isDAG() const {
 				return false;
 	return true;
 }
-
 
 template <class T>
 bool Graph<T>::dfsIsDAG(Vertex<T> *v) const {
@@ -371,7 +367,6 @@ bool Graph<T>::dfsIsDAG(Vertex<T> *v) const {
 
 
 /****************** Dijkstra  ********************/
-
 
 template<class T>
 Vertex<T> * Graph<T>::initSingleSource(const T &origin) {
@@ -417,7 +412,6 @@ void Graph<T>::dijkstraShortestPath(const T &origin) {
 	}
 }
 
-
 template<class T>
 vector<T> Graph<T>::getPath(const T &origin, const T &dest) const {
 	vector<T> res;
@@ -429,6 +423,5 @@ vector<T> Graph<T>::getPath(const T &origin, const T &dest) const {
 	reverse(res.begin(), res.end());
 	return res;
 }
-
 
 #endif /* GRAPH_H_ */
