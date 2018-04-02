@@ -43,7 +43,7 @@ void Agency::readFromFiles(){
 			//standart price
 		//)
 		//terminated by string "STOP" or wtv
-		//List of boolean
+		//List of integers pointing to key id
 
 		// end of file, addVertex
 	}
@@ -59,4 +59,15 @@ void Agency::readFromFiles(){
 	}
 
 }
+
+Graph<City> Agency::getGraph(){
+	this->graph;
+}
+
+
+//getPath(const T &origin, const T &dest) const
+void Agency::printShortestPath(const City origin, const City destiny){
+	getGraph().getPath(origin, destiny);
+}
+
 
