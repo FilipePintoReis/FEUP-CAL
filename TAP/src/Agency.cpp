@@ -58,3 +58,11 @@ void Agency::readFromFiles(){
 
 }
 
+void Agency::addClients(Client* cliente) {
+	clientes.push_back(cliente);
+}
+
+
+void Agency::addTrips(Trip* viagem) {
+	trips.push_back(viagem);
+}
