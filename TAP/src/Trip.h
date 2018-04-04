@@ -5,9 +5,11 @@
 #include <iostream>
 #include "Date.h"
 
+
 class Trip {
 private:
 
+	static int flightID;
 	Date departureDate;
 	Date arrivalDate;
 	double cost;
@@ -23,6 +25,7 @@ public:
 	Date getArrivalDate();
 	double getCost();
 	double getDistance();
+	int getID();
 
 	void setDepartureDate(Date d);
 	void setArivalDate(Date a);

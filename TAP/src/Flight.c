@@ -16,7 +16,11 @@ string Flight::getOrigin() const {
 		return this->org;
 	}
 
-	string getDestination() const;
+	string Flight::getDestination() const {
+
+		return this->dest;
+	}
+
 	Date getDate() const;
 	int getFlightDuration() const;
 	float getPrice() const;

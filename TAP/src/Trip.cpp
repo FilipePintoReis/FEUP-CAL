@@ -1,7 +1,10 @@
 #include "Trip.h"
 
+	int Trip::flightID = 1;
+
 	Trip::Trip() {
 
+		this->flightID++;
 		this->departureDate = Date();
 		this->arrivalDate = Date();
 		this->cost = 0;
@@ -21,6 +24,10 @@
 
 	}
 
+	int Trip::getID() {
+
+		return this->flightID;
+	}
 
 	Date Trip::getDepartureDate(){
 

@@ -1,7 +1,8 @@
 #include <iostream>
 #include "Agency.h"
 #include "Client.h"
-#include "Data.h"
+#include<limits.h>
+#include "Date.h"
 
 using namespace std;
 
@@ -228,16 +229,16 @@ void Agency::adicionaTrip() {
 	cout << "+----------------------------------------------------------+\n";
 
 	cin >> dataInicio;
-	Data dataInicial = new Data(dataInicio);
+	Date *dataInicial = new Date(dataInicio);
 
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Qual é a data de fim da viagem?  (Formato: dd/mm/aa)     |\n";
 	cout << "+----------------------------------------------------------+\n";
 
 	cin >> dataFim;
-	Data dataFinal = new Data(dataFim);
+	Date *dataFinal = new Date(dataFim);
 
-	Trip * novaTrip = new Trip(dataInicial, dataFinal);
+	Trip * novaTrip = new Trip(*dataInicial, *dataFinal);
 	addTrips(novaTrip);
 }
 

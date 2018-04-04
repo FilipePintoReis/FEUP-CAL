@@ -3,11 +3,13 @@
 #define USER_H_
 
 #include <string>
+#include "Trip.h"
 
 using namespace std;
 
 class Client {
 
+	Trip t;
 	string name;
 	static int id;
 	int phoneNumber;
