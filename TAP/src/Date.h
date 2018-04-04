@@ -2,11 +2,10 @@
 #ifndef DATA_H
 #define DATA_H
 
-#include <string>
 #include <iostream>
 #include <sstream>
 #include <ctime>
-
+#include <string>
 
 	using namespace std;
 
