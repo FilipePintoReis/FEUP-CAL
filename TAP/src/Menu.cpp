@@ -242,6 +242,7 @@ void Agency::adicionaTrip() {
 	addTrips(novaTrip);
 }
 
+
 void Agency::removeTrip() {
 
 	string tripremover;
@@ -254,7 +255,7 @@ void Agency::removeTrip() {
 
 	for (unsigned int i = 0; i < getTrips().size(); i++)
 	{
-		if (getTrips()[i]->getName() == tripremover)
+		if (getTrips().at(i)->getID() == stoi(tripremover))
 			trips.erase(trips.begin() + i);
 	}
 	cout << endl << "A viagem foi removida com sucesso" << endl;
