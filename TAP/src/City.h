@@ -34,6 +34,8 @@ public:
 	void setCoordinates(Coordinates c);
 	void setHotels(vector<Hotel*> h);
 	void setDestinations(vector<int> pd);
+
+	friend bool operator==(City& lhs, City& rhs){ if(lhs.getID() == rhs.getID()) return true; else return false; }
 };
 
 #endif /* SRC_CITY_H_ */
