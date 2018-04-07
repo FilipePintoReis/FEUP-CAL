@@ -28,6 +28,7 @@ public:
 	Coordinates getCoordinates();
 	vector<Hotel*> getHotels();
 	vector<int> getPossibleDestinations();
+	int getQueueIndex();
 
 	void setID(int id);
 	void setName(string n);
@@ -35,7 +36,8 @@ public:
 	void setHotels(vector<Hotel*> h);
 	void setDestinations(vector<int> pd);
 
-	friend bool operator==(City& lhs, City& rhs){ if(lhs.getID() == rhs.getID()) return true; else return false; }
+	friend bool operator==(City& lhs, City& rhs){ if(lhs.getID() == rhs.getID()) return true; else return false;}
+	City operator=(City& assignee);
 };
 
 #endif /* SRC_CITY_H_ */

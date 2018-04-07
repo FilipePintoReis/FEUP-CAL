@@ -6,10 +6,11 @@
 
 #include <vector>
 #include <queue>
+#include <limits.h>
 #include "MutablePriorityQueue.h"
 #include "Trip.h"
 
-#define INF 10
+
 using namespace std;
 
 template <class T> class Edge;
@@ -198,8 +199,7 @@ public:
 	Vertex<T> *initSingleSource(const T &origin);
 	bool relax(Vertex<T> *v, Vertex<T> *w, double weight);
 	void dijkstraShortestPath(const T &origin);
-	vector<T>
-	getPath(const T &origin, const T &dest) const;
+	vector<T> getPath(const T &origin, const T &dest) const;
 };
 
 template <class T>
@@ -371,7 +371,7 @@ bool Graph<T>::dfsIsDAG(Vertex<T> *v) const {
 template<class T>
 Vertex<T> * Graph<T>::initSingleSource(const T &origin) {
 	for (auto v : vertexSet) {
-		v->dist = INF;
+		v->dist = INT_MAX;
 		v->path = nullptr;
 	}
 	auto s = findVertex(origin);
@@ -403,7 +403,7 @@ void Graph<T>::dijkstraShortestPath(const T &origin) {
 		for (auto e : v->adj) {
 			auto oldDist = e.dest->dist;
 			if (relax(v, e.dest, e.weight)) {
-				if (oldDist == INF)
+				if (oldDist == INT_MAX)
 					q.insert(e.dest);
 				else
 					q.decreaseKey(e.dest);
@@ -416,7 +416,7 @@ template<class T>
 vector<T> Graph<T>::getPath(const T &origin, const T &dest) const {
 	vector<T> res;
 	auto v = findVertex(dest);
-	if (v == nullptr || v->dist == INF) // missing or disconnected
+	if (v == nullptr || v->dist == INT_MAX) // missing or disconnected
 		return res;
 	for ( ; v != nullptr; v = v->path)
 		res.push_back(v->info);
