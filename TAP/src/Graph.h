@@ -118,13 +118,13 @@ Vertex<T>* Vertex<T>::getPath() const {
 
 template <class T>
 class Edge {
+	T info;                // contents
 	Vertex<T> * dest;
 	Vertex<T> * orig;
-	Trip trip;
 	double weight;         // edge weight
 public:
-	Edge(Vertex<T> *d, Trip t);
-	Trip getTrip() const;
+	Edge(Vertex<T> *o, Vertex<T> *d);
+	T getInfo() const;
 	double getWeight() const;
 	Vertex<T>* getDest() const;
 	Vertex<T>* getOrig() const;
@@ -143,15 +143,9 @@ struct egdeGreater {
 };
 
 template <class T>
-Edge<T>::Edge(Vertex<T> *d, Trip t): dest(d), trip(t) {
+Edge<T>::Edge(Vertex<T> *o, Vertex<T> *d): orig(o), dest(d) {
 
-	this->weight = t.getCost();
-}
-
-template<class T>
-Trip Edge<T>::getTrip() const {
-
-	return this->trip;
+	this->weight = getInfo().getPrice();
 }
 
 template<class T>
@@ -176,6 +170,12 @@ template<class T>
 bool Edge<T>::operator<(const Edge<T> &o) const {
 
 	return this->weight < o->weight;
+}
+
+template <class T>
+T Edge<T>::getInfo() const {
+
+	return this->info;
 }
 
 /****************** GRAPH  ********************/

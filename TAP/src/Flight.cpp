@@ -1,7 +1,7 @@
 
 #include "Flight.h"
 
-Flight::Flight(string o, string d, Date dt, int fd, float p) {
+Flight::Flight(City o, City d, Date dt, int fd, float p) {
 
 	this->org = o;
 	this->dest = d;
@@ -11,12 +11,12 @@ Flight::Flight(string o, string d, Date dt, int fd, float p) {
 
 }
 
-	string Flight::getOrigin() const {
+	City Flight::getOrigin() const {
 
 		return this->org;
 	}
 
-	string Flight::getDestination() const {
+	City Flight::getDestination() const {
 
 		return this->dest;
 	}
@@ -36,12 +36,12 @@ Flight::Flight(string o, string d, Date dt, int fd, float p) {
 		return this->price;
 	}
 
-	void Flight::setOrigin(string o) {
+	void Flight::setOrigin(City o) {
 
 		this->org = o;
 	}
 
-	void Flight::setDestination(string d) {
+	void Flight::setDestination(City d) {
 
 		this->dest = d;
 	}
