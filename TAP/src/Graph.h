@@ -135,6 +135,7 @@ public:
 
 };
 
+
 template<class T>
 struct egdeGreater {
 	bool operator()(Edge<T> a, Edge<T> b) const {
