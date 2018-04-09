@@ -1,12 +1,11 @@
 Sidney 
 4
 21867,8011
+2
 Sidney Hotel
 100
 Sidney Royal Palace Hotel
 90
 Mercure Hotel
 40
-STOP
 //
-STOP

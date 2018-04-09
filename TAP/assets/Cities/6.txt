@@ -1,10 +1,12 @@
 Guatemala
 10
 5874,4977
+2
 Guatemala Hotel
 150
 Aeros Hotel
 200
-STOP
-//
-STOP
+3
+5
+10
+3

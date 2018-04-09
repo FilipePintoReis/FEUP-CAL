@@ -37,7 +37,7 @@ public:
 	void setDestinations(vector<int> pd);
 
 	friend bool operator==(City& lhs, City& rhs){ if(lhs.getID() == rhs.getID()) return true; else return false;}
-	City operator=(City& assignee);
+	City operator=(City assignee);
 };
 
 #endif /* SRC_CITY_H_ */

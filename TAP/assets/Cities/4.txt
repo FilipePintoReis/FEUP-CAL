@@ -1,8 +1,10 @@
 Banguecoque
 5
 18545,5032
+1
 Royal Viet Hotel 
 90
-STOP
-//
-STOP
+3
+2
+9
+6

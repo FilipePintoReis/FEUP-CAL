@@ -1,12 +1,14 @@
 New York
 6
 7123,3182
+3
 New York Hotel
 120
 Central Park Hotel
 70
 Plaza Tower Hotel
 60
-STOP
-//
-STOP
+3
+8
+3
+2

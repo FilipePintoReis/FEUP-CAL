@@ -1,10 +1,12 @@
 San Jose
 11
 6364,5347
+2
 San Jose Hotel
 170
 Costa Rica Royal Hotel 
 180
-STOP
-//
-STOP
+3
+1
+5
+7

@@ -73,7 +73,8 @@
 		this->possibleDestinations = pd;
 	}
 
-	City City::operator=(City& assignee)  {
+	City City::operator=(City assignee)  {
+
 		this->id = assignee.getID();
 		this->name = assignee.getName();
 		this->coord.setX(assignee.getCoordinates().getX());

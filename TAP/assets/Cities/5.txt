@@ -1,10 +1,12 @@
 Bucareste
 8
 13394,3034
+2
 Ramada Plaza Hotel Bucharest
 200
 Hotel Sir Gara de Nord
 130
-STOP
-//
-STOP
+3
+7
+4
+6

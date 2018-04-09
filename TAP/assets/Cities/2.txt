@@ -1,10 +1,12 @@
 Lisboa
 2
 11378,3416
+2
 Hotel Avenida Palace
 90
 Bairro Alto Hotel
 50
-STOP
-//
-STOP
+3
+1
+8
+5
