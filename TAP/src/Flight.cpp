@@ -1,14 +1,13 @@
 
 #include "Flight.h"
 
-Flight::Flight(City o, City d, Date dt, int fd, float p) {
+Flight::Flight(City o, City d, Date dt, int fd) {
 
 	this->org = o;
 	this->dest = d;
 	this->date = dt;
 	this->flightDuration = fd;
-	this->price = price;
-
+	this->calcPrice(o, d);
 }
 
 	City Flight::getOrigin() const {
@@ -61,6 +60,11 @@ Flight::Flight(City o, City d, Date dt, int fd, float p) {
 		this->price = p;
 	}
 
-
+	void Flight::calcPrice(City o, City d){
+		double x, y;
+		x = ((double) o.getCoordinates().getX() - (double) d.getCoordinates().getX());
+		y = ((double) o.getCoordinates().getY() - (double) d.getCoordinates().getY());
+		this->price = sqrt( pow(x,2) + pow(y,2) ) / 100;
+	}
 
 

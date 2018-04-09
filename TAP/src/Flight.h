@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Date.h"
 #include "City.h"
+#include <math.h>
 
 using namespace std;
 
@@ -14,11 +15,11 @@ private:
 	City dest;
 	Date date;
 	int flightDuration; //in minutes?
-	float price;
+	double price;
 
 public :
 
-	Flight(City o, City d, Date dt, int fd, float p);
+	Flight(City o, City d, Date dt, int fd);
 
 	City getOrigin() const;
 	City getDestination() const;
@@ -31,6 +32,8 @@ public :
 	void setDate(Date d);
 	void setFlightDuration(int fd);
 	void setPrice(float p);
+
+	void calcPrice(City o, City d);
 
 };
 
