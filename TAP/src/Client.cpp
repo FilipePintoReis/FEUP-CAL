@@ -9,13 +9,29 @@
 	this->id++;
 	this->phoneNumber = pn;
 
+
 	}
+
+	Client::Client(string n,int pn, Trip t) {
+
+		this->name = n;
+		this->id++;
+		this->phoneNumber = pn;
+		this->trip = t;
+
+
+		}
 
 	Client::~Client() {}
 
 	int Client::getID(){
 
 	return this->id;
+	}
+
+	Trip Client::getTrip(){
+
+		return trip;
 	}
 
 	int Client::getPhoneNumber(){
@@ -41,4 +57,9 @@
 	void Client::setName(string n){
 
 	this->name = n;
+	}
+
+	void Client::setTrip(Trip t){
+
+		trip = t;
 	}
