@@ -22,6 +22,7 @@ Agency::~Agency() {
 }
 
 void Agency::readFromFiles(){
+
 	string assets = "./assets/Cities"; //This is used to pre append to rest of path
 	string cityName, hotelName;
 	string ID, temp;
@@ -64,7 +65,7 @@ void Agency::readFromFiles(){
 				getline(in, temp);
 				price = atoi(temp.c_str());
 
-				Hotel* hotel = new Hotel(hotelName, price);
+				Hotel* hotel(hotelName, price);
 
 				hotels.push_back(hotel);
 
@@ -82,7 +83,7 @@ void Agency::readFromFiles(){
 
 			}
 
-			City city = new City(ID, cityName, c, hotels, destinations);
+			City city(stoi(ID), cityName, c, hotels, destinations);
 			graph.addVertex(city);
 			in.close();
 	}

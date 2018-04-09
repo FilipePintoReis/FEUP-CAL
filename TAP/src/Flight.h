@@ -33,7 +33,7 @@ public :
 	void setFlightDuration(int fd);
 	void setPrice(float p);
 
-	void calcPrice(City o, City d);
+	float calcPrice(City o, City d);
 
 };
 

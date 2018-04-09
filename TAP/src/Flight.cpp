@@ -7,7 +7,7 @@ Flight::Flight(City o, City d, Date dt, int fd) {
 	this->dest = d;
 	this->date = dt;
 	this->flightDuration = fd;
-	this->calcPrice(o, d);
+	this->price = calcPrice(o, d);
 }
 
 	City Flight::getOrigin() const {
@@ -60,11 +60,13 @@ Flight::Flight(City o, City d, Date dt, int fd) {
 		this->price = p;
 	}
 
-	void Flight::calcPrice(City o, City d){
+	float Flight::calcPrice(City o, City d){
 		double x, y;
 		x = ((double) o.getCoordinates().getX() - (double) d.getCoordinates().getX());
 		y = ((double) o.getCoordinates().getY() - (double) d.getCoordinates().getY());
 		this->price = sqrt( pow(x,2) + pow(y,2) ) / 100;
+
+		return price;
 	}
 
 
