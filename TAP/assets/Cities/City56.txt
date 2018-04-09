@@ -6,4 +6,3 @@ List Hotel
 STOP
 adj city list
 STOP
-queueIndex
