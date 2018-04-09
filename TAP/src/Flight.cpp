@@ -5,7 +5,7 @@ Flight::Flight(City o, City d, Date dt, int fd, float p) {
 
 	this->org = o;
 	this->dest = d;
-	this->date = d;
+	this->date = dt;
 	this->flightDuration = fd;
 	this->price = price;
 

@@ -22,6 +22,7 @@ public:
 	unsigned int getDay() const;
 	unsigned int getMonth() const;
 	unsigned int getYear() const;
+	Date operator=(Date assignee);
 
 };
 

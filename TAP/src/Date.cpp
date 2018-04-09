@@ -50,3 +50,8 @@
     	return this->year;
     }
 
+    Date Date::operator=(Date assignee)  {
+    	this->day = assignee.getDay();
+    	this->month = assignee.getMonth();
+    	this->year = assignee.getYear();
+    	}
