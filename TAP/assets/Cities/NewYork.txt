@@ -1,0 +1,12 @@
+New York
+6
+7123,3182
+New York Hotel
+120
+Central Park Hotel
+70
+Plaza Tower Hotel
+60
+STOP
+//
+STOP

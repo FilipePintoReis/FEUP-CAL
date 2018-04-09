@@ -1,8 +1,0 @@
-Id
-Name
-x coord
-y coord
-List Hotel
-STOP
-adj city list
-STOP

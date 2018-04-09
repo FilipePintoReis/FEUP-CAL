@@ -1,0 +1,10 @@
+Guatemala
+10
+5874,4977
+Guatemala Hotel
+150
+Aeros Hotel
+200
+STOP
+//
+STOP

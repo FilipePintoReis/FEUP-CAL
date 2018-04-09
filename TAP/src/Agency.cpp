@@ -13,23 +13,19 @@ vector<City> vec;
 
 
 Agency::Agency() {
-	/*City Porto = City();
-	Porto.setID(0);
-	Porto.setName("Porto");
-	Porto.getCoordinates().setX(15);
-	Porto.getCoordinates().setY(12);*/
+
 
 }
 
 Agency::~Agency() {
-	// TODO Auto-generated destructor stub
+
 }
 
 void Agency::readFromFiles(){
 	string assets = "./assets/"; //This is used to pre apend to rest of path
 	ifstream in;
 
-	for(int i = 0; i < NOFF; i ++){ //For each file
+	for(int i = 0; i < NOFF; i ++){ //For each file --> cities
 
 		//get attributes from file into stream with getline
 		//for each attribute read put it in city attr
@@ -66,3 +62,4 @@ void Agency::addClients(Client* cliente) {
 void Agency::addTrips(Trip* viagem) {
 	trips.push_back(viagem);
 }
+
