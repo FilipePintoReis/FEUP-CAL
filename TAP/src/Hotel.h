@@ -4,8 +4,10 @@
 #define SRC_HOTEL_H_
 
 #include <iostream>
+#include <string>
 
 using namespace std;
+
 
 class Hotel {
 private:
@@ -13,6 +15,7 @@ private:
 	float price;
 
 public:
+
 	Hotel();
 	Hotel(string n, float p);
 	virtual ~Hotel();

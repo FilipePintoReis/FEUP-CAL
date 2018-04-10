@@ -1,7 +1,12 @@
 
 #include "Hotel.h"
 
-	Hotel::Hotel() {}
+
+	Hotel::Hotel(){
+
+		this->name = "";
+		this->price = 0;
+	}
 
 	Hotel::Hotel(string n, float p){
 

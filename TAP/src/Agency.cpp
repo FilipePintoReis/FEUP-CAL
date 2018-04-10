@@ -7,7 +7,7 @@
 
 #include "Agency.h"
 
-#define NOFF 10 //number of files
+#define NOCiF 10 //number of city files
 
 vector<City> vec;
 
@@ -21,17 +21,17 @@ Agency::~Agency() {
 
 }
 
-void Agency::readFromFiles(){
+void Agency::readFromCityFiles(){
 
 	string assets = "./assets/Cities"; //This is used to pre append to rest of path
 	string cityName, hotelName;
 	string ID, temp;
-	unsigned int x, y, hotelNumber, price, numberDestinies, cityID;
-
+	unsigned int x, y, hotelNumber, numberDestinies, cityID;
+	float price;
 
 	ifstream in;
 
-	for(int i = 0; i < NOFF; i ++){ //For each file --> cities
+	for(int i = 0; i < NOCiF; i ++){ //For each file --> cities
 
 		//get attributes from file into stream with getline
 		//for each attribute read put it in city attr
@@ -63,11 +63,11 @@ void Agency::readFromFiles(){
 
 				getline(in, hotelName);
 				getline(in, temp);
-				price = atoi(temp.c_str());
+				price = atof(temp.c_str());
 
-				Hotel* hotel(hotelName, price);
+				Hotel hotel(hotelName, price);
 
-				hotels.push_back(hotel);
+				hotels.push_back(&hotel);
 
 			}
 
@@ -90,7 +90,7 @@ void Agency::readFromFiles(){
 
 	//after all Vertex were created we start adding Edges
 
-	for(int k = 0; k < NOFF; k++){ //For each Vertex goes through vector possibleDestinations
+	for(int k = 0; k < NOCiF; k++){ //For each Vertex goes through vector possibleDestinations
 		//for each position in vector possibleDestinations
 			//if(boolean n)
 				//addEdge
@@ -103,8 +103,69 @@ void Agency::readFromFiles(){
 	cout << " Finished loading! :D\n";
 }
 
+	void Agency::readFromClientFiles() {
+
+		string assets = "./assets/Clients";
+		ifstream in;
+
+		string clientName, temp;
+		unsigned int tripID, id, cellphone;
+
+		string fich = assets + ".txt";
+		const char *nomeFich;
+		nomeFich = fich.c_str();
+
+		in.open(nomeFich);
+
+		if(!in.fail()){
+
+			while(true){
+
+			getline(in, clientName, ';');
+			getline(in, temp, ';');
+			id = atoi(temp.c_str());
+			getline(in, temp);
+			cellphone = atoi(temp.c_str());
+//not sure if this works -> TEST
+		if(!in)
+			break;
+		}
+	}
+}
+
+	void Agency::readFromTripFiles() {
+
+			string assets = "./assets/Trips";
+			ifstream in;
+
+			//static int ID;
+			//	Date departureDate;
+			//	vector<Flight*> flights;
+			//	Hotel hotel;
+			//	Date arrivalDate;
+			//	double cost;
+			//	double distance;
+
+			string fich = assets + ".txt";
+			const char *nomeFich;
+			nomeFich = fich.c_str();
+
+			in.open(nomeFich);
+
+			if(!in.fail()){
+
+				while(true){
+
+	//not sure if this works -> TEST
+			if(!in)
+				break;
+			}
+		}
+	}
+
 void Agency::addClients(Client* cliente) {
 	clientes.push_back(cliente);
+
 }
 
 

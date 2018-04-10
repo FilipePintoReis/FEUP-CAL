@@ -35,8 +35,10 @@ public:
 	void setHotels(vector<Hotel*> h);
 	void setDestinations(vector<int> pd);
 
-	friend bool operator==(City& lhs, City& rhs){ if(lhs.getID() == rhs.getID()) return true; else return false;}
-	City operator=(City assignee);
+	//friend bool operator==(City& lhs, City& rhs){ return lhs.getID() == rhs.getID();}
+	//City operator=(City assignee);
+
+	bool operator==(const City &other) { return id==other.id;}
 };
 
 #endif /* SRC_CITY_H_ */

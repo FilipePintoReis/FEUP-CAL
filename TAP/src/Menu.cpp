@@ -145,6 +145,7 @@ void Agency::adicionaCliente() {
 
 	Client * novocliente = new Client(nomeCliente, telemovel);
 	addClients(novocliente);
+
 }
 
 void Agency::removeCliente() {

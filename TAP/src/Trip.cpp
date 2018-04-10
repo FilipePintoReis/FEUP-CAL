@@ -1,7 +1,7 @@
 #include "Trip.h"
 
 
-	int Trip::Trip ID = 1;
+	int Trip::ID = 1;
 
 	Trip::Trip() {
 

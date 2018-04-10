@@ -24,7 +24,9 @@ private:
 public:
 	Agency();
 	virtual ~Agency();
-	void readFromFiles();
+	void readFromCityFiles();
+	void readFromClientFiles();
+	void readFromTripFiles();
 	Graph<City> getGraph();
 	void printShortestPath(const City origin, const City destiny);
 
