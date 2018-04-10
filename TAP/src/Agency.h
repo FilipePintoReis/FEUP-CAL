@@ -47,7 +47,6 @@ public:
 
 	void adicionaCliente();
 	void removeCliente();
-	void pesquisaViagemCliente();
 
 	void adicionaTrip();
 	void removeTrip();

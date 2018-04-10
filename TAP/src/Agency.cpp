@@ -109,7 +109,7 @@ void Agency::readFromCityFiles(){
 		ifstream in;
 
 		string clientName, temp;
-		unsigned int tripID, id, cellphone;
+		unsigned int id, cellphone;
 
 		string fich = assets + ".txt";
 		const char *nomeFich;
@@ -141,10 +141,20 @@ void Agency::readFromCityFiles(){
 			//static int ID;
 			//	Date departureDate;
 			//	vector<Flight*> flights;
+			    //City org;
+				//City dest;
+				//Date date;
+				//int flightDuration; //in minutes?
+				//double price;
 			//	Hotel hotel;
+				//string name
+				//float price
 			//	Date arrivalDate;
 			//	double cost;
 			//	double distance;
+
+			unsigned int tripID;
+			string departureDate, arrivalDate;
 
 			string fich = assets + ".txt";
 			const char *nomeFich;

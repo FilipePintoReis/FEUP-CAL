@@ -78,7 +78,6 @@ void Agency::menuCliente() {
 		cout << "+----------------------------------------------------------+ \n";
 		cout << "| 1 - Adicionar Cliente                                    |\n";
 		cout << "| 2 - Apagar Cliente					                    |\n";
-		cout << "| 3 - Ver Viagem de Cliente Pretendido                     |\n";
 		cout << "| 0 - Sair                                                 |\n";
 		cout << "+----------------------------------------------------------+\n";
 
@@ -108,12 +107,6 @@ void Agency::menuCliente() {
 			cin.get();
 			cin.get();
 			break;
-	case 3:
-			pesquisaViagemCliente();
-			cin.get();
-			cin.get();
-			break;
-
 		default:
 			cout << "Lamento, mas a opcao que inseriu nao e valida. Sera redirecionado/a para o inicio do menu. \n";
 
@@ -171,32 +164,6 @@ void Agency::removeCliente() {
 
 }
 
-void Agency::pesquisaViagemCliente() {
-
-	string clientName;
-
-	cout << "+-------------------------------------------------------------------+\n";
-	cout << "|Qual é o cliente sobre o qual pretende ver informações da Viagem : |\n";
-	cout << "+-------------------------------------------------------------------+\n";
-
-	cin.ignore(INT_MAX, '\n');
-	getline(cin, clientName);
-
-	for(unsigned int i = 0; i < getClientes().size(); i++){
-
-		if(getClientes()[i]->getName() == clientName){ //there's a warning here, i dont know how to remove it
-
-			cout << clientName <<"\n";
-			cout << "Date of Departure : " << getClientes()[i]->getTrip().getDepartureDate().getString() << "\n";
-			cout << "From : " << getClientes()[i]->getTrip().getFlights()[0]->getOrigin().getName() << "\n";
-			cout << "To : " << getClientes()[i]->getTrip().getFlights()[1]->getOrigin().getName() << "\n";
-			cout << "Date of Departure : " << getClientes()[i]->getTrip().getArrivalDate().getString() << "\n";
-			cout << "Staying at : " << getClientes()[i]->getTrip().getHotel().getName() << "\n";
-			cout << " Cost :" << getClientes()[i]->getTrip().getCost() << "\n";
-			cout << " Distance : " << getClientes()[i]->getTrip().getDistance() << "\n";
-		}
-	}
-}
 
 void Agency::menuTrip(){
 
