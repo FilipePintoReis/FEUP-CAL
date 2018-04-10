@@ -23,7 +23,7 @@ Agency::~Agency() {
 
 void Agency::readFromCityFiles(){
 
-	string assets = "./assets/Cities"; //This is used to pre append to rest of path
+	string assets = "./assets/Cities/"; //This is used to pre append to rest of path
 	string cityName, hotelName;
 	string ID, temp;
 	unsigned int x, y, hotelNumber, numberDestinies, cityID;
@@ -31,7 +31,7 @@ void Agency::readFromCityFiles(){
 
 	ifstream in;
 
-	for(int i = 0; i < NOCiF; i ++){ //For each file --> cities
+	for(int i = 1; i <= NOCiF; i ++){ //For each file --> cities
 
 		//get attributes from file into stream with getline
 		//for each attribute read put it in city attr
@@ -42,12 +42,15 @@ void Agency::readFromCityFiles(){
 		nomeFich = fich.c_str();
 
 		in.open(nomeFich);
+		cout << nomeFich << endl;
 
 		if(!in.fail()){
 
 			vector<Hotel*> hotels;
 			vector<int> destinations;
 			getline(in,cityName);
+			cout << "oi" << endl;
+			ofstream outfile (cityName + ".txt");
 			getline(in, ID);
 			getline(in, temp, ',');
 			x = atoi(temp.c_str());
@@ -71,6 +74,7 @@ void Agency::readFromCityFiles(){
 
 			}
 
+
 			getline(in, temp);
 			numberDestinies = atoi(temp.c_str());
 
@@ -86,7 +90,9 @@ void Agency::readFromCityFiles(){
 			City city(stoi(ID), cityName, c, hotels, destinations);
 			graph.addVertex(city);
 			in.close();
-	}
+		}
+		else
+			cout << "reading from city files failed" << endl;
 
 	//after all Vertex were created we start adding Edges
 
@@ -121,15 +127,15 @@ void Agency::readFromCityFiles(){
 
 			while(true){
 
-			getline(in, clientName, ';');
-			getline(in, temp, ';');
-			id = atoi(temp.c_str());
-			getline(in, temp);
-			cellphone = atoi(temp.c_str());
-//not sure if this works -> TEST
-		if(!in)
-			break;
-		}
+				getline(in, clientName, ';');
+				getline(in, temp, ';');
+				id = atoi(temp.c_str());
+				getline(in, temp);
+				cellphone = atoi(temp.c_str());
+					//not sure if this works -> TEST
+				if(!in)
+					break;
+			}
 	}
 }
 
