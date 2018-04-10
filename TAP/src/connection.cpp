@@ -9,11 +9,11 @@ Connection::Connection(short port) {
 #ifdef linux
   struct sockaddr_in echoServAddr; /* Echo server address */
   struct  hostent  *ptrh;
-  
+
   /* Create a reliable, stream socket using TCP */
   if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     myerror("socket() failed");
-  
+
   /* Construct the server address structure */
   memset(&echoServAddr, 0, sizeof(echoServAddr));     /* Zero out structure */
   echoServAddr.sin_family      = AF_INET;             /* Internet address family */
@@ -22,7 +22,7 @@ Connection::Connection(short port) {
   ptrh = gethostbyname("localhost");
 
   memcpy(&echoServAddr.sin_addr, ptrh->h_addr, ptrh->h_length);
-  
+
   /* Establish the connection to the echo server */
   if (connect(sock, (struct sockaddr *) &echoServAddr, sizeof(echoServAddr)) < 0)
     myerror("connect() failed");

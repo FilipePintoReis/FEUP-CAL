@@ -14,7 +14,7 @@ private:
 	string name;
 	Coordinates coord;
 	vector<Hotel*> hotels;
-	vector<int> possibleDestinations;
+	vector<int> possibleDestinations;//{id1,cost1,flightDuration1,...}
 	int queueIndex;
 
 public:

@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 #include "Date.h"
-#include "Flight.h"
+
 
 
 class Trip {
@@ -13,8 +13,7 @@ private:
 
 	static int ID;
 	Date departureDate;
-	vector<Flight*> flights;
-	Hotel hotel;
+	string hotelName;
 	Date arrivalDate;
 	double cost;
 	double distance;
@@ -22,24 +21,22 @@ private:
 public:
 	Trip();
 	Trip(Date d, Date a);
-	Trip(Date d);
+	Trip(Date d, Date a, string hn, double c, double dc);
 	virtual ~Trip();
 
 	Date getDepartureDate();
 	Date getArrivalDate();
 	double getCost();
 	double getDistance();
-	vector<Flight*> getFlights();
 	int getID();
-	Hotel getHotel();
+	string getHotel();
 
 	void setID(int id);
 	void setDepartureDate(Date d);
 	void setArivalDate(Date a);
 	void setCost(double c);
 	void setDistance(double d);
-	void setFlights(vector<Flight*> f);
-	void setHotel(Hotel ht);
+	void setHotel(string ht);
 };
 
 #endif /* SRC_TRIP_H_ */

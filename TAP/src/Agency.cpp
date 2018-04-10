@@ -33,10 +33,6 @@ void Agency::readFromCityFiles(){
 
 	for(int i = 0; i < NOCiF; i ++){ //For each file --> cities
 
-		//get attributes from file into stream with getline
-		//for each attribute read put it in city attr
-
-
 		string fich = assets + to_string(i) + ".txt";
 		const char *nomeFich;
 		nomeFich = fich.c_str();
@@ -66,7 +62,6 @@ void Agency::readFromCityFiles(){
 				price = atof(temp.c_str());
 
 				Hotel hotel(hotelName, price);
-
 				hotels.push_back(&hotel);
 
 			}
@@ -138,23 +133,23 @@ void Agency::readFromCityFiles(){
 			string assets = "./assets/Trips";
 			ifstream in;
 
+
+
 			//static int ID;
 			//	Date departureDate;
 			//	vector<Flight*> flights;
-			    //City org;
-				//City dest;
+			    //string origincity
+				//string arrivalcity
 				//Date date;
 				//int flightDuration; //in minutes?
 				//double price;
-			//	Hotel hotel;
-				//string name
-				//float price
+			//	string hotelName;
 			//	Date arrivalDate;
 			//	double cost;
 			//	double distance;
 
 			unsigned int tripID;
-			string departureDate, arrivalDate;
+			string departureDate, arrivalDate, originCity,arrivalCity;
 
 			string fich = assets + ".txt";
 			const char *nomeFich;
@@ -165,6 +160,8 @@ void Agency::readFromCityFiles(){
 			if(!in.fail()){
 
 				while(true){
+
+
 
 	//not sure if this works -> TEST
 			if(!in)

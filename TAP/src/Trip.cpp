@@ -5,8 +5,8 @@
 
 	Trip::Trip() {
 
-		this->flights = vector<Flight*>();
-		this->hotel = Hotel();
+
+		this->hotelName = "";
 		this->departureDate = Date();
 		this->arrivalDate = Date();
 		this->cost = 0;
@@ -18,25 +18,22 @@
 
 		this->departureDate = d;
 		this->arrivalDate = a;
+		this->hotelName = "";
 		this->cost = 0; //not sure abt this
 		this->distance = 0;
 		this->ID++;
 	}
 
-	Trip::Trip(Date d){
+	Trip::Trip(Date d, Date a, string hn, double c, double dc){
 
 		this->departureDate = d;
-		this->arrivalDate = Date();
-		this->cost = 0; //not sure abt this
-		this->distance = 0;
-		this->ID++;
+		this->arrivalDate = a;
+		this->hotelName = hn;
+		this->cost = c;
+		this->distance = dc;
 
 	}
 
-	vector<Flight*> Trip::getFlights() {
-
-		return flights;
-	}
 
 	Date Trip::getDepartureDate(){
 
@@ -59,9 +56,9 @@
 		return this->distance;
 	}
 
-	Hotel Trip::getHotel(){
+	string Trip::getHotel(){
 
-		return hotel;
+		return hotelName;
 	}
 
 	void Trip::setDepartureDate(Date d){
@@ -84,11 +81,6 @@
 		this->distance = d;
 	}
 
-	void Trip::setFlights(vector<Flight*> f){
-
-		flights = f;
-	}
-
 	int Trip::getID(){
 
 		return this->ID;
@@ -99,9 +91,9 @@
 			this->ID = id;
 		}
 
-	void Trip::setHotel(Hotel ht){
+	void Trip::setHotel(string ht){
 
-		hotel = ht;
+		hotelName = ht;
 	}
 
 	Trip::~Trip(){}
