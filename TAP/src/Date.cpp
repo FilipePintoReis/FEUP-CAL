@@ -54,4 +54,6 @@
     	this->day = assignee.getDay();
     	this->month = assignee.getMonth();
     	this->year = assignee.getYear();
+
+		return *this;
     	}

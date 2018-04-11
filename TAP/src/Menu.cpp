@@ -15,10 +15,10 @@ void Agency::introMenu() {
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Selecione a sua opcao (insira apenas o numero):          |\n";
 	cout << "+----------------------------------------------------------+ \n";
-	cout << "| 1 - Gestão de Clientes                                   |\n";
-	cout << "| 2 - Gestão de Viagens                                    |\n";
+	cout << "| 1 - Gestao de Clientes                                   |\n";
+	cout << "| 2 - Gestao de Viagens                                    |\n";
 	cout << "| 3 - Sugestao de Alojamento                               |\n";
-	cout << "| 4 - Sugestão de Método de Deslocamento				    |\n";
+	cout << "| 4 - Sugestao de Método de Deslocamento				    |\n";
 	cout << "| 0 - Sair                                                 |\n";
 	cout << "+----------------------------------------------------------+\n";
 
@@ -61,7 +61,9 @@ void Agency::introMenu() {
 	default:
 		cout << "Lamento, mas a opcao que inseriu nao e valida. Sera redirecionado/a para o inicio do menu. \n";
 
+
 	}
+
 }
 
 void Agency::menuCliente() {
@@ -99,7 +101,7 @@ void Agency::menuCliente() {
 			cin.get();
 			cin.get();
 			break;
-
+		
 		case 2:	
 			removeCliente();
 			cin.get();
@@ -108,16 +110,18 @@ void Agency::menuCliente() {
 		default:
 			cout << "Lamento, mas a opcao que inseriu nao e valida. Sera redirecionado/a para o inicio do menu. \n";
 
+
 		}
+
 	}
 }
 
 
 void Agency::adicionaCliente() {
 
-
+	
 	string nomeCliente;
-	int telemovel, ID;
+	int telemovel;
 
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Qual e o seu nome?                                       |\n";
@@ -127,24 +131,18 @@ void Agency::adicionaCliente() {
 	getline(cin, nomeCliente);
 
 	cout << "+----------------------------------------------------------+\n";
-	cout << "| Qual e o seu ID?                                         |\n";
-	cout << "+----------------------------------------------------------+\n";
-
-	cin >> ID;
-
-	cout << "+----------------------------------------------------------+\n";
 	cout << "| Qual o seu numero de telemovel?                          |\n";
 	cout << "+----------------------------------------------------------+\n";
 
 	cin >> telemovel;
 
-	Client * novocliente = new Client(nomeCliente, ID, telemovel);
+	Client * novocliente = new Client(nomeCliente, telemovel);
 	addClients(novocliente);
 
 }
 
 void Agency::removeCliente() {
-
+		
 	string clienteremover;
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Qual e o cliente a remover?	                            |\n";
@@ -162,57 +160,61 @@ void Agency::removeCliente() {
 	cout << "Pressione Enter para regressar" << endl;
 	cin.get();
 	return;
+
+
 }
 
 
 void Agency::menuTrip(){
 
-	int opcaotrip;
+int opcaotrip;
 
-	while (true) {
-		cout << "+----------------------------------------------------------+\n";
-		cout << "| Escolha o que pretende fazer com a viagem                |\n";
-		cout << "+----------------------------------------------------------+\n";
-		cout << "| Selecione a sua opcao (insira apenas o numero):          |\n";
-		cout << "+----------------------------------------------------------+\n";
-		cout << "| 1 - Adicionar Viagem                                     |\n";
-		cout << "| 2 - Apagar Viagem					                    |\n";
-		cout << "| 0 - Sair                                                 |\n";
-		cout << "+----------------------------------------------------------+\n";
+while (true) {
+	cout << "+----------------------------------------------------------+\n";
+	cout << "| Escolha o que pretende fazer com a viagem                |\n";
+	cout << "+----------------------------------------------------------+\n";
+	cout << "| Selecione a sua opcao (insira apenas o numero):          |\n";
+	cout << "+----------------------------------------------------------+\n";
+	cout << "| 1 - Adicionar Viagem                                     |\n";
+	cout << "| 2 - Apagar Viagem					                    |\n";
+	cout << "| 0 - Sair                                                 |\n";
+	cout << "+----------------------------------------------------------+\n";
 
-		cin >> opcaotrip;
+	cin >> opcaotrip;
 
-		if (cin.fail()) {
-			cin.clear();
-			cin.ignore(INT_MAX, '\n');
-			cout << "Erro: Introduziu um input invalido. So pode usar numeros inteiros." << endl;
-			cout << "Pressione Enter para voltar ao menu" << endl;
-			cin.get();
-		}
-
-		switch (opcaotrip) {
-
-		case 0:
-			return;
-			break;
-
-		case 1:
-			adicionaTrip();
-			cin.get();
-			cin.get();
-			break;
-
-		case 2:
-			removeTrip();
-			cin.get();
-			cin.get();
-			break;
-
-		default:
-			cout << "Lamento, mas a opcao que inseriu nao e valida. Sera redirecionado/a para o inicio do menu. \n";
-
-		}
+	if (cin.fail()) {
+		cin.clear();
+		cin.ignore(INT_MAX, '\n');
+		cout << "Erro: Introduziu um input invalido. So pode usar numeros inteiros." << endl;
+		cout << "Pressione Enter para voltar ao menu" << endl;
+		cin.get();
 	}
+
+	switch (opcaotrip) {
+
+	case 0:
+		return;
+		break;
+
+	case 1:
+		adicionaTrip();
+		cin.get();
+		cin.get();
+		break;
+
+	case 2:
+		removeTrip();
+		cin.get();
+		cin.get();
+		break;
+
+	default:
+		cout << "Lamento, mas a opcao que inseriu nao e valida. Sera redirecionado/a para o inicio do menu. \n";
+
+
+	}
+
+}
 }
 
 void Agency::adicionaTrip() {
@@ -235,8 +237,36 @@ void Agency::adicionaTrip() {
 	cin >> dataFim;
 	Date *dataFinal = new Date(dataFim);
 
+
 	Trip * novaTrip = new Trip(*dataInicial, *dataFinal);
+	addFlightsTrip(*novaTrip);
 	addTrips(novaTrip);
+}
+
+void Agency::addFlightsTrip(Trip viagem) {
+
+	string temp;
+	cout << "+----------------------------------------------------------+\n";
+	cout << "| Indique os voos a adicionar (escreva FIM para terminar): |\n";
+	cout << "+----------------------------------------------------------+\n";
+
+	
+
+	cin.ignore(INT_MAX, '\n');
+	while (temp != "FIM")
+	{
+		getline(cin, temp);
+		if (temp != "FIM") {
+			viagem.getFlights().push_back(temp);
+		}
+		cout << "\n";
+	}
+	cout << endl << "A viagem foi removida com sucesso" << endl;
+	cout << "Pressione Enter para regressar" << endl;
+	cin.get();
+	return;
+
+
 }
 
 
@@ -259,5 +289,15 @@ void Agency::removeTrip() {
 	cout << "Pressione Enter para regressar" << endl;
 	cin.get();
 	return;
+
+
+}
+
+
+int main() {
+
+	Agency *agencia = new Agency();
+	agencia->introMenu();
+	return 0;
 
 }
