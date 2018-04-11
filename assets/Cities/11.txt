@@ -6,6 +6,7 @@ Sidney Hotel
 100
 Sidney Royal Palace Hotel
 90
-Mercure Hotel
-40
-//
+3
+1
+8
+2

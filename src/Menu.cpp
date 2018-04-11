@@ -15,8 +15,8 @@ void Agency::introMenu() {
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Selecione a sua opcao (insira apenas o numero):          |\n";
 	cout << "+----------------------------------------------------------+\n";
-	cout << "| 1 - Gestão de Clientes                                   |\n";
-	cout << "| 2 - Gestão de Viagens                                    |\n";
+	cout << "| 1 - Gestï¿½o de Clientes                                   |\n";
+	cout << "| 2 - Gestï¿½o de Viagens                                    |\n";
 	cout << "| 0 - Sair                                                 |\n";
 	cout << "+----------------------------------------------------------+\n";
 
@@ -130,7 +130,7 @@ void Agency::adicionaCliente() {
 	for(unsigned int i = 0; i < clientes.size(); i++){
 
 		if(getClientes()[i]->getID() == ID){
-			cout << " Cliente já existe!"<<endl;
+			cout << " Cliente jï¿½ existe!"<<endl;
 			introMenu();
 		}
 	}
@@ -162,7 +162,7 @@ void Agency::removeCliente() {
 			clientes.erase(clientes.begin() + i);
 
 		else {
-			cout << " Cliente não existe!\n";
+			cout << " Cliente nï¿½o existe!\n";
 
 		}
 	}
@@ -256,14 +256,14 @@ void Agency::adicionaTrip() {
 	string dataFim;
 
 	cout << "+----------------------------------------------------------+\n";
-	cout << "| Qual é a data de inicio da viagem?  (Formato: dd/mm/aa)  |\n";
+	cout << "| Qual ï¿½ a data de inicio da viagem?  (Formato: dd/mm/aa)  |\n";
 	cout << "+----------------------------------------------------------+\n";
 
 	cin >> dataInicio;
 	Date *dataInicial = new Date(dataInicio);
 
 	cout << "+----------------------------------------------------------+\n";
-	cout << "| Qual é a data de fim da viagem?  (Formato: dd/mm/aa)     |\n";
+	cout << "| Qual ï¿½ a data de fim da viagem?  (Formato: dd/mm/aa)     |\n";
 	cout << "+----------------------------------------------------------+\n";
 
 	cin >> dataFim;
@@ -348,11 +348,13 @@ void Agency::escolheDireto() {
 
 	for (unsigned int i = 0; i < getGraph().getNumVertex(); i++)
 	{
-		if (getGraph(). )//VERIFICAR SE EXISTE
-			
+		if (getGraph().findVertexName(origem) != NULL)//VERIFICAR SE EXISTE
+		{
+			cout << "qualquer coisa";
+		}
 
 		else {
-			cout << " Origem não existe!\n";
+			cout << " Origem nao existe!\n";
 
 		}
 	}
@@ -365,11 +367,11 @@ void Agency::escolheDireto() {
 
 	for (unsigned int i = 0; i < getGraph().getNumVertex(); i++)
 	{
-		if (getGraph().) //VERIFICAR SE EXISTE)
+		if (getGraph().findVertexName(origem) != NULL){} //VERIFICAR SE EXISTE)
 			
 
 		else {
-			cout << " Destino não existe!\n";
+			cout << " Destino nï¿½o existe!\n";
 
 		}
 	}
@@ -408,12 +410,4 @@ void Agency::tripList(){
 
 		cout << trips[i]->getID() << " - " << trips[i]->getDepartureDate().getString() << " ; "  << trips[i]->getArrivalDate().getString() << " - " << trips[i]->getDepartureCity() << " - " << trips[i]->getArrivalCity() << " - " << trips[i]->getHotel() << " - " << trips[i]->getCost() << " ; " << trips[i]->getDistance() << endl;
 	}
-}
-
-
-int main()
-{
-	Agency* agencia = new Agency();
-	agencia->introMenu();
-	return 0;
 }

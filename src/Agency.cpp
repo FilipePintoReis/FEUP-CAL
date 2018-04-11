@@ -7,7 +7,7 @@
 
 #include "Agency.h"
 
-#define NOCiF 10 //number of city files
+#define NOCiF 11 //number of city files
 
 vector<City> vec;
 
@@ -25,29 +25,29 @@ void Agency::readFromCityFiles(){
 
 	ifstream in;
 
-	for(int i = 1; i <= NOCiF; i ++){ //For each file --> cities
+	for(int i = 1; i <= NOCiF; i ++) { //For each file --> cities
 
 		string fich = assets + to_string(i) + ".txt";
 		const char *nomeFich;
 		nomeFich = fich.c_str();
 		in.open(nomeFich);
-		if(!in.fail()){
+		if (!in.fail()) {
 
-			vector<Hotel*> hotels;
+			vector<Hotel *> hotels;
 			vector<int> destinations;
-			getline(in,cityName);
+			getline(in, cityName);
 			getline(in, ID);
 			getline(in, temp, ',');
-			x = stoi(temp.c_str());
+			x = stoi(temp);
 			getline(in, temp);
-			y = stoi(temp.c_str());
+			y = stoi(temp);
 
-			Coordinates c = Coordinates(x,y);
+			Coordinates c = Coordinates(x, y);
 
 			getline(in, temp);
-			hotelNumber = atoi(temp.c_str());
+			hotelNumber = stoi(temp);
 
-			for(unsigned int i = 0; i < hotelNumber; i++){
+			for (unsigned int i = 0; i < hotelNumber; i++) {
 
 				getline(in, hotelName);
 				getline(in, temp);
@@ -59,12 +59,12 @@ void Agency::readFromCityFiles(){
 			}
 
 			getline(in, temp);
-			numberDestinies = stoi(temp.c_str());
+			numberDestinies = stoi(temp);
 
-			for(unsigned int i = 0; i < numberDestinies; i++){
+			for (unsigned int i = 0; i < numberDestinies; i++) {
 
 				getline(in, temp);
-				cityID = atoi(temp.c_str());
+				cityID = stoi(temp);
 
 				destinations.push_back(cityID);
 
@@ -73,17 +73,27 @@ void Agency::readFromCityFiles(){
 			City city(stoi(ID), cityName, c, hotels, destinations);
 			graph.addVertex(city);
 			in.close();
-		}
-		else
+		} else
 			cout << "reading from city files failed" << endl;
 
+	}
+
+	Vertex<City>* vertex = NULL;
 		//after all Vertex were created we start adding Edges
 		for(int k = 0; k < graph.getNumVertex(); k++){ //For each Vertex goes through vector possibleDestinations
 			for(unsigned int l = 0; l < this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations().size(); l++){
-				this->graph.addEdge(
-						this->graph.getVertexSet()[k]->getInfo(),
-						this->graph.findVertexID(this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l])->getInfo(),
-						1);
+
+				vertex = this->graph.findVertexID(this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l]);
+
+				try {
+					this->graph.addEdge(
+							this->graph.getVertexSet()[k]->getInfo(),
+							vertex->getInfo(),
+							1);
+				}
+				catch (std::exception& e){
+					cout << this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l] << "\n";
+				}
 				//this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l]
 			}
 
@@ -92,7 +102,6 @@ void Agency::readFromCityFiles(){
 			//addEdge
 			//else
 			//don't
-		}
 
 	}
 
@@ -240,5 +249,9 @@ void Agency::addClients(Client* cliente) {
 
 void Agency::addTrips(Trip* viagem) {
 	trips.push_back(viagem);
+}
+
+Graph<City> Agency::getGraph() {
+	return graph;
 }
 

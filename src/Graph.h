@@ -193,6 +193,8 @@ public:
 	vector<T> getPath(const T &origin, const T &dest) const;
 	Vertex<T> *findVertex(const T &in) const;
 	Vertex<T> *findVertexID(int id) const;
+
+    Vertex<T>*  findVertexName(string nome) const;
 };
 
 template <class T>
@@ -205,13 +207,13 @@ vector<Vertex<T> *> Graph<T>::getVertexSet(){
 	return vertexSet;
 }
 
-template <class T>
-Vertex<T> * Graph<T>::findVertex(const T &in) const {
-	for (auto v : vertexSet)
-		if (v->info == in)
-			return v;
-	return NULL;
-}
+//template <class T>
+//Vertex<T> * Graph<T>::findVertex(const T &in) const {
+//	for (auto v : vertexSet)
+//		if (v->info ==  in)
+//			return v;
+//	return NULL;
+//}
 
 template <class T>
 Vertex<T> * Graph<T>::findVertexID(int id) const {
@@ -394,6 +396,22 @@ bool Graph<T>::relax(Vertex<T> *v, Vertex<T> *w, double weight) {
 	}
 	else
 		return false;
+}
+
+template<class T>
+Vertex<T>* Graph<T>::findVertexName(string nome) const{
+    for (auto v : vertexSet)
+        if (v->info.getName() == nome)
+            return v;
+    return NULL;
+}
+
+template <class T>
+Vertex<T> * Graph<T>::findVertex(const T &in) const {
+    for (auto v : vertexSet)
+        if (v->info == in)
+            return v;
+    return NULL;
 }
 
 /**

@@ -25,7 +25,7 @@ void exercicio1()
 	gv->addNode(1);
 	gv->addEdge(0, 0, 1, EdgeType::UNDIRECTED);
 
-	Sleep(2000); // use sleep(1) in linux ; Sleep(2000) on Windows
+	/*Sleep(2000); // use sleep(1) in linux ; Sleep(2000) on Windows
 
 	gv->removeEdge(0);
 	gv->removeNode(1);
@@ -49,7 +49,7 @@ void exercicio1()
 
 	gv->setEdgeDashed(1, false);
 
-	gv->rearrange();
+	gv->rearrange();*/
 
 }
 
@@ -107,7 +107,7 @@ void exercicio2()
 
 	while(1)
 	{
-		Sleep(2000);
+		/*Sleep(2000);
 		if (first)
 		{
 		  gv->removeNode(12);
@@ -150,7 +150,7 @@ void exercicio2()
 		gv->addNode(21,400,550);
 		gv->addEdge(20, 11, 20, EdgeType::UNDIRECTED);
 		gv->addEdge(21, 11, 21, EdgeType::UNDIRECTED);
-		gv->rearrange();
+		gv->rearrange();*/
 	}
 }
 
