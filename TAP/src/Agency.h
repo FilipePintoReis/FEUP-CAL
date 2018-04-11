@@ -52,6 +52,7 @@ public:
 	void listClients();
 
 	void adicionaTrip();
+	void addFlightsTrip(Trip viagem);
 	void removeTrip();
 	void destinationsList();
 	void tripList();

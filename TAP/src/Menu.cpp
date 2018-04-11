@@ -267,6 +267,25 @@ void Agency::adicionaTrip() {
 	cin >> dataFim;
 	Date *dataFinal = new Date(dataFim);
 
+	string temp;
+	cout << "+----------------------------------------------------------+\n";
+	cout << "| Indique os voos a adicionar (escreva FIM para terminar): |\n";
+	cout << "+----------------------------------------------------------+\n";
+
+/*	cin.ignore(INT_MAX, '\n');
+		while (temp != "FIM")
+		{
+			getline(cin, temp);
+			if (temp != "FIM") {
+				viagem.getFlights().push_back(temp);
+			}
+			cout << "\n";
+		}
+		cout << endl << "A viagem foi removida com sucesso" << endl;
+		cout << "Pressione Enter para regressar" << endl;
+		cin.get();
+		return; */
+
 	Trip * novaTrip = new Trip(*dataInicial, *dataFinal);
 	addTrips(novaTrip);
 }
