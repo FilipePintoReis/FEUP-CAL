@@ -7,7 +7,7 @@
 
 #include "Agency.h"
 
-#define NOCiF 10 //number of city files
+#define NOCiF 11 //number of city files
 
 using namespace std;
 
@@ -32,29 +32,29 @@ void Agency::readFromCityFiles(){
 
 	ifstream in;
 
-	for(int i = 1; i <= NOCiF; i ++){ //For each file --> cities
+	for(int i = 1; i <= NOCiF; i ++) { //For each file --> cities
 
 		string fich = assets + to_string(i) + ".txt";
 		const char *nomeFich;
 		nomeFich = fich.c_str();
 		in.open(nomeFich);
-		if(!in.fail()){
+		if (!in.fail()) {
 
-			vector<Hotel*> hotels;
+			vector<Hotel *> hotels;
 			vector<int> destinations;
-			getline(in,cityName);
+			getline(in, cityName);
 			getline(in, ID);
 			getline(in, temp, ',');
 			x = stoi(temp.c_str());
 			getline(in, temp);
 			y = stoi(temp.c_str());
 
-			Coordinates c = Coordinates(x,y);
+			Coordinates c = Coordinates(x, y);
 
 			getline(in, temp);
 			hotelNumber = atoi(temp.c_str());
 
-			for(unsigned int i = 0; i < hotelNumber; i++){
+			for (unsigned int i = 0; i < hotelNumber; i++) {
 
 				getline(in, hotelName);
 				getline(in, temp);
@@ -68,7 +68,7 @@ void Agency::readFromCityFiles(){
 			getline(in, temp);
 			numberDestinies = stoi(temp.c_str());
 
-			for(unsigned int i = 0; i < numberDestinies; i++){
+			for (unsigned int i = 0; i < numberDestinies; i++) {
 
 				getline(in, temp);
 				cityID = atoi(temp.c_str());
@@ -82,28 +82,23 @@ void Agency::readFromCityFiles(){
 			graph.addVertex(city);
 			vec.push_back(city1);
 			in.close();
-		}
-		else
+		} else
 			cout << "reading from city files failed" << endl;
+
+	}
 
 		//after all Vertex were created we start adding Edges
 		for(int k = 0; k < graph.getNumVertex(); k++){ //For each Vertex goes through vector possibleDestinations
 			for(unsigned int l = 0; l < this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations().size(); l++){
-			//	this->graph.addEdge(
-				//		this->graph.getVertexSet()[k]->getInfo(),
-				//		this->graph.findVertexID(this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l])->getInfo(),
-					//	1);
-				//this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l]
+				this->graph.addEdge(
+						this->graph.getVertexSet()[k]->getInfo(),
+						this->graph.findVertexID(this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l])->getInfo(),
+						1);
+//				this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l];
 			}
-
-			//for each position in vector possibleDestinations
-			//if(boolean n)
-			//addEdge
-			//else
-			//don't
 		}
 
-	}
+
 
 	cout << " Finished loading Cities!\n";
 }

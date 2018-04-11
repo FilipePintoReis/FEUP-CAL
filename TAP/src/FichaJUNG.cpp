@@ -25,7 +25,7 @@ void exercicio1()
 	gv->addNode(1);
 	gv->addEdge(0, 0, 1, EdgeType::UNDIRECTED);
 
-	Sleep(2000); // use sleep(1) in linux ; Sleep(2000) on Windows
+/*	Sleep(2000); // use sleep(1) in linux ; Sleep(2000) on Windows
 
 	gv->removeEdge(0);
 	gv->removeNode(1);
@@ -33,7 +33,7 @@ void exercicio1()
 
 	gv->rearrange();
 
-	Sleep(2000);
+	Sleep(2000);*/
 
 	gv->addEdge(1, 0, 2, EdgeType::UNDIRECTED);
 	gv->defineEdgeCurved(false);
@@ -55,7 +55,7 @@ void exercicio1()
 
 void exercicio2()
 {
-	GraphViewer *gv = new GraphViewer(600, 600, false);
+	/*GraphViewer *gv = new GraphViewer(600, 600, false);
 
 	gv->createWindow(600, 600);
 
@@ -151,7 +151,7 @@ void exercicio2()
 		gv->addEdge(20, 11, 20, EdgeType::UNDIRECTED);
 		gv->addEdge(21, 11, 21, EdgeType::UNDIRECTED);
 		gv->rearrange();
-	}
+	}*/
 }
 
 void exercicio3()

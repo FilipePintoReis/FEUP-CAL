@@ -21,8 +21,8 @@ void Agency::introMenu() {
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Selecione a sua opcao (insira apenas o numero):          |\n";
 	cout << "+----------------------------------------------------------+\n";
-	cout << "| 1 - Gestão de Clientes                                   |\n";
-	cout << "| 2 - Gestão de Viagens                                    |\n";
+	cout << "| 1 - Gestï¿½o de Clientes                                   |\n";
+	cout << "| 2 - Gestï¿½o de Viagens                                    |\n";
 	cout << "| 3 - Abrir o Mapa                                         |\n";
 	cout << "| 4 - Guardar Ficheiros                                    |\n";
 	cout << "| 0 - Sair                                                 |\n";
@@ -150,7 +150,7 @@ void Agency::adicionaCliente() {
 	for(unsigned int i = 0; i < clientes.size(); i++){
 
 		if(getClientes()[i]->getID() == ID){
-			cout << " Cliente já existe!"<<endl;
+			cout << " Cliente jï¿½ existe!"<<endl;
 			introMenu();
 		}
 	}
@@ -182,7 +182,7 @@ void Agency::removeCliente() {
 			clientes.erase(clientes.begin() + i);
 
 		else {
-			cout << " Cliente não existe!\n";
+			cout << " Cliente nï¿½o existe!\n";
 
 		}
 	}
@@ -282,14 +282,14 @@ void Agency::adicionaTrip() {
 	string dataFim;
 
 	cout << "+----------------------------------------------------------+\n";
-	cout << "| Qual é a data de inicio da viagem?  (Formato: dd/mm/aa)  |\n";
+	cout << "| Qual e a data de inicio da viagem?  (Formato: dd/mm/aa)  |\n";
 	cout << "+----------------------------------------------------------+\n";
 
 	cin >> dataInicio;
 	Date *dataInicial = new Date(dataInicio);
 
 	cout << "+----------------------------------------------------------+\n";
-	cout << "| Qual é a data de fim da viagem?  (Formato: dd/mm/aa)     |\n";
+	cout << "| Qual e a data de fim da viagem?  (Formato: dd/mm/aa)     |\n";
 	cout << "+----------------------------------------------------------+\n";
 
 	cin >> dataFim;
@@ -377,7 +377,7 @@ void Agency::escolheDireto() {
 
 
 			else {
-				cout << " Origem não existe!\n";
+				cout << " Origem nï¿½o existe!\n";
 
 			}*/
 	}
@@ -394,7 +394,7 @@ void Agency::escolheDireto() {
 
 
 			else {
-				cout << " Destino não existe!\n";
+				cout << " Destino nï¿½o existe!\n";
 
 			}*/
 	}
