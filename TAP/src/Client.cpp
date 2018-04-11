@@ -1,12 +1,11 @@
 
 #include "Client.h"
 
-	int Client::id = 1;
 
-	Client::Client(string n,int pn) {
+	Client::Client(string n,int pn, int ID) {
 
 	this->name = n;
-	this->id++;
+	this->id = ID;
 	this->phoneNumber = pn;
 
 	}

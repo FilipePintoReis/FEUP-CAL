@@ -10,12 +10,11 @@ using namespace std;
 class Client {
 
 	string name;
-	static int id;
+	int id;
 	int phoneNumber;
 
 public:
-	Client(string n, int pn);
-	Client(string n,int pn, Trip t);
+	Client(string n, int ID, int pn);
 	virtual ~Client();
 
 	int getID();

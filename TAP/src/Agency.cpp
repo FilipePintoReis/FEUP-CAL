@@ -45,8 +45,6 @@ void Agency::readFromCityFiles(){
 			vector<Hotel*> hotels;
 			vector<int> destinations;
 			getline(in,cityName);
-			cout << "oi" << endl;
-			ofstream outfile (cityName + ".txt");
 			getline(in, ID);
 			getline(in, temp, ',');
 			x = atoi(temp.c_str());
@@ -68,7 +66,6 @@ void Agency::readFromCityFiles(){
 				hotels.push_back(&hotel);
 
 			}
-
 
 			getline(in, temp);
 			numberDestinies = atoi(temp.c_str());
@@ -101,7 +98,7 @@ void Agency::readFromCityFiles(){
 
 	}
 
-	cout << " Finished loading! :D\n";
+	cout << " Finished loading Cities!\n";
 }
 
 	void Agency::readFromClientFiles() {
@@ -128,10 +125,16 @@ void Agency::readFromCityFiles(){
 				getline(in, temp);
 				cellphone = atoi(temp.c_str());
 					//not sure if this works -> TEST
+
+				Client client(clientName,id,cellphone);
+				clientes.push_back(&client);
+
 				if(!in)
 					break;
 			}
 	}
+
+		cout << " Finished loading Clients!\n";
 }
 
 	void Agency::readFromTripFiles() {
