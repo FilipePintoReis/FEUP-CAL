@@ -14,9 +14,9 @@ void Agency::introMenu() {
 	cout << "| Bem vindo a nossa agencia de viagens!                    |\n";
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Selecione a sua opcao (insira apenas o numero):          |\n";
-	cout << "+----------------------------------------------------------+ \n";
+	cout << "+----------------------------------------------------------+\n";
 	cout << "| 1 - Gestão de Clientes                                   |\n";
-	cout << "| 2 - Gestão de Viagens                                    |\n";;
+	cout << "| 2 - Gestão de Viagens                                    |\n";
 	cout << "| 0 - Sair                                                 |\n";
 	cout << "+----------------------------------------------------------+\n";
 
@@ -161,8 +161,8 @@ void Agency::removeCliente() {
 		if (getClientes()[i]->getName() == clienteremover)
 			clientes.erase(clientes.begin() + i);
 
-		else{
-			cout<<" Cliente não existe!\n";
+		else {
+			cout << " Cliente não existe!\n";
 
 		}
 	}
@@ -194,8 +194,10 @@ void Agency::menuTrip(){
 		cout << "+----------------------------------------------------------+\n";
 		cout << "| 1 - Criar Viagem                                         |\n";
 		cout << "| 2 - Apagar Viagem					                    |\n";
-		cout << "| 3 - Lista de Destinos					                |\n";
-		cout << "| 4 - Lista de Viagens		   			                    |\n";
+		cout << "| 3 - Escolher uma origem e um destino diretamente         |\n";
+		cout << "| 4 - Escolher conjunto de locais a visitar                |\n";
+		cout << "| 0 - Sair                                                 |\n";
+		cout << "+----------------------------------------------------------+\n";
 		cout << "| 0 - Sair                                                 |\n";
 		cout << "+----------------------------------------------------------+\n";
 
@@ -228,13 +230,13 @@ void Agency::menuTrip(){
 			break;
 
 		case 3:
-			destinationsList();
+			escolheDireto();
 			cin.get();
 			cin.get();
 			break;
 
 		case 4:
-			tripList();
+			escolheGeral();
 			cin.get();
 			cin.get();
 			break;
@@ -292,6 +294,7 @@ void Agency::adicionaTrip() {
 
 
 void Agency::removeTrip() {
+	tripList();
 
 	string tripremover;
 	cout << "+----------------------------------------------------------+\n";
@@ -311,6 +314,67 @@ void Agency::removeTrip() {
 	cin.get();
 	return;
 
+}
+
+void Agency::escolheGeral() {
+	string temp;
+
+	cout << "+-------------------------------------------------------------+\n";
+	cout << "| Indique os destinos a adicionar (escreva FIM para terminar):|\n";
+	cout << "+-------------------------------------------------------------+\n";
+
+		cin.ignore(INT_MAX, '\n');
+	while (temp != "FIM")
+	{
+	getline(cin, temp);
+	if (temp != "FIM") {
+	//meter aqui os coisos para criar trip com muitos
+	}
+	cout << "\n";
+	}
+
+
+}
+
+void Agency::escolheDireto() {
+
+	string origem;
+	string destino;
+	cout << "+----------------------------------------------------------+\n";
+	cout << "|	Indique a origem da sua viagem:                         |\n";
+	cout << "+----------------------------------------------------------+\n";
+
+	getline(cin, origem);
+
+	for (unsigned int i = 0; i < getGraph().getNumVertex(); i++)
+	{
+		if (getGraph(). )//VERIFICAR SE EXISTE
+			
+
+		else {
+			cout << " Origem não existe!\n";
+
+		}
+	}
+
+	cout << "+----------------------------------------------------------+\n";
+	cout << "|	Indique o destino que quer visitar:                      |\n";
+	cout << "+----------------------------------------------------------+\n";
+
+	getline(cin, destino);
+
+	for (unsigned int i = 0; i < getGraph().getNumVertex(); i++)
+	{
+		if (getGraph().) //VERIFICAR SE EXISTE)
+			
+
+		else {
+			cout << " Destino não existe!\n";
+
+		}
+	}
+
+	
 }
 
 void Agency::destinationsList(){
@@ -344,4 +408,12 @@ void Agency::tripList(){
 
 		cout << trips[i]->getID() << " - " << trips[i]->getDepartureDate().getString() << " ; "  << trips[i]->getArrivalDate().getString() << " - " << trips[i]->getDepartureCity() << " - " << trips[i]->getArrivalCity() << " - " << trips[i]->getHotel() << " - " << trips[i]->getCost() << " ; " << trips[i]->getDistance() << endl;
 	}
+}
+
+
+int main()
+{
+	Agency* agencia = new Agency();
+	agencia->introMenu();
+	return 0;
 }
