@@ -11,15 +11,9 @@
 
 vector<City> vec;
 
+Agency::Agency() {}
 
-Agency::Agency() {
-
-
-}
-
-Agency::~Agency() {
-
-}
+Agency::~Agency() {}
 
 void Agency::readFromCityFiles(){
 
@@ -36,10 +30,7 @@ void Agency::readFromCityFiles(){
 		string fich = assets + to_string(i) + ".txt";
 		const char *nomeFich;
 		nomeFich = fich.c_str();
-
 		in.open(nomeFich);
-		cout << nomeFich << endl;
-
 		if(!in.fail()){
 
 			vector<Hotel*> hotels;
@@ -47,9 +38,9 @@ void Agency::readFromCityFiles(){
 			getline(in,cityName);
 			getline(in, ID);
 			getline(in, temp, ',');
-			x = atoi(temp.c_str());
+			x = stoi(temp.c_str());
 			getline(in, temp);
-			y = atoi(temp.c_str());
+			y = stoi(temp.c_str());
 
 			Coordinates c = Coordinates(x,y);
 
@@ -60,15 +51,15 @@ void Agency::readFromCityFiles(){
 
 				getline(in, hotelName);
 				getline(in, temp);
-				price = atof(temp.c_str());
+				price = stof(temp.c_str());
 
-				Hotel hotel(hotelName, price);
-				hotels.push_back(&hotel);
+				Hotel *hotel = new Hotel(hotelName, price);
+				hotels.push_back(hotel);
 
 			}
 
 			getline(in, temp);
-			numberDestinies = atoi(temp.c_str());
+			numberDestinies = stoi(temp.c_str());
 
 			for(unsigned int i = 0; i < numberDestinies; i++){
 
@@ -86,14 +77,14 @@ void Agency::readFromCityFiles(){
 		else
 			cout << "reading from city files failed" << endl;
 
-	//after all Vertex were created we start adding Edges
+		//after all Vertex were created we start adding Edges
 
-	for(int k = 0; k < NOCiF; k++){ //For each Vertex goes through vector possibleDestinations
-		//for each position in vector possibleDestinations
+		for(int k = 0; k < NOCiF; k++){ //For each Vertex goes through vector possibleDestinations
+			//for each position in vector possibleDestinations
 			//if(boolean n)
-				//addEdge
+			//addEdge
 			//else
-				//don't
+			//don't
 		}
 
 	}
@@ -101,87 +92,142 @@ void Agency::readFromCityFiles(){
 	cout << " Finished loading Cities!\n";
 }
 
-	void Agency::readFromClientFiles() {
+void Agency::readFromClientFile() {
 
-		string assets = "./assets/Clients";
-		ifstream in;
+	string assets = "./assets/Clients";
+	ifstream in;
 
-		string clientName, temp;
-		unsigned int id, cellphone;
+	string clientName, temp;
+	unsigned int id, cellphone;
 
-		string fich = assets + ".txt";
-		const char *nomeFich;
-		nomeFich = fich.c_str();
+	string fich = assets + ".txt";
+	const char *nomeFich;
+	nomeFich = fich.c_str();
 
-		in.open(nomeFich);
+	in.open(nomeFich);
 
-		if(!in.fail()){
+	while(!in.eof()){
 
-			while(true){
-
-				getline(in, clientName, ';');
-				getline(in, temp, ';');
-				id = atoi(temp.c_str());
-				getline(in, temp);
-				cellphone = atoi(temp.c_str());
-					//not sure if this works -> TEST
-
-				Client client(clientName,id,cellphone);
-				clientes.push_back(&client);
-
-				if(!in)
-					break;
-			}
+		getline(in, clientName, ';');
+		getline(in, temp, ';');
+		id = stoi(temp.c_str());
+		getline(in, temp);
+		cellphone = stoi(temp.c_str());
+		Client *client = new Client(clientName,id,cellphone);
+		clientes.push_back(client);
 	}
 
-		cout << " Finished loading Clients!\n";
+	cout << " Finished loading Clients!\n";
+	in.close();
 }
 
-	void Agency::readFromTripFiles() {
+void Agency::readFromTripFiles() {
 
-			string assets = "./assets/Trips";
-			ifstream in;
+	string assets = "./assets/Trips";
+	ifstream in;
+
+	int id;
+	double cost, distance;
+	string temp,departureDate, arrivalDate, departureCity, arrivalCity, hotelName;
+
+	string fich = assets + ".txt";
+	const char *nomeFich;
+	nomeFich = fich.c_str();
+
+	in.open(nomeFich);
+
+	if(!in.eof()){
+
+		getline(in,temp,';');
+		id = stoi(temp.c_str());
+		getline(in, departureDate,';');
+		getline(in, arrivalDate,';');
+		getline(in, departureCity,';');
+		getline(in, arrivalCity,';');
+		getline(in, hotelName,';');
+		getline(in, temp,';');
+		cost = stod(temp.c_str());
+		getline(in, temp);
+		distance = stod(temp.c_str());
+
+		Date date1(departureDate);
+		Date date2(arrivalDate);
+
+		Trip *trip = new Trip(id, date1, date2, departureCity, arrivalCity, hotelName, cost, distance);
+		trips.push_back(trip);
+
+	}
+
+	in.close();
+}
 
 
+void Agency::readToTripsFile(){
 
-			//static int ID;
-			//	Date departureDate;
-			//	vector<Flight*> flights;
-			    //string origincity
-				//string arrivalcity
-				//Date date;
-				//int flightDuration; //in minutes?
-				//double price;
-			//	string hotelName;
-			//	Date arrivalDate;
-			//	double cost;
-			//	double distance;
+	ofstream file("assets/Trips.txt");
 
-			unsigned int tripID;
-			string departureDate, arrivalDate, originCity,arrivalCity;
+	file.clear();
 
-			string fich = assets + ".txt";
-			const char *nomeFich;
-			nomeFich = fich.c_str();
+	for(unsigned int i = 0; i < this->trips.size(); i++){
 
-			in.open(nomeFich);
+		int id = this->trips[i]->getID();
+		string departureDate = this->trips[i]->getDepartureDate().getString();
+		string arrivalDate = this->trips[i]->getArrivalDate().getString();
+		string departureCity = this->trips[i]->getDepartureCity();
+		string arrivalCity = this->trips[i]->getArrivalCity();
+		string hotelName = this->trips[i]->getHotel();
+		double cost = this->trips[i]->getCost();
+		double distance = this->trips[i]->getDistance();
 
-			if(!in.fail()){
+		if(this->trips.size() - 1 == i){
 
-				while(true){
+			file <<  id <<  ";" <<  departureDate << ";" << arrivalDate <<  ";" << departureCity << ";" << arrivalCity << ";" << hotelName << ";" << cost << ";" << distance;
 
+		}
 
+		else {
 
-	//not sure if this works -> TEST
-			if(!in)
-				break;
-			}
+			file <<  id <<  ";" <<  departureDate << ";" << arrivalDate <<  ";" << departureCity << ";" << arrivalCity << ";" << hotelName << ";" << cost << ";" << distance << endl;
 		}
 	}
 
+	file.close();
+
+	cout << "Trips file saved successfully! \n";
+
+}
+
+void Agency::readToClientFile(){
+
+	ofstream file("assets/Clients.txt");
+
+	file.clear();
+
+	for(unsigned int i = 0; i < this->clientes.size(); i++){
+
+		int id = this->clientes[i]->getID();
+		int cellphone = this->clientes[i]->getPhoneNumber();
+		string name = this->clientes[i]->getName();
+
+		if(this->clientes.size() - 1 == i){
+
+			file << name << ";" << id << ";" << cellphone;
+		}
+
+		else {
+
+			file << name << ";" << id << ";" << cellphone <<endl;
+		}
+	}
+
+	file.close();
+
+	cout << "Clients file saved successfully! \n";
+
+}
+
 void Agency::addClients(Client* cliente) {
 	clientes.push_back(cliente);
-
 }
 
 

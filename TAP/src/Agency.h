@@ -25,8 +25,10 @@ public:
 	Agency();
 	virtual ~Agency();
 	void readFromCityFiles();
-	void readFromClientFiles();
+	void readFromClientFile();
+	void readToClientFile();
 	void readFromTripFiles();
+	void readToTripsFile();
 	Graph<City> getGraph();
 	void printShortestPath(const City origin, const City destiny);
 
@@ -47,9 +49,12 @@ public:
 
 	void adicionaCliente();
 	void removeCliente();
+	void listClients();
 
 	void adicionaTrip();
 	void removeTrip();
+	void destinationsList();
+	void tripList();
 };
 
 #endif /* SRC_AGENCY_H_ */
