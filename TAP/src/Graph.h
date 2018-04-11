@@ -60,12 +60,10 @@ Vertex<T>::Vertex(T in): info(in), visited(false), processing(false), indegree(0
 }
 
 template <class T>
-void Vertex<T>::addEdge(Vertex<T> *dest, double w)
-.{
+void Vertex<T>::addEdge(Vertex<T> *dest, double w){
 
-	Edge<T> edgeD(dest);
-	edgeD.orig = this;
-	adj.push_back(Edge<T>(dest));
+	Edge<T> edgeD(dest, w);
+	adj.push_back(edgeD);
 }
 
 template <class T>
@@ -121,14 +119,12 @@ template <class T>
 class Edge {
 	T info;                // contents
 	Vertex<T> * dest;
-	Vertex<T> * orig;
 	double weight;         // edge weight
 public:
-	Edge(Vertex<T> *o, Vertex<T> *d);
+	Edge(Vertex<T> *d, double w);
 	T getInfo() const;
 	double getWeight() const;
 	Vertex<T>* getDest() const;
-	Vertex<T>* getOrig() const;
 	bool operator<(const Edge<T> &other) const;
 
 	friend class Graph<T>;
@@ -145,9 +141,7 @@ struct egdeGreater {
 };
 
 template <class T>
-Edge<T>::Edge(Vertex<T> *o, Vertex<T> *d): orig(o), dest(d) {
-
-	this->weight = getInfo().getPrice();
+Edge<T>::Edge(Vertex<T> *d, double w): dest(d), weight(w) {
 }
 
 template<class T>
@@ -160,12 +154,6 @@ template<class T>
 Vertex<T>* Edge<T>::getDest() const {
 
 	return this->dest;
-}
-
-template<class T>
-Vertex<T>* Edge<T>::getOrig() const {
-
-	return this->orig;
 }
 
 template<class T>
