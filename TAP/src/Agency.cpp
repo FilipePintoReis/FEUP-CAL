@@ -78,8 +78,15 @@ void Agency::readFromCityFiles(){
 			cout << "reading from city files failed" << endl;
 
 		//after all Vertex were created we start adding Edges
+		for(int k = 0; k < graph.getNumVertex(); k++){ //For each Vertex goes through vector possibleDestinations
+			for(unsigned int l = 0; l < this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations().size(); l++){
+				this->graph.addEdge(
+						this->graph.getVertexSet()[k]->getInfo(),
+						this->graph.findVertexID(this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l])->getInfo(),
+						1);
+				//this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l]
+			}
 
-		for(int k = 0; k < NOCiF; k++){ //For each Vertex goes through vector possibleDestinations
 			//for each position in vector possibleDestinations
 			//if(boolean n)
 			//addEdge

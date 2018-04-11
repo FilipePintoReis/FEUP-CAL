@@ -32,7 +32,7 @@ class Vertex {
 public:
 	Vertex(T in);
 	friend class Graph<T>;
-	void addEdge(Vertex<T> *dest, Trip t);
+	void addEdge(Vertex<T> *dest, double w);
 	bool removeEdgeTo(Vertex<T> *d);
 	T getInfo() const;
 	void setInfo(T info);
@@ -60,11 +60,12 @@ Vertex<T>::Vertex(T in): info(in), visited(false), processing(false), indegree(0
 }
 
 template <class T>
-void Vertex<T>::addEdge(Vertex<T> *dest, Trip t) {
+void Vertex<T>::addEdge(Vertex<T> *dest, double w)
+.{
 
-	Edge<T> edgeD(dest, t);
+	Edge<T> edgeD(dest);
 	edgeD.orig = this;
-	adj.push_back(Edge<T>(dest, t));
+	adj.push_back(Edge<T>(dest));
 }
 
 template <class T>
@@ -185,10 +186,11 @@ template <class T>
 class Graph {
 	vector<Vertex<T> *> vertexSet;    // vertex set
 	void dfsVisit(Vertex<T> *v,  vector<T> & res) const;
-	Vertex<T> *findVertex(const T &in) const;
+
 	bool dfsIsDAG(Vertex<T> *v) const;
 public:
 	int getNumVertex() const;
+	vector<Vertex<T> *> getVertexSet();
 	bool addVertex(const T &in);
 	bool removeVertex(const T &in);
 	bool addEdge(const T &sourc, const T &dest, double w);
@@ -201,6 +203,8 @@ public:
 	bool relax(Vertex<T> *v, Vertex<T> *w, double weight);
 	void dijkstraShortestPath(const T &origin);
 	vector<T> getPath(const T &origin, const T &dest) const;
+	Vertex<T> *findVertex(const T &in) const;
+	Vertex<T> *findVertexID(int id) const;
 };
 
 template <class T>
@@ -209,9 +213,22 @@ int Graph<T>::getNumVertex() const {
 }
 
 template <class T>
+vector<Vertex<T> *> Graph<T>::getVertexSet(){
+	return vertexSet;
+}
+
+template <class T>
 Vertex<T> * Graph<T>::findVertex(const T &in) const {
 	for (auto v : vertexSet)
 		if (v->info == in)
+			return v;
+	return NULL;
+}
+
+template <class T>
+Vertex<T> * Graph<T>::findVertexID(int id) const {
+	for (auto v : vertexSet)
+		if (v->info.getID() == id)
 			return v;
 	return NULL;
 }
