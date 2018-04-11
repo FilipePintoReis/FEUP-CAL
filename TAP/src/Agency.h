@@ -60,6 +60,8 @@ public:
 	void removeTrip();
 	void destinationsList();
 	void tripList();
+	void escolheDireto();
+	void escolheGeral();
 };
 
 #endif /* SRC_AGENCY_H_ */
