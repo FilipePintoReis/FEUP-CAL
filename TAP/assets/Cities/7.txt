@@ -1,6 +1,6 @@
 Kiruna
 9
-13265,1443
+629,66
 2
 Hotel Vinterpalatset
 130

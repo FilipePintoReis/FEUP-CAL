@@ -1,6 +1,6 @@
 San Jose
 11
-6364,5347
+87,190
 2
 San Jose Hotel
 170

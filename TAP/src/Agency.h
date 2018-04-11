@@ -9,6 +9,7 @@
 #include "Graph.h"
 #include "Hotel.h"
 #include "Trip.h"
+
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -20,6 +21,8 @@ private:
 	Graph<City> graph;
 	vector<Client*> clientes;
 	vector<Trip*> trips;
+	vector<City*> vec;
+
 
 public:
 	Agency();
@@ -39,13 +42,14 @@ public:
 	//GET METHODS
 	vector<Client*> getClientes() { return clientes; }
 	vector<Trip*> getTrips() { return trips; }
+	vector<City*> getCityVec();
 
 	//MENUS
 	void introMenu();
 	void menuCliente();
 	void menuTrip();
-	void menuAlojamento();
-	void menuDeslocamento();
+	void menuSave();
+	void map();
 
 	void adicionaCliente();
 	void removeCliente();

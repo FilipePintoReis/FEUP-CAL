@@ -9,9 +9,14 @@
 
 #define NOCiF 10 //number of city files
 
-vector<City> vec;
+Agency::Agency() {
 
-Agency::Agency() {}
+	readFromClientFile();
+	readFromCityFiles();
+	readFromTripFiles();
+	introMenu();
+
+}
 
 Agency::~Agency() {}
 
@@ -71,7 +76,9 @@ void Agency::readFromCityFiles(){
 			}
 
 			City city(stoi(ID), cityName, c, hotels, destinations);
+			City *city1 = new City(stoi(ID), cityName, c, hotels, destinations);
 			graph.addVertex(city);
+			vec.push_back(city1);
 			in.close();
 		}
 		else
@@ -80,10 +87,10 @@ void Agency::readFromCityFiles(){
 		//after all Vertex were created we start adding Edges
 		for(int k = 0; k < graph.getNumVertex(); k++){ //For each Vertex goes through vector possibleDestinations
 			for(unsigned int l = 0; l < this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations().size(); l++){
-				this->graph.addEdge(
-						this->graph.getVertexSet()[k]->getInfo(),
-						this->graph.findVertexID(this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l])->getInfo(),
-						1);
+			//	this->graph.addEdge(
+				//		this->graph.getVertexSet()[k]->getInfo(),
+				//		this->graph.findVertexID(this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l])->getInfo(),
+					//	1);
 				//this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l]
 			}
 
@@ -126,6 +133,11 @@ void Agency::readFromClientFile() {
 
 	cout << " Finished loading Clients!\n";
 	in.close();
+}
+
+vector<City*> Agency::getCityVec(){
+
+	return vec;
 }
 
 void Agency::readFromTripFiles() {
@@ -241,4 +253,3 @@ void Agency::addClients(Client* cliente) {
 void Agency::addTrips(Trip* viagem) {
 	trips.push_back(viagem);
 }
-

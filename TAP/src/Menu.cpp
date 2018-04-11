@@ -1,8 +1,14 @@
 #include <iostream>
+#include "graphviewer.h"
+#include <cstdio>
+#include <fstream>
+#include <sstream>
 #include "Agency.h"
 #include "Client.h"
-#include<limits.h>
+#include <limits.h>
 #include "Date.h"
+
+GraphViewer *gv;
 
 using namespace std;
 
@@ -14,9 +20,11 @@ void Agency::introMenu() {
 	cout << "| Bem vindo a nossa agencia de viagens!                    |\n";
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Selecione a sua opcao (insira apenas o numero):          |\n";
-	cout << "+----------------------------------------------------------+ \n";
+	cout << "+----------------------------------------------------------+\n";
 	cout << "| 1 - Gestão de Clientes                                   |\n";
-	cout << "| 2 - Gestão de Viagens                                    |\n";;
+	cout << "| 2 - Gestão de Viagens                                    |\n";
+	cout << "| 3 - Abrir o Mapa                                         |\n";
+	cout << "| 4 - Guardar Ficheiros                                    |\n";
 	cout << "| 0 - Sair                                                 |\n";
 	cout << "+----------------------------------------------------------+\n";
 
@@ -47,6 +55,19 @@ void Agency::introMenu() {
 		cin.get();
 		cin.get();
 		break;
+
+	case 3:
+		map();
+		cin.get();
+		cin.get();
+		break;
+
+	case 4:
+		menuSave();
+		cin.get();
+		cin.get();
+		break;
+
 	default:
 		cout << "Lamento, mas a opcao que inseriu nao e valida. Sera redirecionado/a para o inicio do menu. \n";
 
@@ -97,16 +118,15 @@ void Agency::menuCliente() {
 
 		case 3:
 			listClients();
-			 cin.get();
-			 cin.get();
-			 break;
+			cin.get();
+			cin.get();
+			break;
 		default:
 			cout << "Lamento, mas a opcao que inseriu nao e valida. Sera redirecionado/a para o inicio do menu. \n";
 
 		}
 	}
 }
-
 
 void Agency::adicionaCliente() {
 
@@ -174,7 +194,7 @@ void Agency::removeCliente() {
 
 void Agency::listClients(){
 
-	cout << "CLIENTS:\n" << getClientes().size() <<endl;
+	cout << "CLIENTS:\n" <<endl;
 
 	for(unsigned int i = 0; i < getClientes().size(); i++){
 
@@ -246,7 +266,6 @@ void Agency::menuTrip(){
 	}
 }
 
-
 void Agency::adicionaTrip() {
 
 
@@ -272,7 +291,7 @@ void Agency::adicionaTrip() {
 	cout << "| Indique os voos a adicionar (escreva FIM para terminar): |\n";
 	cout << "+----------------------------------------------------------+\n";
 
-/*	cin.ignore(INT_MAX, '\n');
+	/*	cin.ignore(INT_MAX, '\n');
 		while (temp != "FIM")
 		{
 			getline(cin, temp);
@@ -289,7 +308,6 @@ void Agency::adicionaTrip() {
 	Trip * novaTrip = new Trip(*dataInicial, *dataFinal);
 	addTrips(novaTrip);
 }
-
 
 void Agency::removeTrip() {
 
@@ -329,9 +347,9 @@ void Agency::destinationsList(){
 
 	while(!in.eof()){
 
-			getline(in,temp);
-			cout << " | "<< temp;
-		}
+		getline(in,temp);
+		cout << " | "<< temp;
+	}
 
 	in.close();
 }
@@ -344,4 +362,75 @@ void Agency::tripList(){
 
 		cout << trips[i]->getID() << " - " << trips[i]->getDepartureDate().getString() << " ; "  << trips[i]->getArrivalDate().getString() << " - " << trips[i]->getDepartureCity() << " - " << trips[i]->getArrivalCity() << " - " << trips[i]->getHotel() << " - " << trips[i]->getCost() << " ; " << trips[i]->getDistance() << endl;
 	}
+}
+
+void Agency::menuSave(){
+
+	int opcaotrip;
+
+	while (true) {
+		cout << "+----------------------------------------------------------+\n";
+		cout << "| Escolha que ficheiros pretende guardar                   |\n";
+		cout << "+----------------------------------------------------------+\n";
+		cout << "| Selecione a sua opcao (insira apenas o numero):          |\n";
+		cout << "+----------------------------------------------------------+\n";
+		cout << "| 1 - Guardar Cliente                                      |\n";
+		cout << "| 2 - Guardar Viagens					                    |\n";
+		cout << "| 0 - Sair                                                 |\n";
+		cout << "+----------------------------------------------------------+\n";
+
+		cin >> opcaotrip;
+
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(INT_MAX, '\n');
+			cout << "Erro: Introduziu um input invalido. So pode usar numeros inteiros." << endl;
+			cout << "Pressione Enter para voltar ao menu" << endl;
+			cin.get();
+		}
+
+		switch (opcaotrip) {
+
+		case 0:
+			return;
+			break;
+
+		case 1:
+			readToClientFile();
+			cin.get();
+			cin.get();
+			break;
+
+		case 2:
+			readToTripsFile();
+			cin.get();
+			cin.get();
+			break;
+
+		default:
+			cout << "Lamento, mas a opcao que inseriu nao e valida. Sera redirecionado/a para o inicio do menu. \n";
+
+		}
+	}
+}
+
+void Agency::map(){
+
+	gv = new GraphViewer(1360,625, false);
+	gv->setBackground("worldmap.jpg");
+	gv->defineVertexColor("blue");
+	gv->defineEdgeColor("black");
+	gv->defineEdgeCurved(true);
+	gv->createWindow(750,450);
+
+	for(unsigned int i = 0; i < vec.size(); i++){
+
+	gv->addNode(vec.at(i)->getID(), vec[i]->getCoordinates().getX(), vec[i]->getCoordinates().getY());
+	gv->setVertexLabel(vec[i]->getID(),vec[i]->getName());
+	gv->setVertexColor(vec[i]->getID(), "black");
+	gv->setVertexSize(vec[i]->getID(), 3);
+	}
+
+	gv->rearrange();
+
 }

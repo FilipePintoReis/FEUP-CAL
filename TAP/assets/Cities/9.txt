@@ -1,6 +1,6 @@
 New York
 6
-7123,3182
+293,163
 3
 New York Hotel
 120
