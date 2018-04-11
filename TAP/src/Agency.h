@@ -9,12 +9,14 @@
 #include "Graph.h"
 #include "Hotel.h"
 #include "Trip.h"
-
+#include "graphviewer.h"
+#include <cstdio>
 #include <fstream>
 #include <sstream>
 #include <vector>
 #include <string>
 
+using namespace std;
 
 class Agency {
 private:

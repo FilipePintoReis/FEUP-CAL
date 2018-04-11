@@ -52,15 +52,8 @@ Vertex<T>::Vertex(T in): info(in) {}
  * with a given destination vertex (d) and edge weight (w).
  */
 template <class T>
-<<<<<<< HEAD
 void Vertex<T>::addEdge(Vertex<T> *d, double w) {
 	adj.push_back(Edge<T>(this, d, w));
-=======
-void Vertex<T>::addEdge(Vertex<T> *dest, double w){
-
-	Edge<T> edgeD(dest, w);
-	adj.push_back(edgeD);
->>>>>>> 8a635634b793da9e6ff2475838f5bc3abf0c6bc8
 }
 
 template <class T>
@@ -87,21 +80,9 @@ Vertex<T> *Vertex<T>::getPath() const {
 
 template <class T>
 class Edge {
-<<<<<<< HEAD
 	Vertex<T> *orig; 	// Fp07
 	Vertex<T> * dest;      // destination vertex
 	double weight;         // edge weight
-=======
-	T info;                // contents
-	Vertex<T> * dest;
-	double weight;         // edge weight
-public:
-	Edge(Vertex<T> *d, double w);
-	T getInfo() const;
-	double getWeight() const;
-	Vertex<T>* getDest() const;
-	bool operator<(const Edge<T> &other) const;
->>>>>>> 8a635634b793da9e6ff2475838f5bc3abf0c6bc8
 
 	bool selected; // Fp07
 
@@ -115,33 +96,11 @@ public:
 };
 
 template <class T>
-<<<<<<< HEAD
 Edge<T>::Edge(Vertex<T> *o, Vertex<T> *d, double w): orig(o), dest(d), weight(w) {}
-=======
-Edge<T>::Edge(Vertex<T> *d, double w): dest(d), weight(w) {
-}
->>>>>>> 8a635634b793da9e6ff2475838f5bc3abf0c6bc8
 
 template <class T>
 double Edge<T>::getWeight() const {
-<<<<<<< HEAD
 	return weight;
-=======
-
-	return this->weight;
-}
-
-template<class T>
-Vertex<T>* Edge<T>::getDest() const {
-
-	return this->dest;
-}
-
-template<class T>
-bool Edge<T>::operator<(const Edge<T> &o) const {
-
-	return this->weight < o->weight;
->>>>>>> 8a635634b793da9e6ff2475838f5bc3abf0c6bc8
 }
 
 

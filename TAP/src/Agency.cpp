@@ -9,6 +9,8 @@
 
 #define NOCiF 10 //number of city files
 
+using namespace std;
+
 Agency::Agency() {
 
 	readFromClientFile();

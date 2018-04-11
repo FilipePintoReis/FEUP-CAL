@@ -17,7 +17,7 @@ void Agency::introMenu() {
 	int opcao;
 
 	cout << "+----------------------------------------------------------+\n";
-	cout << "| Bem vindo a nossa agencia de viagens!                    |\n";.0
+	cout << "| Bem vindo a nossa agencia de viagens!                    |\n";
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Selecione a sua opcao (insira apenas o numero):          |\n";
 	cout << "+----------------------------------------------------------+\n";
@@ -371,15 +371,15 @@ void Agency::escolheDireto() {
 
 	getline(cin, origem);
 
-	for (unsigned int i = 0; i < getGraph().getNumVertex(); i++)
+	for (int i = 0; i < graph.getNumVertex(); i++)
 	{
-		if (getGraph(). )//VERIFICAR SE EXISTE
+	/*	if (getGraph(). )//VERIFICAR SE EXISTE
 
 
 			else {
 				cout << " Origem não existe!\n";
 
-			}
+			}*/
 	}
 
 	cout << "+----------------------------------------------------------+\n";
@@ -388,15 +388,15 @@ void Agency::escolheDireto() {
 
 	getline(cin, destino);
 
-	for (unsigned int i = 0; i < getGraph().getNumVertex(); i++)
+	for (int i = 0; i < graph.getNumVertex(); i++)
 	{
-		if (getGraph().) //VERIFICAR SE EXISTE)
+		/*if (getGraph().) //VERIFICAR SE EXISTE)
 
 
 			else {
 				cout << " Destino não existe!\n";
 
-			}
+			}*/
 	}
 }
 
