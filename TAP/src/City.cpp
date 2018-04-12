@@ -45,7 +45,13 @@
 	}
 
 	int City::getQueueIndex(){
+
 		return this->queueIndex;
+	}
+
+	int City::getIDDestinies(int n){
+
+		return possibleDestinations[n*2];
 	}
 
 	void City::setID(int id){

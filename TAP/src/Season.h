@@ -12,25 +12,28 @@ class Season {
 private:
 	float multiplier = 1;
 public:
-	Season();
-	~Season();
+	Season(){};
 	float getMultiplier() { return multiplier;};
+
 	void setMultiplier(float value) {this->multiplier = value;};
+
 	void calculateMul(Date date){
+
 		if((date.getMonth() == 12 && date.getDay() > 3) ||
 		   (date.getMonth() == 1 && date.getDay() < 10) ){  //CHRISTMAS VACATIONS
 			setMultiplier(HIGH_S_M);
 		}
 
-		if(date.getMonth() == 4){ //EASTER
-			if(10 <= date.getDay() <= 19)
+		if(date.getMonth() == 4){                           //EASTER
+			if(10 <= date.getDay() &&  date.getDay() <= 19)
 				setMultiplier(HIGH_S_M);
 		}
 
-		if(date.getMonth() == 7 || date.getMonth() == 8) //SUMMER VACATIONS
+		if(date.getMonth() == 7 || date.getMonth() == 8)   //SUMMER VACATIONS
 			setMultiplier(HIGH_S_M);
 
 	};
 };
+
 
 #endif /* SEASON_H */

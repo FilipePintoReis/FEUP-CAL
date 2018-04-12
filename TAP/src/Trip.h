@@ -5,8 +5,7 @@
 #include <iostream>
 #include <vector>
 #include "Date.h"
-
-
+#include "Season.h"
 
 class Trip {
 private:
@@ -43,6 +42,7 @@ public:
 	void setCost(double c);
 	void setDistance(double d);
 	void setHotel(string ht);
+
 };
 
 #endif /* SRC_TRIP_H_ */

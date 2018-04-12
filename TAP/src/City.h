@@ -27,6 +27,7 @@ public:
 	Coordinates getCoordinates();
 	vector<Hotel*> getHotels();
 	vector<int> getPossibleDestinations();
+	int getIDDestinies(int n);
 	int getQueueIndex();
 
 	void setID(int id);
