@@ -94,8 +94,8 @@ void Agency::readFromCityFiles(){
 
 	}
 
-/*		//after all Vertex were created we start adding Edges
-		for(int k = 0; k < graph.getNumVertex(); k++){ //For each Vertex goes through vector possibleDestinations
+	//after all Vertex were created we start adding Edges
+/*		for(int k = 0; k < graph.getNumVertex(); k++){ //For each Vertex goes through vector possibleDestinations
 			for(unsigned int l = 0; l < this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations().size(); l++){
 				Vertex<City>* destVertex =  this->graph.findVertexID(this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l]);
 				this->graph.addEdge(
@@ -104,9 +104,9 @@ void Agency::readFromCityFiles(){
 						calculateCost(graph.getVertexSet()[k], destVertex));
 //				this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l];
 			}
-		}
+		}*/
 
-*/
+
 
 	cout << " Finished loading Cities!\n";
 }

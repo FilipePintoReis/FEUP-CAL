@@ -86,6 +86,7 @@ void Agency::menuCliente() {
 		cout << "| 1 - Adicionar Cliente                                    |\n";
 		cout << "| 2 - Apagar Cliente					                    |\n";
 		cout << "| 3 - Listagem Clientes					                |\n";
+		cout << "| 4 - Menu Principal  					                    |\n";
 		cout << "| 0 - Sair                                                 |\n";
 		cout << "+----------------------------------------------------------+\n";
 
@@ -121,6 +122,13 @@ void Agency::menuCliente() {
 			 cin.get();
 			 cin.get();
 			 break;
+
+		case 4:
+			introMenu();
+			cin.get();
+			cin.get();
+			break;
+
 		default:
 			cout << "Lamento, mas a opcao que inseriu nao e valida. Sera redirecionado/a para o inicio do menu. \n";
 
@@ -165,6 +173,9 @@ void Agency::adicionaCliente() {
 	Client * novocliente = new Client(nomeCliente, ID, telemovel);
 	addClients(novocliente);
 
+	cout << "Cliente adicionado com sucesso! \n";
+	menuCliente();
+
 }
 
 void Agency::removeCliente() {
@@ -188,9 +199,7 @@ void Agency::removeCliente() {
 		}
 	}
 	cout << endl << "O cliente foi removido com sucesso" << endl;
-	cout << "Pressione Enter para regressar" << endl;
-	cin.get();
-	return;
+	menuCliente();
 }
 
 void Agency::listClients(){
@@ -201,6 +210,10 @@ void Agency::listClients(){
 
 		cout << getClientes().at(i)->getName() << " - " << getClientes().at(i)->getID() << " - " << getClientes().at(i)->getPhoneNumber() <<endl;
 	}
+
+	cout << "Pressione ENTER para regressar" << endl;
+	cin.get();
+	return;
 }
 
 void Agency::menuTrip(){
@@ -218,7 +231,7 @@ void Agency::menuTrip(){
 		cout << "| 3 - Lista de Destinos					                |\n";
 		cout << "| 4 - Escolher uma origem e um destino diretamente         |\n";
 		cout << "| 5 - Escolher conjunto de locais a visitar                |\n";
-		cout << "| 0 - Sair                                                 |\n";
+		cout << "| 6 - Menu Principal                                       |\n";
 		cout << "+----------------------------------------------------------+\n";
 		cout << "| 0 - Sair                                                 |\n";
 		cout << "+----------------------------------------------------------+\n";
@@ -272,6 +285,12 @@ void Agency::menuTrip(){
 			cin.get();
 			break;
 
+		case 6:
+			introMenu();
+			cin.get();
+			cin.get();
+			break;
+
 		default:
 			cout << "Lamento, mas a opcao que inseriu nao e valida. Sera redirecionado/a para o inicio do menu. \n";
 
@@ -287,7 +306,7 @@ void Agency::adicionaTrip() {
 	string dataFim;
 
 	cout << "+----------------------------------------------------------+\n";
-	cout << "| Qual � a data de inicio da viagem?  (Formato: dd/mm/aa)  |\n";
+	cout << "| Qual e a data de inicio da viagem?  (Formato: dd/mm/aa)  |\n";
 	cout << "+----------------------------------------------------------+\n";
 
 	cin >> dataInicio;
@@ -321,6 +340,8 @@ void Agency::adicionaTrip() {
 
 	Trip * novaTrip = new Trip(*dataInicial, *dataFinal);
 	addTrips(novaTrip);
+
+	cout << "Viagem adicionada com sucesso!\n";
 }
 
 
@@ -453,6 +474,7 @@ void Agency::menuSave(){
 		cout << "+----------------------------------------------------------+\n";
 		cout << "| 1 - Guardar Cliente                                      |\n";
 		cout << "| 2 - Guardar Viagens					                    |\n";
+		cout << "| 3 - Menu Principal					                    |\n";
 		cout << "| 0 - Sair                                                 |\n";
 		cout << "+----------------------------------------------------------+\n";
 
@@ -479,6 +501,12 @@ void Agency::menuSave(){
 			break;
 
 		case 2:
+			readToTripsFile();
+			cin.get();
+			cin.get();
+			break;
+
+		case 3:
 			readToTripsFile();
 			cin.get();
 			cin.get();
