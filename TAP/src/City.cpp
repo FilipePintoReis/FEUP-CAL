@@ -51,7 +51,7 @@
 
 	int City::getIDDestinies(int n){
 
-		return possibleDestinations[n*2];
+		return possibleDestinations[n*3];
 	}
 
 	void City::setID(int id){

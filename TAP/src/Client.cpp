@@ -2,7 +2,7 @@
 #include "Client.h"
 
 
-	Client::Client(string n,int pn, int ID) {
+	Client::Client(string n,int ID, int pn) {
 
 	this->name = n;
 	this->id = ID;

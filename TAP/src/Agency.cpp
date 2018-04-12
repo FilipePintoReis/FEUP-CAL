@@ -16,6 +16,7 @@ Agency::Agency() {
 	readFromClientFile();
 	readFromCityFiles();
 	readFromTripFiles();
+
 	introMenu();
 
 }
@@ -27,7 +28,7 @@ void Agency::readFromCityFiles(){
 	string assets = "./assets/Cities/"; //This is used to pre append to rest of path
 	string cityName, hotelName;
 	string ID, temp;
-	unsigned int x, y, hotelNumber, numberDestinies, cityID;
+	unsigned int x, y, hotelNumber, numberDestinies, cityID, cityPrice, cityTime;
 	float price;
 
 	ifstream in;
@@ -72,8 +73,14 @@ void Agency::readFromCityFiles(){
 
 				getline(in, temp);
 				cityID = atoi(temp.c_str());
+				getline(in, temp);
+				cityPrice = atoi(temp.c_str());
+				getline(in, temp);
+				cityTime = atoi(temp.c_str());
 
 				destinations.push_back(cityID);
+				destinations.push_back(cityPrice);
+				destinations.push_back(cityTime);
 
 			}
 
@@ -87,7 +94,7 @@ void Agency::readFromCityFiles(){
 
 	}
 
-		//after all Vertex were created we start adding Edges
+/*		//after all Vertex were created we start adding Edges
 		for(int k = 0; k < graph.getNumVertex(); k++){ //For each Vertex goes through vector possibleDestinations
 			for(unsigned int l = 0; l < this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations().size(); l++){
 				Vertex<City>* destVertex =  this->graph.findVertexID(this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l]);
@@ -99,7 +106,7 @@ void Agency::readFromCityFiles(){
 			}
 		}
 
-
+*/
 
 	cout << " Finished loading Cities!\n";
 }

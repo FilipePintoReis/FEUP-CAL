@@ -13,6 +13,7 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include "Math.h"
 
 
 class Agency {
@@ -46,8 +47,7 @@ public:
 	void introMenu();
 	void menuCliente();
 	void menuTrip();
-	void menuAlojamento();
-	void menuDeslocamento();
+	void menuSave();
 
 	void adicionaCliente();
 	void removeCliente();
@@ -60,6 +60,7 @@ public:
 	void tripList();
 	void escolheDireto();
 	void escolheGeral();
+	void map();
 
 	double calculateCost(Vertex<City> *origin, Vertex<City> *destination);
 };
