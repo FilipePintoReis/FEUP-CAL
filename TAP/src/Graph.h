@@ -10,6 +10,8 @@
 #include <algorithm>
 #include <unordered_set>
 #include "MutablePriorityQueue.h"
+#include "Trip.h"
+
 
 using namespace std;
 
@@ -27,7 +29,7 @@ class Vertex {
 	vector<Edge<T> > adj;  // outgoing edges
 	bool visited;          // auxiliary field
 	double dist = 0;
-	Vertex<T> *path = nullptr;
+	Vertex<T>* path = nullptr;
 	int queueIndex = 0; 		// required by MutablePriorityQueue
 
 	void addEdge(Vertex<T> *dest, double w);
@@ -41,8 +43,20 @@ public:
 	Vertex *getPath() const;
 	friend class Graph<T>;
 	friend class MutablePriorityQueue<Vertex<T>>;
+
+
+    bool operator<(const Vertex<T> v);
 };
 
+
+template<class T>
+struct vertexCloser {
+
+	bool operator()(Vertex<T>* a, Vertex<T>* b) const {
+
+		return a->getDist() > b->getDist();
+	}
+};
 
 template <class T>
 Vertex<T>::Vertex(T in): info(in) {}
@@ -53,7 +67,7 @@ Vertex<T>::Vertex(T in): info(in) {}
  */
 template <class T>
 void Vertex<T>::addEdge(Vertex<T> *d, double w) {
-	adj.push_back(Edge<T>(this, d, w));
+	adj.push_back(Edge<T>(d, w));
 }
 
 template <class T>
@@ -68,6 +82,7 @@ T Vertex<T>::getInfo() const {
 
 template <class T>
 double Vertex<T>::getDist() const {
+
 	return this->dist;
 }
 
@@ -76,39 +91,71 @@ Vertex<T> *Vertex<T>::getPath() const {
 	return this->path;
 }
 
-/********************** Edge  ****************************/
+
+/******************EDGE  ********************/
 
 template <class T>
 class Edge {
-	Vertex<T> *orig; 	// Fp07
-	Vertex<T> * dest;      // destination vertex
+	T info;                // contents
+	Vertex<T> * dest;
 	double weight;         // edge weight
 
 	bool selected; // Fp07
 
 public:
-	Edge(Vertex<T> *o, Vertex<T> *d, double w);
+	Edge(Vertex<T> *d, double w);
+	T getInfo() const;
+	double getWeight() const;
+	Vertex<T>* getDest() const;
+	bool operator<(const Edge<T> &other) const;
+
 	friend class Graph<T>;
 	friend class Vertex<T>;
 
-	// Fp07
-	double getWeight() const;
+};
+
+
+template<class T>
+struct egdeGreater {
+	bool operator()(Edge<T> a, Edge<T> b) const {
+		return a.getWeight() > b.getWeight();
+	}
 };
 
 template <class T>
-Edge<T>::Edge(Vertex<T> *o, Vertex<T> *d, double w): orig(o), dest(d), weight(w) {}
-
-template <class T>
-double Edge<T>::getWeight() const {
-	return weight;
+Edge<T>::Edge(Vertex<T> *d, double w): dest(d), weight(w) {
 }
 
+template<class T>
+double Edge<T>::getWeight() const {
 
-/*************************** Graph  **************************/
+	return this->weight;
+}
+
+template<class T>
+Vertex<T>* Edge<T>::getDest() const {
+
+	return this->dest;
+}
+
+template<class T>
+bool Edge<T>::operator<(const Edge<T> &o) const {
+
+	return this->weight < o.weight;
+}
+
+template <class T>
+T Edge<T>::getInfo() const {
+
+	return this->info;
+}
+
+/****************** GRAPH  ********************/
 
 template <class T>
 class Graph {
 	vector<Vertex<T> *> vertexSet;    // vertex set
+	void dfsVisit(Vertex<T> *v,  vector<T> & res) const;
 
 	// Fp05
 	Vertex<T> * initSingleSource(const T &orig);
@@ -117,19 +164,22 @@ class Graph {
 	int **P = nullptr;   // path
 	int findVertexIdx(const T &in) const;
 
-
+	bool dfsIsDAG(Vertex<T> *v) const;
 public:
-	Vertex<T> *findVertex(const T &in) const;
 	bool addVertex(const T &in);
+	bool removeVertex(const T &in);
 	bool addEdge(const T &sourc, const T &dest, double w);
 	int getNumVertex() const;
 	vector<Vertex<T> *> getVertexSet() const;
+    Vertex<T>* findVertexName(string nome) const;
 
 	// Fp05 - single source
 	void dijkstraShortestPath(const T &s);
 	void unweightedShortestPath(const T &s);
 	void bellmanFordShortestPath(const T &s);
 	vector<T> getPath(const T &origin, const T &dest) const;
+	Vertex<T> *findVertex(const T &in) const;
+	Vertex<T> *findVertexID(int id) const;
 
 	// Fp05 - all pairs
 	void floydWarshallShortestPath();
@@ -141,7 +191,6 @@ public:
 	vector<Vertex<T>*> calculateKruskal();
 };
 
-
 template <class T>
 int Graph<T>::getNumVertex() const {
 	return vertexSet.size();
@@ -152,15 +201,20 @@ vector<Vertex<T> *> Graph<T>::getVertexSet() const {
 	return vertexSet;
 }
 
-/*
- * Auxiliary function to find a vertex with a given content.
- */
 template <class T>
 Vertex<T> * Graph<T>::findVertex(const T &in) const {
 	for (auto v : vertexSet)
-		if (v->info == in)
+		if (v->info ==  in)
 			return v;
-	return nullptr;
+	return NULL;
+}
+
+template <class T>
+Vertex<T> * Graph<T>::findVertexID(int id) const {
+	for (auto v : vertexSet)
+		if (v->info.getID() == id)
+			return v;
+	return NULL;
 }
 
 /*
@@ -179,7 +233,7 @@ int Graph<T>::findVertexIdx(const T &in) const {
  */
 template <class T>
 bool Graph<T>::addVertex(const T &in) {
-	if (findVertex(in) != nullptr)
+	if ( findVertex(in) != NULL)
 		return false;
 	vertexSet.push_back(new Vertex<T>(in));
 	return true;
@@ -194,9 +248,9 @@ template <class T>
 bool Graph<T>::addEdge(const T &sourc, const T &dest, double w) {
 	auto v1 = findVertex(sourc);
 	auto v2 = findVertex(dest);
-	if (v1 == nullptr || v2 == nullptr)
+	if (v1 == NULL || v2 == NULL)
 		return false;
-	v1->addEdge(v2, w);
+	v1->addEdge(v2,w);
 	return true;
 }
 
@@ -235,6 +289,19 @@ inline bool Graph<T>::relax(Vertex<T> *v, Vertex<T> *w, double weight) {
 		return false;
 }
 
+template<class T>
+Vertex<T>* Graph<T>::findVertexName(string nome) const{
+    for (auto v : vertexSet)
+        if (v->info.getName() == nome)
+            return v;
+    return NULL;
+}
+
+
+
+/**
+ * Dijkstra algorithm.
+ */
 template<class T>
 void Graph<T>::dijkstraShortestPath(const T &origin) {
 	auto s = initSingleSource(origin);

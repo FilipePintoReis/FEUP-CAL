@@ -132,7 +132,7 @@ void Agency::readFromClientFile() {
 	in.close();
 }
 
-vector<City*> Agency::getCityVec(){
+vector<City*> Agency::getCityVec() const{
 
 	return vec;
 }
@@ -249,4 +249,8 @@ void Agency::addClients(Client* cliente) {
 
 void Agency::addTrips(Trip* viagem) {
 	trips.push_back(viagem);
+}
+
+Graph<City> Agency::getGraph() {
+	return graph;
 }

@@ -9,14 +9,11 @@
 #include "Graph.h"
 #include "Hotel.h"
 #include "Trip.h"
-#include "graphviewer.h"
-#include <cstdio>
 #include <fstream>
 #include <sstream>
 #include <vector>
 #include <string>
 
-using namespace std;
 
 class Agency {
 private:
@@ -24,7 +21,6 @@ private:
 	vector<Client*> clientes;
 	vector<Trip*> trips;
 	vector<City*> vec;
-
 
 public:
 	Agency();
@@ -44,14 +40,14 @@ public:
 	//GET METHODS
 	vector<Client*> getClientes() { return clientes; }
 	vector<Trip*> getTrips() { return trips; }
-	vector<City*> getCityVec();
+	vector<City*> getCityVec() const;
 
 	//MENUS
 	void introMenu();
 	void menuCliente();
 	void menuTrip();
-	void menuSave();
-	void map();
+	void menuAlojamento();
+	void menuDeslocamento();
 
 	void adicionaCliente();
 	void removeCliente();
