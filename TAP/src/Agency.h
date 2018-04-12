@@ -60,6 +60,8 @@ public:
 	void tripList();
 	void escolheDireto();
 	void escolheGeral();
+
+	double calculateCost(Vertex<City> *origin, Vertex<City> *destination);
 };
 
 #endif /* SRC_AGENCY_H_ */

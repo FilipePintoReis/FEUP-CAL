@@ -191,6 +191,11 @@ public:
 	vector<Vertex<T>*> calculateKruskal();
 };
 
+template<class T>
+bool Vertex<T>::operator<(const Vertex<T> v) {
+    return this->dist < v.dist;
+}
+
 template <class T>
 int Graph<T>::getNumVertex() const {
 	return vertexSet.size();

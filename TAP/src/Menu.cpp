@@ -211,6 +211,8 @@ void Agency::menuTrip(){
 			cin.get();
 		}
 
+		cin.ignore(INT_MAX, '\n');
+
 		switch (opcaotrip) {
 
 		case 0:
@@ -346,18 +348,13 @@ void Agency::escolheDireto() {
 
 	getline(cin, origem);
 
-	for (unsigned int i = 0; i < getGraph().getNumVertex(); i++)
-	{
-		if (getGraph().findVertexName(origem) != NULL)//VERIFICAR SE EXISTE
-		{
-			cout << "qualquer coisa";
-		}
 
-		else {
+	Vertex<City>* originVertex;
+	if ((originVertex = getGraph().findVertexName(origem)) == NULL){//VERIFICAR SE EXISTE
 			cout << " Origem nao existe!\n";
-
+			return;
 		}
-	}
+
 
 	cout << "+----------------------------------------------------------+\n";
 	cout << "|	Indique o destino que quer visitar:                      |\n";
@@ -365,17 +362,20 @@ void Agency::escolheDireto() {
 
 	getline(cin, destino);
 
-	for (unsigned int i = 0; i < getGraph().getNumVertex(); i++)
-	{
-		if (getGraph().findVertexName(origem) != NULL){} //VERIFICAR SE EXISTE)
-			
 
-		else {
-			cout << " Destino n�o existe!\n";
-
-		}
+	Vertex<City>* destVertex;
+	if ((destVertex = getGraph().findVertexName(destino)) == NULL){//VERIFICAR SE EXISTE
+		cout << " Destino nao existe!\n";
+		return;
 	}
 
+	graph.dijkstraShortestPath(originVertex->getInfo());
+	cout << "dist : " << destVertex->getDist() << "\n";
+	auto path = graph.getPath(originVertex->getInfo(), destVertex->getInfo());
+
+	for(City city: path){
+		cout << city.getName() <<"\n";
+	}
 	
 }
 

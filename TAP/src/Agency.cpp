@@ -90,10 +90,11 @@ void Agency::readFromCityFiles(){
 		//after all Vertex were created we start adding Edges
 		for(int k = 0; k < graph.getNumVertex(); k++){ //For each Vertex goes through vector possibleDestinations
 			for(unsigned int l = 0; l < this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations().size(); l++){
+				Vertex<City>* destVertex =  this->graph.findVertexID(this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l]);
 				this->graph.addEdge(
 						this->graph.getVertexSet()[k]->getInfo(),
-						this->graph.findVertexID(this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l])->getInfo(),
-						1);
+						destVertex->getInfo(),
+						calculateCost(graph.getVertexSet()[k], destVertex));
 //				this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l];
 			}
 		}
@@ -253,4 +254,12 @@ void Agency::addTrips(Trip* viagem) {
 
 Graph<City> Agency::getGraph() {
 	return graph;
+}
+
+double Agency::calculateCost(Vertex<City> *origin, Vertex<City> *destination) {
+	double ret;
+	double x = origin->getInfo().getCoordinates().getX();
+	double y = origin->getInfo().getCoordinates().getY();
+	ret = sqrt(x*x + y*y)/8;
+	return ret;
 }
