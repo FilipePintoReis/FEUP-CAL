@@ -95,16 +95,16 @@ void Agency::readFromCityFiles(){
 	}
 
 	//after all Vertex were created we start adding Edges
-/*		for(int k = 0; k < graph.getNumVertex(); k++){ //For each Vertex goes through vector possibleDestinations
-			for(unsigned int l = 0; l < this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations().size(); l++){
-				Vertex<City>* destVertex =  this->graph.findVertexID(this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l]);
+		for(int k = 0; k < graph.getNumVertex(); k++){ //For each Vertex goes through vector possibleDestinations
+			for(unsigned int l = 0; l < 3; l++){
+				Vertex<City>* destVertex =  this->graph.findVertexID(this->graph.getVertexSet()[k]->getInfo().getIDDestinies(l));
 				this->graph.addEdge(
 						this->graph.getVertexSet()[k]->getInfo(),
 						destVertex->getInfo(),
 						calculateCost(graph.getVertexSet()[k], destVertex));
-//				this->graph.getVertexSet()[k]->getInfo().getPossibleDestinations()[l];
+//				this->graph.getVertexSet()[k]->getInfo().getIDDestinites()[l];
 			}
-		}*/
+		}
 
 
 
