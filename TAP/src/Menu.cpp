@@ -420,13 +420,36 @@ void Agency::escolheDireto() {
 	}
 
 	graph.dijkstraShortestPath(originVertex->getInfo());
-	cout << "dist : " << destVertex->getDist() << "\n";
+	cout << "Distance : " << destVertex->getDist() << "\n";
 	auto path = graph.getPath(originVertex->getInfo(), destVertex->getInfo());
 
 	for(City city: path){
 		cout << city.getName() <<"\n";
 	}
 	
+	gv = new GraphViewer(1360,625, false);
+		gv->setBackground("worldmap.jpg");
+		gv->defineVertexColor("black");
+		gv->defineEdgeColor("red");
+		gv->defineEdgeCurved(true);
+		gv->createWindow(750,450);
+
+		for(unsigned int i = 0; i < vec.size(); i++){
+
+		gv->addNode(vec.at(i)->getID(), vec[i]->getCoordinates().getX(), vec[i]->getCoordinates().getY());
+		gv->setVertexLabel(vec[i]->getID(),vec[i]->getName());
+		gv->setVertexColor(vec[i]->getID(), "grey");
+		gv->setVertexSize(vec[i]->getID(), 3);
+		}
+
+		int id = 0;
+
+		for(unsigned int i = 0; i < path.size() - 1; i++){
+				gv->addEdge(id, path[i].getID(), path[i+1].getID(), EdgeType::DIRECTED);
+					id++;
+			}
+
+		gv->rearrange();
 }
 
 void Agency::destinationsList(){
