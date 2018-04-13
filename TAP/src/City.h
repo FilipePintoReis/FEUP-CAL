@@ -28,6 +28,7 @@ public:
 	vector<Hotel*> getHotels();
 	vector<int> getPossibleDestinations();
 	int getIDDestinies(int n);
+	int getPlaneTicket(int n);
 	int getQueueIndex();
 
 	void setID(int id);

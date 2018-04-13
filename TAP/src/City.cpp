@@ -54,6 +54,11 @@
 		return possibleDestinations[n*3];
 	}
 
+	int City::getPlaneTicket(int n){
+
+		return possibleDestinations[(n + 1)*3];
+	}
+
 	void City::setID(int id){
 
 		this->id = id;
@@ -78,18 +83,5 @@
 
 		this->possibleDestinations = pd;
 	}
-
-	/*City City::operator=(City assignee)  {
-
-		this->id = assignee.getID();
-		this->name = assignee.getName();
-		this->coord.setX(assignee.getCoordinates().getX());
-		this->coord.setY(assignee.getCoordinates().getY());
-		this->setHotels(assignee.getHotels());
-		this->setDestinations(assignee.getPossibleDestinations());
-		this->queueIndex = assignee.getQueueIndex();
-	}*/
-
-
 
 	City::~City() {}

@@ -1,4 +1,4 @@
- #include <iostream>
+#include <iostream>
 #include "graphviewer.h"
 #include <cstdio>
 #include <fstream>
@@ -57,16 +57,16 @@ void Agency::introMenu() {
 		break;
 
 	case 3:
-			map();
-			cin.get();
-			cin.get();
-			break;
+		map();
+		cin.get();
+		cin.get();
+		break;
 
-		case 4:
-			menuSave();
-			cin.get();
-			cin.get();
-			break;
+	case 4:
+		menuSave();
+		cin.get();
+		cin.get();
+		break;
 
 	default:
 		cout << "Lamento, mas a opcao que inseriu nao e valida. Sera redirecionado/a para o inicio do menu. \n";
@@ -119,9 +119,9 @@ void Agency::menuCliente() {
 
 		case 3:
 			listClients();
-			 cin.get();
-			 cin.get();
-			 break;
+			cin.get();
+			cin.get();
+			break;
 
 		case 4:
 			introMenu();
@@ -135,7 +135,6 @@ void Agency::menuCliente() {
 		}
 	}
 }
-
 
 void Agency::adicionaCliente() {
 
@@ -231,6 +230,7 @@ void Agency::menuTrip(){
 		cout << "| 3 - Lista de Destinos					                |\n";
 		cout << "| 4 - Escolher uma origem e um destino diretamente         |\n";
 		cout << "| 5 - Escolher conjunto de locais a visitar                |\n";
+		cout << "|     a partir de onde me encontro                         |\n";
 		cout << "| 6 - Menu Principal                                       |\n";
 		cout << "+----------------------------------------------------------+\n";
 		cout << "| 0 - Sair                                                 |\n";
@@ -273,14 +273,14 @@ void Agency::menuTrip(){
 			break;
 
 		case 4:
-			escolheDireto();
+			menuViagem();
 			cin.get();
 			cin.get();
 			break;
 
 
 		case 5:
-			escolheGeral();
+			destinosCidade();
 			cin.get();
 			cin.get();
 			break;
@@ -297,7 +297,6 @@ void Agency::menuTrip(){
 		}
 	}
 }
-
 
 void Agency::adicionaTrip() {
 
@@ -324,7 +323,7 @@ void Agency::adicionaTrip() {
 	cout << "| Indique os voos a adicionar (escreva FIM para terminar): |\n";
 	cout << "+----------------------------------------------------------+\n";
 
-/*	cin.ignore(INT_MAX, '\n');
+	/*	cin.ignore(INT_MAX, '\n');
 		while (temp != "FIM")
 		{
 			getline(cin, temp);
@@ -343,7 +342,6 @@ void Agency::adicionaTrip() {
 
 	cout << "Viagem adicionada com sucesso!\n";
 }
-
 
 void Agency::removeTrip() {
 	tripList();
@@ -375,18 +373,129 @@ void Agency::escolheGeral() {
 	cout << "| Indique os destinos a adicionar (escreva FIM para terminar):|\n";
 	cout << "+-------------------------------------------------------------+\n";
 
-		cin.ignore(INT_MAX, '\n');
+	cin.ignore(INT_MAX, '\n');
 	while (temp != "FIM")
 	{
-	getline(cin, temp);
-	if (temp != "FIM") {
-	//meter aqui os coisos para criar trip com muitos
-	}
-	cout << "\n";
+		getline(cin, temp);
+		if (temp != "FIM") {
+			//meter aqui os coisos para criar trip com muitos
+		}
+		cout << "\n";
 	}
 
 
 }
+
+void Agency::menuViagem(){
+
+	int opcaotrip;
+
+	while (true) {
+		cout << "+----------------------------------------------------------+\n";
+		cout << "| Qual a sua prioridade?                                   |\n";
+		cout << "+----------------------------------------------------------+\n";
+		cout << "| Selecione a sua opcao (insira apenas o numero):          |\n";
+		cout << "+----------------------------------------------------------+\n";
+		cout << "| 1 - Tempo                                                |\n";
+		cout << "| 2 - Custo         					                    |\n";
+		cout << "| 3 - Andar p/ trás         					            |\n";
+		cout << "| 4 - Menu Principal                                       |\n";
+		cout << "+----------------------------------------------------------+\n";
+		cout << "| 0 - Sair                                                 |\n";
+		cout << "+----------------------------------------------------------+\n";
+
+		cin >> opcaotrip;
+
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(INT_MAX, '\n');
+			cout << "Erro: Introduziu um input invalido. So pode usar numeros inteiros." << endl;
+			cout << "Pressione Enter para voltar ao menu" << endl;
+			cin.get();
+		}
+
+		cin.ignore(INT_MAX, '\n');
+
+		switch (opcaotrip) {
+
+		case 0:
+			return;
+			break;
+
+		case 1:
+			calculatePathAcorddingToDistance();
+			escolheDireto();
+			cin.get();
+			cin.get();
+			break;
+
+		case 2:
+			calculatePathAcorddingToCost();
+			escolheDireto();
+			cin.get();
+			cin.get();
+			break;
+
+		case 3:
+			menuTrip();
+			cin.get();
+			cin.get();
+			break;
+
+		case 4:
+			introMenu();
+			cin.get();
+			cin.get();
+			break;
+
+		default:
+			cout << "Lamento, mas a opcao que inseriu nao e valida. Sera redirecionado/a para o inicio do menu. \n";
+
+		}
+	}
+}
+
+void Agency::destinosCidade(){
+
+	string origem;
+
+	cout << "+----------------------------------------------------------+\n";
+	cout << "|	Indique onde se encontra                                |\n";
+	cout << "+----------------------------------------------------------+\n";
+
+	getline(cin, origem);
+
+	for(unsigned int i = 0; i < vec.size(); i++){
+
+		if(origem == vec[i]->getName()){
+
+			gv = new GraphViewer(1360,625, false);
+			gv->setBackground("worldmap.jpg");
+			gv->defineVertexColor("black");
+			gv->defineEdgeColor("red");
+			gv->defineEdgeCurved(true);
+			gv->createWindow(750,450);
+
+			for(unsigned int i = 0; i < vec.size(); i++){
+
+				gv->addNode(vec.at(i)->getID(), vec[i]->getCoordinates().getX(), vec[i]->getCoordinates().getY());
+				gv->setVertexLabel(vec[i]->getID(),vec[i]->getName());
+				gv->setVertexColor(vec[i]->getID(), "grey");
+				gv->setVertexSize(vec[i]->getID(), 3);
+			}
+
+			gv->addEdge(0, vec[i]->getID(), vec[i]->getIDDestinies(0), EdgeType::DIRECTED);
+			gv->addEdge(1, vec[i]->getID(), vec[i]->getIDDestinies(1), EdgeType::DIRECTED);
+			gv->addEdge(2, vec[i]->getID(), vec[i]->getIDDestinies(2), EdgeType::DIRECTED);
+
+		}
+	}
+
+		gv->rearrange();
+
+}
+
+
 
 void Agency::escolheDireto() {
 
@@ -401,9 +510,9 @@ void Agency::escolheDireto() {
 
 	Vertex<City>* originVertex;
 	if ((originVertex = getGraph().findVertexName(origem)) == NULL){//VERIFICAR SE EXISTE
-			cout << " Origem nao existe!\n";
-			return;
-		}
+		cout << " Origem nao existe!\n";
+		return;
+	}
 
 
 	cout << "+----------------------------------------------------------+\n";
@@ -426,30 +535,30 @@ void Agency::escolheDireto() {
 	for(City city: path){
 		cout << city.getName() <<"\n";
 	}
-	
-	gv = new GraphViewer(1360,625, false);
-		gv->setBackground("worldmap.jpg");
-		gv->defineVertexColor("black");
-		gv->defineEdgeColor("red");
-		gv->defineEdgeCurved(true);
-		gv->createWindow(750,450);
 
-		for(unsigned int i = 0; i < vec.size(); i++){
+	gv = new GraphViewer(1360,625, false);
+	gv->setBackground("worldmap.jpg");
+	gv->defineVertexColor("black");
+	gv->defineEdgeColor("red");
+	gv->defineEdgeCurved(true);
+	gv->createWindow(750,450);
+
+	for(unsigned int i = 0; i < vec.size(); i++){
 
 		gv->addNode(vec.at(i)->getID(), vec[i]->getCoordinates().getX(), vec[i]->getCoordinates().getY());
 		gv->setVertexLabel(vec[i]->getID(),vec[i]->getName());
 		gv->setVertexColor(vec[i]->getID(), "grey");
 		gv->setVertexSize(vec[i]->getID(), 3);
-		}
+	}
 
-		int id = 0;
+	int id = 0;
 
-		for(unsigned int i = 0; i < path.size() - 1; i++){
-				gv->addEdge(id, path[i].getID(), path[i+1].getID(), EdgeType::DIRECTED);
-					id++;
-			}
+	for(unsigned int i = 0; i < path.size() - 1; i++){
+		gv->addEdge(id, path[i].getID(), path[i+1].getID(), EdgeType::DIRECTED);
+		id++;
+	}
 
-		gv->rearrange();
+	gv->rearrange();
 }
 
 void Agency::destinationsList(){
@@ -468,9 +577,9 @@ void Agency::destinationsList(){
 
 	while(!in.eof()){
 
-			getline(in,temp);
-			cout << " | "<< temp;
-		}
+		getline(in,temp);
+		cout << " | "<< temp;
+	}
 
 	in.close();
 }
@@ -553,10 +662,10 @@ void Agency::map(){
 
 	for(unsigned int i = 0; i < vec.size(); i++){
 
-	gv->addNode(vec.at(i)->getID(), vec[i]->getCoordinates().getX(), vec[i]->getCoordinates().getY());
-	gv->setVertexLabel(vec[i]->getID(),vec[i]->getName());
-	gv->setVertexColor(vec[i]->getID(), "grey");
-	gv->setVertexSize(vec[i]->getID(), 3);
+		gv->addNode(vec.at(i)->getID(), vec[i]->getCoordinates().getX(), vec[i]->getCoordinates().getY());
+		gv->setVertexLabel(vec[i]->getID(),vec[i]->getName());
+		gv->setVertexColor(vec[i]->getID(), "grey");
+		gv->setVertexSize(vec[i]->getID(), 3);
 	}
 
 	int id = 0;

@@ -48,6 +48,7 @@ public:
 	void menuCliente();
 	void menuTrip();
 	void menuSave();
+	void menuViagem();
 
 	void adicionaCliente();
 	void removeCliente();
@@ -60,8 +61,13 @@ public:
 	void tripList();
 	void escolheDireto();
 	void escolheGeral();
+	void destinosCidade();
 	void map();
 
+
+	void calculatePathAcorddingToDistance();
+	void calculatePathAcorddingToCost();
+	double calculateDist(Vertex<City> *origin, Vertex<City> *destination);
 	double calculateCost(Vertex<City> *origin, Vertex<City> *destination);
 };
 
