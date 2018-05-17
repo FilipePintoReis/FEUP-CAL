@@ -1,0 +1,18 @@
+La Paz
+12
+107,251
+2
+La Paz Hotel
+90
+Bolivia Mayor Hotel
+100
+3
+ //El Salvador
+60
+110
+  //Bogota
+40
+120
+  //Cidade Do Mexico
+50
+100
