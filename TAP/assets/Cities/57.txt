@@ -1,0 +1,19 @@
+Paris
+57
+563,323
+3
+Grand Hotel du Louvre
+115
+Eiffel Resort et Amis
+135
+Maison du Roix
+175
+1
+75
+90
+3
+50
+60
+5
+50
+90

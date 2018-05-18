@@ -7,7 +7,7 @@
 
 #include "Agency.h"
 
-#define NOCiF 11 //number of city files
+#define NOCiF 57 //number of city files
 
 using namespace std;
 

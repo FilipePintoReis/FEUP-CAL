@@ -1,0 +1,20 @@
+Miami
+51
+231,330
+4
+Miami Hotel
+340
+Atlantic Hotel
+330
+InterContinental Miami Hotel
+350
+3
+53
+400
+130
+54
+450
+160
+3
+780
+450
