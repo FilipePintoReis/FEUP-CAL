@@ -15,6 +15,6 @@ Bailando Hotel
 12
 50
 120
-  //Rio de Janeiro
+50
 80
 400

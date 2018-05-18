@@ -7,12 +7,12 @@ La Paz Hotel
 Bolivia Mayor Hotel
 100
 3
- //El Salvador
+56 
 60
 110
-  //Bogota
+55
 40
 120
-  //Cidade Do Mexico
+48
 50
 100

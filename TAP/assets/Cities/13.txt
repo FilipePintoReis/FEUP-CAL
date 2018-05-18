@@ -12,9 +12,9 @@ Mar Azul Hotel
 12
 60
 110
- //Rio de Janeiro
+50
 85
 500
- //Miami
+51
 80
 150

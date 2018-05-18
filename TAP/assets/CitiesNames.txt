@@ -29,7 +29,7 @@ Copenhaga
 Nicosia
 Ancara
 Istambul
-Klaipedia
+Klaipeda
 Tiblissi
 Baku
 Ulan Bator
@@ -52,3 +52,6 @@ Miami
 Los Angeles
 Las Vegas
 Chicago
+Bogota
+El Salvador
+Paris
