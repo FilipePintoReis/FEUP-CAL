@@ -7,7 +7,7 @@
 
 #include "Agency.h"
 
-#define NOCiF 57 //number of city files
+#define NOCiF 57//number of city files
 
 using namespace std;
 
@@ -89,6 +89,7 @@ void Agency::readFromCityFiles(){
 			City *city1 = new City(stoi(ID), cityName, c, hotels, destinations);
 
 			graph.addVertex(city);
+
 			vec.push_back(city1);
 
 			in.close();

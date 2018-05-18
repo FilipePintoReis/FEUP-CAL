@@ -6,4 +6,5 @@ using namespace std;
 int main(){
 	Agency *agency = new Agency();
 
+		return 0;
 }

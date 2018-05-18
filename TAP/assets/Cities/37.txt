@@ -1,7 +1,7 @@
 Xangai
 37
 1039,224
-4
+3
 Xangai Hotel
 190
 Min Hon Hotel
@@ -11,7 +11,7 @@ Chi Min Ho Hotel
 3
 41
 1290
-85
+60
 42
 1310
 100

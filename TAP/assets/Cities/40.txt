@@ -1,7 +1,7 @@
 Tokyo
 40
 1098,202
-4
+3
 Tokyo Mayor Hotel
 180
 Royal Palace Hotel

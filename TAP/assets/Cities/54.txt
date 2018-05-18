@@ -8,7 +8,8 @@ Congress Plaza Hotel
 170
 Essex Inn Hotel
 190
-Hilton Hotel 185
+Hilton Hotel
+185
 3
 25
 180

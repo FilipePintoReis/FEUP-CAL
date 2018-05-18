@@ -655,16 +655,16 @@ void Agency::map(){
 
 	gv = new GraphViewer(1360,625, false);
 	gv->setBackground("worldmap.jpg");
-	gv->defineVertexColor("black");
-	gv->defineEdgeColor("black");
+	gv->defineVertexColor(GRAY);
+	gv->defineEdgeColor(GRAY);
 	gv->defineEdgeCurved(true);
 	gv->createWindow(750,450);
 
 	for(unsigned int i = 0; i < vec.size(); i++){
-
+		cout << i << "\n";
 		gv->addNode(vec.at(i)->getID(), vec[i]->getCoordinates().getX(), vec[i]->getCoordinates().getY());
 		gv->setVertexLabel(vec[i]->getID(),vec[i]->getName());
-		gv->setVertexColor(vec[i]->getID(), "grey");
+		gv->setVertexColor(vec[i]->getID(), GRAY);
 		gv->setVertexSize(vec[i]->getID(), 3);
 	}
 
@@ -675,7 +675,7 @@ void Agency::map(){
 		if(vec[i]->getID() != 0){
 
 			for(unsigned int j = 0; j < 3; j++){
-				gv->addEdge(id, vec.at(i)->getID(), vec.at(i)->getIDDestinies(j), EdgeType::DIRECTED);
+				gv->addEdge(id, vec.at(i)->getID(), vec.at(i)->getIDDestinies(j), EdgeType::UNDIRECTED);
 				id++;
 			}
 		}

@@ -1,7 +1,7 @@
 Miami
 51
 231,330
-4
+3
 Miami Hotel
 340
 Atlantic Hotel
