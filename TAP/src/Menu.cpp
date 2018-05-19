@@ -8,7 +8,10 @@
 #include <limits.h>
 #include "Date.h"
 
+#define HIGH_S_M 1.40
+
 GraphViewer *gv;
+float multiplier = 1;
 
 using namespace std;
 
@@ -27,8 +30,11 @@ void Agency::introMenu() {
 	cout << "| 4 - Guardar Ficheiros                                    |\n";
 	cout << "| 0 - Sair                                                 |\n";
 	cout << "+----------------------------------------------------------+\n";
+	cout << "\n";
 
 	cin >> opcao;
+
+	cout << "\n";
 
 	if (cin.fail()) {
 		cin.clear();
@@ -89,8 +95,11 @@ void Agency::menuCliente() {
 		cout << "| 4 - Menu Principal  					                    |\n";
 		cout << "| 0 - Sair                                                 |\n";
 		cout << "+----------------------------------------------------------+\n";
+		cout << "\n";
 
 		cin >> opcaocliente;
+
+		cout << "\n";
 
 		if (cin.fail()) {
 			cin.clear();
@@ -138,22 +147,27 @@ void Agency::menuCliente() {
 
 void Agency::adicionaCliente() {
 
-
 	string nomeCliente;
 	int telemovel, ID;
 
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Qual e o seu nome?                                       |\n";
 	cout << "+----------------------------------------------------------+\n";
+	cout << "\n";
 
 	cin.ignore(INT_MAX, '\n');
 	getline(cin, nomeCliente);
 
+	cout << "\n";
+
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Qual e o seu ID?                                         |\n";
 	cout << "+----------------------------------------------------------+\n";
+	cout << "\n";
 
 	cin >> ID;
+
+	cout << "\n";
 
 	for(unsigned int i = 0; i < clientes.size(); i++){
 
@@ -166,8 +180,11 @@ void Agency::adicionaCliente() {
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Qual o seu numero de telemovel?                          |\n";
 	cout << "+----------------------------------------------------------+\n";
+	cout << "\n";
 
 	cin >> telemovel;
+
+	cout << "\n";
 
 	Client * novocliente = new Client(nomeCliente, ID, telemovel);
 	addClients(novocliente);
@@ -183,9 +200,12 @@ void Agency::removeCliente() {
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Qual e o cliente a remover?	                            |\n";
 	cout << "+----------------------------------------------------------+\n";
+	cout << "\n";
 
 	cin.ignore(INT_MAX, '\n');
 	getline(cin, clienteremover);
+
+	cout << "\n";
 
 	for (unsigned int i = 0; i < getClientes().size(); i++)
 	{
@@ -235,8 +255,11 @@ void Agency::menuTrip(){
 		cout << "+----------------------------------------------------------+\n";
 		cout << "| 0 - Sair                                                 |\n";
 		cout << "+----------------------------------------------------------+\n";
+		cout << "\n";
 
 		cin >> opcaotrip;
+
+		cout << "\n";
 
 		if (cin.fail()) {
 			cin.clear();
@@ -300,28 +323,32 @@ void Agency::menuTrip(){
 
 void Agency::adicionaTrip() {
 
-
 	string dataInicio;
 	string dataFim;
 
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Qual e a data de inicio da viagem?  (Formato: dd/mm/aa)  |\n";
 	cout << "+----------------------------------------------------------+\n";
+	cout << "\n";
 
 	cin >> dataInicio;
+	cout << "\n";
 	Date *dataInicial = new Date(dataInicio);
 
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Qual e a data de fim da viagem?  (Formato: dd/mm/aa)     |\n";
 	cout << "+----------------------------------------------------------+\n";
+	cout << "\n";
 
 	cin >> dataFim;
+	cout << "\n";
 	Date *dataFinal = new Date(dataFim);
 
 	string temp;
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Indique os voos a adicionar (escreva FIM para terminar): |\n";
 	cout << "+----------------------------------------------------------+\n";
+	cout << "\n";
 
 	/*	cin.ignore(INT_MAX, '\n');
 		while (temp != "FIM")
@@ -350,9 +377,12 @@ void Agency::removeTrip() {
 	cout << "+----------------------------------------------------------+\n";
 	cout << "| Qual e a viagem a remover?	                            |\n";
 	cout << "+----------------------------------------------------------+\n";
+	cout << "\n";
 
 	cin.ignore(INT_MAX, '\n');
 	getline(cin, tripremover);
+
+	cout << "\n";
 
 	for (unsigned int i = 0; i < getTrips().size(); i++)
 	{
@@ -372,6 +402,7 @@ void Agency::escolheGeral() {
 	cout << "+-------------------------------------------------------------+\n";
 	cout << "| Indique os destinos a adicionar (escreva FIM para terminar):|\n";
 	cout << "+-------------------------------------------------------------+\n";
+	cout << "\n";
 
 	cin.ignore(INT_MAX, '\n');
 	while (temp != "FIM")
@@ -382,8 +413,6 @@ void Agency::escolheGeral() {
 		}
 		cout << "\n";
 	}
-
-
 }
 
 void Agency::menuViagem(){
@@ -403,8 +432,11 @@ void Agency::menuViagem(){
 		cout << "+----------------------------------------------------------+\n";
 		cout << "| 0 - Sair                                                 |\n";
 		cout << "+----------------------------------------------------------+\n";
+		cout << "\n";
 
 		cin >> opcaotrip;
+
+		cout << "\n";
 
 		if (cin.fail()) {
 			cin.clear();
@@ -462,8 +494,11 @@ void Agency::destinosCidade(){
 	cout << "+----------------------------------------------------------+\n";
 	cout << "|	Indique onde se encontra                                |\n";
 	cout << "+----------------------------------------------------------+\n";
+	cout << "\n";
 
 	getline(cin, origem);
+
+	cout << "\n";
 
 	for(unsigned int i = 0; i < vec.size(); i++){
 
@@ -495,8 +530,6 @@ void Agency::destinosCidade(){
 
 }
 
-
-
 void Agency::escolheDireto() {
 
 	string origem;
@@ -504,9 +537,11 @@ void Agency::escolheDireto() {
 	cout << "+----------------------------------------------------------+\n";
 	cout << "|	Indique a origem da sua viagem:                         |\n";
 	cout << "+----------------------------------------------------------+\n";
+	cout << "\n";
 
 	getline(cin, origem);
 
+	cout << "\n";
 
 	Vertex<City>* originVertex;
 	if ((originVertex = getGraph().findVertexName(origem)) == NULL){//VERIFICAR SE EXISTE
@@ -516,10 +551,28 @@ void Agency::escolheDireto() {
 
 
 	cout << "+----------------------------------------------------------+\n";
-	cout << "|	Indique o destino que quer visitar:                      |\n";
+	cout << "|	Indique o destino que quer visitar:                     |\n";
 	cout << "+----------------------------------------------------------+\n";
+	cout << "\n";
 
 	getline(cin, destino);
+
+	cout << "\n";
+
+	string data;
+	cout << "+----------------------------------------------------------+\n";
+	cout << "|	Indique a data da sua viagem:                           |\n";
+	cout << "+----------------------------------------------------------+\n";
+	cout << "Date format : DD/MM/YY\n";
+	cout << "\n";
+
+	getline(cin, data);
+
+	cout << "\n";
+
+	Date date(data);
+
+	float mul = setSeason(date);
 
 
 	Vertex<City>* destVertex;
@@ -529,12 +582,29 @@ void Agency::escolheDireto() {
 	}
 
 	graph.dijkstraShortestPath(originVertex->getInfo());
-	cout << "Distance : " << destVertex->getDist() << "\n";
+	cout << "\nDistance : " << destVertex->getDist() << "\n";
 	auto path = graph.getPath(originVertex->getInfo(), destVertex->getInfo());
 
+	int i = 1;
+
+	cout << "\nYour Path :\n";
 	for(City city: path){
+		cout << i << " - ";
 		cout << city.getName() <<"\n";
+		i++;
 	}
+
+	int cost = path[(path.size()-1)].getHotels()[0]->getPrice() * mul;
+
+	for(unsigned int j = 0; j < path.size(); j++){
+		for(int i = 0; i < 3; i++) {
+
+		if (path[j+ 1].getID() == path[j].getIDDestinies(i))
+			cost += path[j].getPlaneTicket(i);
+		}
+	}
+
+	cout << "\nCost : " << cost << "€\n\n";
 
 	gv = new GraphViewer(1360,625, false);
 	gv->setBackground("worldmap.jpg");
@@ -547,7 +617,7 @@ void Agency::escolheDireto() {
 
 		gv->addNode(vec.at(i)->getID(), vec[i]->getCoordinates().getX(), vec[i]->getCoordinates().getY());
 		gv->setVertexLabel(vec[i]->getID(),vec[i]->getName());
-		gv->setVertexColor(vec[i]->getID(), "grey");
+		gv->setVertexColor(vec[i]->getID(), GRAY);
 		gv->setVertexSize(vec[i]->getID(), 3);
 	}
 
@@ -586,7 +656,7 @@ void Agency::destinationsList(){
 
 void Agency::tripList(){
 
-	cout << "TRIPS:\n" << endl;
+	cout << "\nTRIPS:\n" << endl;
 
 	for(unsigned int i = 0; i < getTrips().size(); i++){
 
@@ -609,6 +679,7 @@ void Agency::menuSave(){
 		cout << "| 3 - Menu Principal					                    |\n";
 		cout << "| 0 - Sair                                                 |\n";
 		cout << "+----------------------------------------------------------+\n";
+		cout << "\n";
 
 		cin >> opcaotrip;
 
@@ -683,4 +754,27 @@ void Agency::map(){
 
 	gv->rearrange();
 
+}
+
+float Agency::setSeason(Date date) {
+
+			if((date.getMonth() == 12 && date.getDay() > 3) ||
+			   (date.getMonth() == 1 && date.getDay() < 10) ){  //CHRISTMAS VACATIONS
+				multiplier = HIGH_S_M;
+				cout << "\nChristmas Vacations : This is high season. As such hotel prices are higher.\n";
+			}
+
+			if(date.getMonth() == 4){                           //EASTER
+				if(10 <= date.getDay() &&  date.getDay() <= 19)
+					multiplier = HIGH_S_M;
+				    cout << "\nEaster Vacations : This is high season. As such hotel prices are higher.\n";
+			}
+
+			if(date.getMonth() == 7 || date.getMonth() == 8){   //SUMMER VACATIONS
+				multiplier = HIGH_S_M;
+				cout << "\nSummer Vacations : This is high season. As such hotel prices are higher.\n";
+
+			}
+
+			return multiplier;
 }

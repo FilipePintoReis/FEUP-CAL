@@ -56,7 +56,7 @@
 
 	int City::getPlaneTicket(int n){
 
-		return possibleDestinations[(n + 1)*3];
+		return possibleDestinations[(n*3) + 1];
 	}
 
 	void City::setID(int id){

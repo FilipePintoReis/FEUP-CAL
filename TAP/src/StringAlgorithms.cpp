@@ -12,7 +12,7 @@
 StringAlgorithms::StringAlgorithms(){};
 
 void ExactStringMatchingNaive(string pattern, string text){
-	int j;
+	unsigned int j;
 	int l = pattern.length() - text.length();
 
 	for (int i = 0; i <= l; i++)
@@ -37,7 +37,7 @@ void ExactStringMatchingFiniteAutomaton(string pattern, string text){
 void auxKMP(string pattern,  int *afixo_mais_longo)
 {
 	        int len = 0;
-	        int i = 1;
+	        unsigned int i = 1;
 	        afixo_mais_longo[0] = 0;
 
 	        while (i < pattern.length())
@@ -68,8 +68,8 @@ void ExactStringMatchingKMP(string pattern, string text){
 	        int afixo_mais_longo[pattern.length()];
 	        auxKMP(pattern,afixo_mais_longo);
 
-	        int i = 0;
-	        int j = 0;
+	        unsigned int i = 0;
+	        unsigned int j = 0;
 
 	        while (i < text.length())
 	        {
@@ -102,17 +102,17 @@ int ApproximateStringMatchingEditDistance(string string1, string string2){
 	vector<vector<int>> matrizDinamica;
 	int velho, novo;
 
-	for(int j = 0; j < string2.length(); j++)
+	for(unsigned int j = 0; j < string2.length(); j++)
 	{
 		matrizDinamica[0][j] = j;
 	}
 
-	for(int i = 1; i < string1.length(); i++)
+	for(unsigned int i = 1; i < string1.length(); i++)
 	{
 		velho = matrizDinamica[i-1][0];
 		matrizDinamica[i][0] = i;
 
-		for(int j = 1; j < string2.length(); j++)
+		for(unsigned int j = 1; j < string2.length(); j++)
 		{
 			if(string1.at(i) == string2.at(j))
 				velho = novo;

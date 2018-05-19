@@ -63,6 +63,7 @@ public:
 	void escolheGeral();
 	void destinosCidade();
 	void map();
+	float setSeason(Date date);
 
 
 	void calculatePathAcorddingToDistance();

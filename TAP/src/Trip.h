@@ -5,7 +5,6 @@
 #include <iostream>
 #include <vector>
 #include "Date.h"
-#include "Season.h"
 
 class Trip {
 private:

@@ -201,7 +201,6 @@ void Agency::readFromTripFiles() {
 	in.close();
 }
 
-
 void Agency::readToTripsFile(){
 
 	ofstream file("assets/Trips.txt");
@@ -269,7 +268,6 @@ void Agency::readToClientFile(){
 void Agency::addClients(Client* cliente) {
 	clientes.push_back(cliente);
 }
-
 
 void Agency::addTrips(Trip* viagem) {
 	trips.push_back(viagem);
