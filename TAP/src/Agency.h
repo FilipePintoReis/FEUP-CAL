@@ -49,6 +49,7 @@ public:
 	void menuTrip();
 	void menuSave();
 	void menuViagem();
+	void menuViagem2();
 
 	void adicionaCliente();
 	void removeCliente();

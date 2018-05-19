@@ -249,9 +249,10 @@ void Agency::menuTrip(){
 		cout << "| 2 - Apagar Viagem					                    |\n";
 		cout << "| 3 - Lista de Destinos					                |\n";
 		cout << "| 4 - Escolher uma origem e um destino diretamente         |\n";
-		cout << "| 5 - Escolher conjunto de locais a visitar                |\n";
+		cout << "| 5 - Escolher vários locais a visitar                     |\n";
+		cout << "| 6 - Escolher conjunto de locais a visitar                |\n";
 		cout << "|     a partir de onde me encontro                         |\n";
-		cout << "| 6 - Menu Principal                                       |\n";
+		cout << "| 7 - Menu Principal                                       |\n";
 		cout << "+----------------------------------------------------------+\n";
 		cout << "| 0 - Sair                                                 |\n";
 		cout << "+----------------------------------------------------------+\n";
@@ -303,12 +304,18 @@ void Agency::menuTrip(){
 
 
 		case 5:
-			destinosCidade();
+			menuViagem2();
 			cin.get();
 			cin.get();
 			break;
 
 		case 6:
+			destinosCidade();
+			cin.get();
+			cin.get();
+			break;
+
+		case 7:
 			introMenu();
 			cin.get();
 			cin.get();
@@ -371,6 +378,7 @@ void Agency::adicionaTrip() {
 }
 
 void Agency::removeTrip() {
+
 	tripList();
 
 	string tripremover;
@@ -397,22 +405,111 @@ void Agency::removeTrip() {
 }
 
 void Agency::escolheGeral() {
+
 	string temp;
+	vector<string> destinos;
+	vector<string> destinations;
+
+	cout << "\n";
+
+	string data;
+	cout << "+----------------------------------------------------------+\n";
+	cout << "|	Indique a data da sua viagem:                           |\n";
+	cout << "+----------------------------------------------------------+\n";
+	cout << "Date format : DD/MM/YY\n";
+	cout << "\n";
+
+	getline(cin, data);
+
+	cout << "\n";
+
+	Date date(data);
+
+	//float mul = setSeason(date);
 
 	cout << "+-------------------------------------------------------------+\n";
 	cout << "| Indique os destinos a adicionar (escreva FIM para terminar):|\n";
 	cout << "+-------------------------------------------------------------+\n";
 	cout << "\n";
 
-	cin.ignore(INT_MAX, '\n');
+
 	while (temp != "FIM")
 	{
 		getline(cin, temp);
-		if (temp != "FIM") {
-			//meter aqui os coisos para criar trip com muitos
-		}
-		cout << "\n";
+		if(temp != "FIM")
+		destinos.push_back(temp);
+
 	}
+
+	cout << "\nYour Route :\n";
+
+	for(unsigned int i = 0; i < destinos.size() -1; i++) {
+
+		Vertex<City>* vertex1;
+		Vertex<City>* vertex2;
+
+
+		if((vertex1 = getGraph().findVertexName(destinos[i])) == NULL){
+			cout << " Destino não existe.\n";
+			break;
+		}
+
+		if((vertex2 = getGraph().findVertexName(destinos[i+1])) == NULL){
+			cout << "Destino não existe!\n";
+			break;
+		}
+
+		graph.dijkstraShortestPath(vertex1->getInfo());
+		auto path = graph.getPath(vertex1->getInfo(), vertex2->getInfo());
+
+
+		cout <<"\n" << i+1 << " - ";
+		for(City city: path){
+			cout << city.getName() << "; ";
+			destinations.push_back(city.getName());
+		}
+	}
+
+	/*gv = new GraphViewer(1360,625, false);
+	gv->setBackground("worldmap.jpg");
+	gv->defineVertexColor(BLACK);
+	gv->defineEdgeColor(RED);
+	gv->defineEdgeCurved(true);
+	gv->createWindow(750,450);
+
+	for(unsigned int i = 0; i < vec.size(); i++){
+		for(unsigned int j = 0; j < destinations.size(); j++){
+
+			if(destinations[j] == destinations[j+1])
+			j++;
+
+			else if(vec[i]->getName() == destinations[j]){
+
+				gv->addNode(vec.at(i)->getID(), vec[i]->getCoordinates().getX(), vec[i]->getCoordinates().getY());
+				gv->setVertexLabel(vec[i]->getID(),vec[i]->getName());
+				gv->setVertexColor(vec[i]->getID(), GRAY);
+				gv->setVertexSize(vec[i]->getID(), 3);
+			}
+		}
+	}
+
+	int id = 0;
+
+	for(unsigned int i = 0; i < vec.size(); i++){
+		for(unsigned int j = 0; j < destinations.size(); j++){
+
+			if(destinations[j] == destinations[j+1])
+				j++;
+
+			else if(vec[i]->getName() == destinations[j]){
+
+				gv->addEdge(id, vec[i]->getID(), vec[i+1]->getID(), EdgeType::DIRECTED);
+				id++;
+			}
+		}
+	}
+
+	gv->rearrange();*/
 }
 
 void Agency::menuViagem(){
@@ -487,6 +584,78 @@ void Agency::menuViagem(){
 	}
 }
 
+void Agency::menuViagem2(){
+
+	int opcaotrip;
+
+	while (true) {
+		cout << "+----------------------------------------------------------+\n";
+		cout << "| Qual a sua prioridade?                                   |\n";
+		cout << "+----------------------------------------------------------+\n";
+		cout << "| Selecione a sua opcao (insira apenas o numero):          |\n";
+		cout << "+----------------------------------------------------------+\n";
+		cout << "| 1 - Tempo                                                |\n";
+		cout << "| 2 - Custo         					                    |\n";
+		cout << "| 3 - Andar p/ trás         					            |\n";
+		cout << "| 4 - Menu Principal                                       |\n";
+		cout << "+----------------------------------------------------------+\n";
+		cout << "| 0 - Sair                                                 |\n";
+		cout << "+----------------------------------------------------------+\n";
+		cout << "\n";
+
+		cin >> opcaotrip;
+
+		cout << "\n";
+
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(INT_MAX, '\n');
+			cout << "Erro: Introduziu um input invalido. So pode usar numeros inteiros." << endl;
+			cout << "Pressione Enter para voltar ao menu" << endl;
+			cin.get();
+		}
+
+		cin.ignore(INT_MAX, '\n');
+
+		switch (opcaotrip) {
+
+		case 0:
+			return;
+			break;
+
+		case 1:
+			calculatePathAcorddingToDistance();
+			escolheGeral();
+			cin.get();
+			cin.get();
+			break;
+
+		case 2:
+			calculatePathAcorddingToCost();
+			escolheGeral();
+			cin.get();
+			cin.get();
+			break;
+
+		case 3:
+			menuTrip();
+			cin.get();
+			cin.get();
+			break;
+
+		case 4:
+			introMenu();
+			cin.get();
+			cin.get();
+			break;
+
+		default:
+			cout << "Lamento, mas a opcao que inseriu nao e valida. Sera redirecionado/a para o inicio do menu. \n";
+
+		}
+	}
+}
+
 void Agency::destinosCidade(){
 
 	string origem;
@@ -515,7 +684,7 @@ void Agency::destinosCidade(){
 
 				gv->addNode(vec.at(i)->getID(), vec[i]->getCoordinates().getX(), vec[i]->getCoordinates().getY());
 				gv->setVertexLabel(vec[i]->getID(),vec[i]->getName());
-				gv->setVertexColor(vec[i]->getID(), "grey");
+				gv->setVertexColor(vec[i]->getID(), GRAY);
 				gv->setVertexSize(vec[i]->getID(), 3);
 			}
 
@@ -526,7 +695,7 @@ void Agency::destinosCidade(){
 		}
 	}
 
-		gv->rearrange();
+	gv->rearrange();
 
 }
 
@@ -534,6 +703,7 @@ void Agency::escolheDireto() {
 
 	string origem;
 	string destino;
+
 	cout << "+----------------------------------------------------------+\n";
 	cout << "|	Indique a origem da sua viagem:                         |\n";
 	cout << "+----------------------------------------------------------+\n";
@@ -574,9 +744,9 @@ void Agency::escolheDireto() {
 
 	float mul = setSeason(date);
 
-
 	Vertex<City>* destVertex;
-	if ((destVertex = getGraph().findVertexName(destino)) == NULL){//VERIFICAR SE EXISTE
+	if ((destVertex = getGraph().findVertexName(destino)) == NULL)
+	{//VERIFICAR SE EXISTE
 		cout << " Destino nao existe!\n";
 		return;
 	}
@@ -599,8 +769,8 @@ void Agency::escolheDireto() {
 	for(unsigned int j = 0; j < path.size(); j++){
 		for(int i = 0; i < 3; i++) {
 
-		if (path[j+ 1].getID() == path[j].getIDDestinies(i))
-			cost += path[j].getPlaneTicket(i);
+			if (path[j+ 1].getID() == path[j].getIDDestinies(i))
+				cost += path[j].getPlaneTicket(i);
 		}
 	}
 
@@ -758,23 +928,23 @@ void Agency::map(){
 
 float Agency::setSeason(Date date) {
 
-			if((date.getMonth() == 12 && date.getDay() > 3) ||
-			   (date.getMonth() == 1 && date.getDay() < 10) ){  //CHRISTMAS VACATIONS
-				multiplier = HIGH_S_M;
-				cout << "\nChristmas Vacations : This is high season. As such hotel prices are higher.\n";
-			}
+	if((date.getMonth() == 12 && date.getDay() > 3) ||
+			(date.getMonth() == 1 && date.getDay() < 10) ){  //CHRISTMAS VACATIONS
+		multiplier = HIGH_S_M;
+		cout << "\nChristmas Vacations : This is high season. As such hotel prices are higher.\n";
+	}
 
-			if(date.getMonth() == 4){                           //EASTER
-				if(10 <= date.getDay() &&  date.getDay() <= 19)
-					multiplier = HIGH_S_M;
-				    cout << "\nEaster Vacations : This is high season. As such hotel prices are higher.\n";
-			}
+	if(date.getMonth() == 4){                           //EASTER
+		if(10 <= date.getDay() &&  date.getDay() <= 19)
+			multiplier = HIGH_S_M;
+		cout << "\nEaster Vacations : This is high season. As such hotel prices are higher.\n";
+	}
 
-			if(date.getMonth() == 7 || date.getMonth() == 8){   //SUMMER VACATIONS
-				multiplier = HIGH_S_M;
-				cout << "\nSummer Vacations : This is high season. As such hotel prices are higher.\n";
+	if(date.getMonth() == 7 || date.getMonth() == 8){   //SUMMER VACATIONS
+		multiplier = HIGH_S_M;
+		cout << "\nSummer Vacations : This is high season. As such hotel prices are higher.\n";
 
-			}
+	}
 
-			return multiplier;
+	return multiplier;
 }
