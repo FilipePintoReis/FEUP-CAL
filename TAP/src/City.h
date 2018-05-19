@@ -15,10 +15,11 @@ private:
 	Coordinates coord;
 	vector<Hotel*> hotels;
 	vector<int> possibleDestinations;//{id1,cost1,flightDuration1,...}
-	int queueIndex;
+	vector<string> touristAttraction;
+	//int queueIndex;
 
 public:
-	City(int id, string n, Coordinates c, vector<Hotel*> ht, vector<int> pd);
+	City(int id, string n, Coordinates c, vector<Hotel*> ht, vector<int> pd, vector <string> ta);
 	City();
 	virtual ~City();
 
@@ -29,16 +30,15 @@ public:
 	vector<int> getPossibleDestinations();
 	int getIDDestinies(int n);
 	int getPlaneTicket(int n);
-	int getQueueIndex();
+	vector<string> getTouristAttractions();
+	//int getQueueIndex();
 
 	void setID(int id);
 	void setName(string n);
 	void setCoordinates(Coordinates c);
 	void setHotels(vector<Hotel*> h);
+	void setTouristAttractions(vector<string> ta);
 	void setDestinations(vector<int> pd);
-
-	//friend bool operator==(City& lhs, City& rhs){ return lhs.getID() == rhs.getID();}
-	//City operator=(City assignee);
 
 	bool operator==(const City &other) { return id==other.id;}
 };

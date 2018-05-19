@@ -1,5 +1,5 @@
 Kiruna
-9
+7
 629,66
 2
 Hotel Vinterpalatset
@@ -16,3 +16,7 @@ Hotel Arctic Eden
 4
 240
 150
+3
+Kiruna Church
+Parque Nacional de Abisko
+Luossavaara

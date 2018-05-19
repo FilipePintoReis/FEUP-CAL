@@ -1,5 +1,5 @@
 San Jose
-11
+10
 87,190
 2
 San Jose Hotel
@@ -16,3 +16,6 @@ Costa Rica Royal Hotel
 7
 160
 210
+2
+ICOMOS
+Leon Cortes Statue

@@ -1,5 +1,5 @@
 Sidney 
-4
+11
 1146,515
 2
 Sidney Hotel
@@ -16,3 +16,8 @@ Sidney Royal Palace Hotel
 1
 120
 190
+4
+Opera de Sidney
+Ponte da Baia de Sidney
+The Rocks
+Porto de Darling

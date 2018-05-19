@@ -20,3 +20,8 @@ Hilton Hotel
 30
 450
 205
+4
+Millennium Park
+Willis Tower
+Cais Naval
+Cloud Gate

@@ -1,5 +1,5 @@
 Guatemala
-10
+6
 181,295
 2
 Guatemala Hotel
@@ -16,3 +16,6 @@ Aeros Hotel
 3
 115
 200
+2
+La Aurora Zoo
+National Palace

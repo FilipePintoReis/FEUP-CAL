@@ -1,5 +1,5 @@
 Banguecoque
-5
+4
 970,297
 1
 Royal Viet Hotel 
@@ -14,3 +14,7 @@ Royal Viet Hotel
 6
 80
 70
+3
+Grande Palacio de Bangkok
+Wat Arun
+Wat Phra Kaew

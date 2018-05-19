@@ -10,13 +10,14 @@
 
 	}
 
-	City::City(int id, string n, Coordinates c, vector<Hotel*> ht, vector<int> pd) {
+	City::City(int id, string n, Coordinates c, vector<Hotel*> ht, vector<int> pd, vector<string> ta) {
 
 		this->id = id;
 		this->name = n;
 		this->hotels = ht;
 		this->coord = c;
 		this->possibleDestinations = pd;
+		this->touristAttraction = ta;
 
 	}
 
@@ -44,10 +45,10 @@
 		return this->possibleDestinations;
 	}
 
-	int City::getQueueIndex(){
+/*	int City::getQueueIndex(){
 
 		return this->queueIndex;
-	}
+	}*/
 
 	int City::getIDDestinies(int n){
 

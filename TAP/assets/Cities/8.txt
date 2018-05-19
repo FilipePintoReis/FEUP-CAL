@@ -1,5 +1,5 @@
 Minsk
-7
+8
 663,119
 2
 Victoria Hotel Monastyrski Minsk
@@ -16,3 +16,7 @@ President Hotel
 4
 110
 60
+3
+Victory Square
+Belarusian State Circus
+Gorky Park

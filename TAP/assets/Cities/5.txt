@@ -1,5 +1,5 @@
 Bucareste
-8
+5
 657,158
 2
 Ramada Plaza Hotel Bucharest
@@ -16,3 +16,8 @@ Hotel Sir Gara de Nord
 6
 75
 80
+4
+Parque Herastrau
+Palacio do Parlamento
+Parque Carol
+Ateneu Romeno

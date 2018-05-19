@@ -26,9 +26,9 @@ Agency::~Agency() {}
 void Agency::readFromCityFiles(){
 
 	string assets = "./assets/Cities/"; //This is used to pre append to rest of path
-	string cityName, hotelName;
+	string cityName, hotelName, attractionName;
 	string ID, temp;
-	unsigned int x, y, hotelNumber, numberDestinies, cityID, cityPrice, cityTime;
+	unsigned int x, y, hotelNumber, numberDestinies, cityID, cityPrice, cityTime, numberAttractions;
 	float price;
 
 	ifstream in;
@@ -43,6 +43,7 @@ void Agency::readFromCityFiles(){
 
 			vector<Hotel *> hotels;
 			vector<int> destinations;
+			vector<string> attractions;
 			getline(in, cityName);
 			getline(in, ID);
 			getline(in, temp, ',');
@@ -84,9 +85,20 @@ void Agency::readFromCityFiles(){
 
 			}
 
-			City city(stoi(ID), cityName, c, hotels, destinations);
+			getline(in, temp);
+			numberAttractions = stoi(temp.c_str());
 
-			City *city1 = new City(stoi(ID), cityName, c, hotels, destinations);
+			for(unsigned int i = 0; i < numberAttractions; i++){
+				getline(in, attractionName);
+
+				attractions.push_back(attractionName);
+
+
+			}
+
+			City city(stoi(ID), cityName, c, hotels, destinations, attractions);
+
+			City *city1 = new City(stoi(ID), cityName, c, hotels, destinations, attractions);
 
 			graph.addVertex(city);
 
