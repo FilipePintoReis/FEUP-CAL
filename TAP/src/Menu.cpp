@@ -8,6 +8,7 @@
 #include <limits.h>
 #include "Date.h"
 #include "StringAlgorithms.h"
+#include <windows.h>
 
 #define HIGH_S_M 1.40
 
@@ -224,7 +225,7 @@ void Agency::removeCliente() {
 
 void Agency::listClients(){
 
-	cout << "CLIENTS:\n" <<endl;
+	cout << "CLIENTES:\n" <<endl;
 
 	for(unsigned int i = 0; i < getClientes().size(); i++){
 
@@ -417,7 +418,7 @@ void Agency::escolheGeral() {
 	cout << "+----------------------------------------------------------+\n";
 	cout << "|	Indique a data da sua viagem:                           |\n";
 	cout << "+----------------------------------------------------------+\n";
-	cout << "Date format : DD/MM/YY\n";
+	cout << "Data formato : DD/MM/YY\n";
 	cout << "\n";
 
 	getline(cin, data);
@@ -457,6 +458,7 @@ void Agency::escolheGeral() {
 		string resultado;
 		string tempcin;
 
+
 		cout << "+--------------------------------------------------------------+\n";
 		cout << "| Insira aqui a lista de locais a visitar : (FIM para terminar)|\n";
 		cout << "+--------------------------------------------------------------+\n";
@@ -470,7 +472,7 @@ void Agency::escolheGeral() {
 				locais.push_back(tempcin);
 
 			else
-				cout << "\nSearching your cities for these attractions.\n\n";
+				cout << "\nProcurando nos seus destinos pelos locais que inseriu.\n\n";
 		}
 
 		if((resultado = searchInYourDestinations(destinos,locais)) != "EXISTE")
@@ -549,7 +551,7 @@ void Agency::calculateMultiplePaths(Date date, vector<string> locals){
 		}
 	}
 
-	cout << "\nCost : " << cost <<  "€\n\n";
+	cout << "\n\nCusto : " << cost <<  "€\n\n";
 }
 
 string Agency::searchInYourDestinations(vector<string> destinos, vector<string> locals){
@@ -564,7 +566,7 @@ string Agency::searchInYourDestinations(vector<string> destinos, vector<string> 
 				for(unsigned int v = 0; v < vec[n]->getTouristAttractions().size(); v++){
 					for(unsigned int p = 0; p < locals.size(); p++){
 						if(locals[p] == vec[n]->getTouristAttractions()[v]){
-							cout << locals[p] << " is located in " << vec[n]->getName() << " which is in your trip already.\n";
+							cout << locals[p] << " encontra-se em " << vec[n]->getName() << ", que já está incluido na sua viagem.\n";
 							local = "EXISTE";
 						}
 
@@ -585,7 +587,7 @@ vector<string> Agency::searchInAllDestinations(vector<string> destinos, string l
 		for(unsigned int j = 0; j < vec[i]->getTouristAttractions().size(); j++){
 			if(local == vec[i]->getTouristAttractions()[j]){
 				destinos.push_back(vec[i]->getName());
-				cout << local << " is located in " << vec[i]->getName() <<". It has been included in your trip.\n";
+				cout << local << " encontra-se em " << vec[i]->getName() <<". Adicionámos esta paragem à sua viagem.\n";
 			}
 		}
 	}
@@ -814,7 +816,7 @@ void Agency::escolheDireto() {
 	cout << "+----------------------------------------------------------+\n";
 	cout << "|	Indique a data da sua viagem:                           |\n";
 	cout << "+----------------------------------------------------------+\n";
-	cout << "Date format : DD/MM/YY\n";
+	cout << "Data formato : DD/MM/YY\n";
 	cout << "\n";
 
 	getline(cin, data);
@@ -833,12 +835,12 @@ void Agency::escolheDireto() {
 	}
 
 	graph.dijkstraShortestPath(originVertex->getInfo());
-	cout << "\nDistance : " << destVertex->getDist() << "\n";
+	cout << "\nDistancia : " << destVertex->getDist() << "\n";
 	auto path = graph.getPath(originVertex->getInfo(), destVertex->getInfo());
 
 	int i = 1;
 
-	cout << "\nYour Path :\n";
+	cout << "\nO seu trajeto :\n";
 	for(City city: path){
 		cout << i << " - ";
 		cout << city.getName() <<"\n";
@@ -855,7 +857,7 @@ void Agency::escolheDireto() {
 		}
 	}
 
-	cout << "\nCost : " << cost << "€\n\n";
+	cout << "\nCusto : " << cost << "€\n\n";
 
 	gv = new GraphViewer(1360,625, false);
 	gv->setBackground("worldmap.jpg");
@@ -894,7 +896,7 @@ void Agency::destinationsList(){
 
 	in.open(nomeFich);
 
-	cout << "\nDESTINATIONS:\n"<<endl;
+	cout << "\nDESTINOS:\n"<<endl;
 
 	while(!in.eof()){
 
@@ -907,7 +909,7 @@ void Agency::destinationsList(){
 
 void Agency::tripList(){
 
-	cout << "\nTRIPS:\n" << endl;
+	cout << "\nVIAGENS:\n" << endl;
 
 	for(unsigned int i = 0; i < getTrips().size(); i++){
 
@@ -1012,18 +1014,18 @@ float Agency::setSeason(Date date) {
 	if((date.getMonth() == 12 && date.getDay() > 3) ||
 			(date.getMonth() == 1 && date.getDay() < 10) ){  //CHRISTMAS VACATIONS
 		multiplier = HIGH_S_M;
-		cout << "\nChristmas Vacations : This is high season. As such hotel prices are higher.\n";
+		cout << "\nAVISO - Férias de Natal - Época Alta : Os preços dos hoteis estão mais altos.\n";
 	}
 
 	if(date.getMonth() == 4){                           //EASTER
 		if(10 <= date.getDay() &&  date.getDay() <= 19)
 			multiplier = HIGH_S_M;
-		cout << "\nEaster Vacations : This is high season. As such hotel prices are higher.\n";
+		cout << "\nAVISO - Férias da Páscoa - Época Alta : Os preços dos hoteis estão mais altos.\n";
 	}
 
 	if(date.getMonth() == 7 || date.getMonth() == 8){   //SUMMER VACATIONS
 		multiplier = HIGH_S_M;
-		cout << "\nSummer Vacations : This is high season. As such hotel prices are higher.\n";
+		cout << "\nAVISO - Férias de Verão - Época Alta : Os preços dos hoteis estão mais altos.\n";
 
 	}
 
