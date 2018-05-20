@@ -15,8 +15,6 @@
 
 using namespace std;
 
-
-
 class StringAlgorithms{
 
 public:
@@ -32,9 +30,13 @@ public:
 
 	void auxKMP(string pattern, int *lps);
 
-
 	//Aproximate String Matching
+
+	int divideString(string pattern, string text);
+	int checkSimilarity(string string1, string string2);
+
 	int ApproximateStringMatchingEditDistance(string string1, string string2); //usar isto para ver o quão proximo uma string é de outra e depois ordenar destinos a partir daí
+	int findApproxMatchingStrings(string userInput, vector<string> sentencesVec);
 };
 
 

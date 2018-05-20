@@ -5,6 +5,7 @@
 #include "City.h"
 #include "Client.h"
 #include "Coordinates.h"
+#include "StringAlgorithms.h"
 #include "Date.h"
 #include "Graph.h"
 #include "Hotel.h"
@@ -71,6 +72,7 @@ public:
 	vector<string> searchInAllDestinations(vector<string> destinos, string local);
 	void calculateMultiplePaths(Date date, vector<string> locals);
 	string aproxSearchInYourDestinations(vector<string> destinos, vector<string> locals);
+	vector<string> aproxSearchInAllDestinations(vector<string> destinos, string local);
 
 
 	void calculatePathAcorddingToDistance();

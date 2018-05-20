@@ -7,8 +7,6 @@
 #include "Client.h"
 #include <limits.h>
 #include "Date.h"
-#include "StringAlgorithms.h"
-
 
 #define HIGH_S_M 1.40
 
@@ -480,18 +478,20 @@ void Agency::escolheGeral() {
 		switch(opcaoPesquisa){
 
 		case 1:
-			if((resultado = searchInYourDestinations(destinos,locais)) != "EXISTE")
+			if((resultado = searchInYourDestinations(destinos,locais)) != "EXISTE"){
 			novosDestinos = searchInAllDestinations(destinos,resultado);
-
 			calculateMultiplePaths(dateInput,novosDestinos);
-
+			}
 			break;
 		case 2:
-
-		break;
-
+			if((resultado = aproxSearchInYourDestinations(destinos,locais)) != "EXISTE"){
+			novosDestinos = aproxSearchInAllDestinations(destinos,resultado);
+			calculateMultiplePaths(dateInput,novosDestinos);
+			}
+			cin.get();
+			cin.get();
+		    break;
 		}
-
 	}
 
 	else
@@ -609,7 +609,54 @@ vector<string> Agency::searchInAllDestinations(vector<string> destinos, string l
 
 string Agency::aproxSearchInYourDestinations(vector<string> destinos, vector<string> locals){
 
+	string local;
+	vector<string> possible ;
 
+	cout << "\n\nSerá que quis dizer : \n";
+
+	for(unsigned int n = 0; n < vec.size(); n++){
+
+		for(unsigned int m = 0; m < destinos.size(); m++){
+
+			if(algorithm.ExactStringMatchingKMP(destinos[m], vec[n]->getName())){
+
+				for(unsigned int v = 0; v < vec[n]->getTouristAttractions().size(); v++){
+
+					for(unsigned int p = 0; p < locals.size(); p++){
+
+						if((algorithm.ApproximateStringMatchingEditDistance(locals[p], vec[n]->getTouristAttractions()[v])) >= 5)
+						{
+							possible.push_back(vec[n]->getTouristAttractions()[v]);
+							local = "EXISTE";
+						}
+
+						else
+							local = locals[p];
+					}}}}}
+
+	for(unsigned int i = 0; i < possible.size(); i++){
+		cout << possible[i] << "\n";
+	}
+	return local;
+}
+
+vector<string> Agency::aproxSearchInAllDestinations(vector<string> destinos, string local){
+
+	vector<string> possible;
+
+	for(unsigned int i = 0; i < vec.size(); i++){
+			for(unsigned int j = 0; j < vec[i]->getTouristAttractions().size(); j++){
+				if((algorithm.ApproximateStringMatchingEditDistance(local, vec[i]->getTouristAttractions()[j])) == 0){
+					possible.push_back(vec[i]->getTouristAttractions()[j]);
+				}
+			}
+		}
+
+	for(unsigned int i = 0; i < possible.size(); i++){
+
+		cout << possible[i] << "\n";
+	}
+		return destinos;
 }
 
 void Agency::menuViagem(){

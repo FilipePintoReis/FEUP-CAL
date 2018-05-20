@@ -93,32 +93,45 @@ bool StringAlgorithms::ExactStringMatchingKMP(string pattern, string text){
 	        return found;
 }
 
-int  StringAlgorithms::ApproximateStringMatchingEditDistance(string string1, string string2){
+int  StringAlgorithms::ApproximateStringMatchingEditDistance(string pattern, string text){
 
-	vector<vector<int>> matrizDinamica;
+
+	int n = text.length();
+	vector<int> d(n+1);
+
 	int velho, novo;
 
-	for(unsigned int j = 0; j < string2.length(); j++)
-	{
-		matrizDinamica[0][j] = j;
-	}
+	for(unsigned int j = 0; j < n; j++)
+		d[j] = j;
 
-	for(unsigned int i = 1; i < string1.length(); i++)
-	{
-		velho = matrizDinamica[i-1][0];
-		matrizDinamica[i][0] = i;
+	int m = pattern.length();
 
-		for(unsigned int j = 1; j < string2.length(); j++)
+	for(unsigned int i = 1; i < m; i++)
+	{
+		velho = d[0];
+		d[0] = i;
+
+		for(unsigned int j = 1; j <= n; j++)
 		{
-			if(string1.at(i) == string2.at(j))
-				velho = novo;
-			else
-				novo = 1 + min(min(velho,matrizDinamica[i][j-1]), matrizDinamica[i-1][j]);
+			if(pattern[i -1] == text[j-1])
+				novo = velho;
+			else{
+				novo = min(velho, d[j]);
+				novo = min(novo, d[j-1]);
+				novo = novo + 1;
+			}
 
-			velho = matrizDinamica[i-1][j];
+
+			velho = d[j];
+			d[j] = novo;
 		}
 	}
 
-	return matrizDinamica[string1.length()][string2.length()];
+	return d[n];
 }
 
+int StringAlgorithms::findApproxMatchingStrings(string userInput, vector<string> sentencesVec){
+
+
+
+}
