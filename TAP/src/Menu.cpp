@@ -8,12 +8,14 @@
 #include <limits.h>
 #include "Date.h"
 #include "StringAlgorithms.h"
-#include <windows.h>
+
 
 #define HIGH_S_M 1.40
 
 GraphViewer *gv;
 float multiplier = 1;
+
+StringAlgorithms algorithm;
 
 using namespace std;
 
@@ -359,20 +361,6 @@ void Agency::adicionaTrip() {
 	cout << "+----------------------------------------------------------+\n";
 	cout << "\n";
 
-	/*	cin.ignore(INT_MAX, '\n');
-		while (temp != "FIM")
-		{
-			getline(cin, temp);
-			if (temp != "FIM") {
-				viagem.getFlights().push_back(temp);
-			}
-			cout << "\n";
-		}
-		cout << endl << "A viagem foi removida com sucesso" << endl;
-		cout << "Pressione Enter para regressar" << endl;
-		cin.get();
-		return; */
-
 	Trip * novaTrip = new Trip(*dataInicial, *dataFinal);
 	addTrips(novaTrip);
 
@@ -551,7 +539,7 @@ void Agency::calculateMultiplePaths(Date date, vector<string> locals){
 		}
 	}
 
-	cout << "\n\nCusto : " << cost <<  "€\n\n";
+	cout << "\nCusto : " << cost <<  "€\n\n";
 }
 
 string Agency::searchInYourDestinations(vector<string> destinos, vector<string> locals){
@@ -565,7 +553,8 @@ string Agency::searchInYourDestinations(vector<string> destinos, vector<string> 
 			if(destinos[m] == vec[n]->getName()){
 				for(unsigned int v = 0; v < vec[n]->getTouristAttractions().size(); v++){
 					for(unsigned int p = 0; p < locals.size(); p++){
-						if(locals[p] == vec[n]->getTouristAttractions()[v]){
+						if(algorithm.ExactStringMatchingKMP(locals[p], vec[n]->getTouristAttractions()[v]))
+						{
 							cout << locals[p] << " encontra-se em " << vec[n]->getName() << ", que já está incluido na sua viagem.\n";
 							local = "EXISTE";
 						}
@@ -585,7 +574,7 @@ vector<string> Agency::searchInAllDestinations(vector<string> destinos, string l
 
 	for(unsigned int i = 0; i < vec.size(); i++){
 		for(unsigned int j = 0; j < vec[i]->getTouristAttractions().size(); j++){
-			if(local == vec[i]->getTouristAttractions()[j]){
+			if(algorithm.ExactStringMatchingKMP(local, vec[i]->getTouristAttractions()[j])){
 				destinos.push_back(vec[i]->getName());
 				cout << local << " encontra-se em " << vec[i]->getName() <<". Adicionámos esta paragem à sua viagem.\n";
 			}

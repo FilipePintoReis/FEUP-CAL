@@ -28,7 +28,7 @@ public:
 
 	void ExactStringMatchingFiniteAutomaton(string pattern, string text); //não está feito porque dá mais trabalho que os outros e pode não ser util
 
-	void ExactStringMatchingKMP(string pattern, string text);
+	bool ExactStringMatchingKMP(string pattern, string text);
 
 	void auxKMP(string pattern, int *lps);
 

@@ -9,7 +9,7 @@
 
 StringAlgorithms::StringAlgorithms(){};
 
-void ExactStringMatchingNaive(string pattern, string text){
+void  StringAlgorithms::ExactStringMatchingNaive(string pattern, string text){
 	unsigned int j;
 	int l = pattern.length() - text.length();
 
@@ -26,12 +26,12 @@ void ExactStringMatchingNaive(string pattern, string text){
 
 }
 
-void ExactStringMatchingFiniteAutomaton(string pattern, string text){
+void StringAlgorithms::ExactStringMatchingFiniteAutomaton(string pattern, string text){
 
 	//TO DO se acharem necessário
 }
 
-void auxKMP(string pattern,  int *afixo_mais_longo)
+void StringAlgorithms::auxKMP(string pattern,  int *afixo_mais_longo)
 {
 	        int len = 0;
 	        unsigned int i = 1;
@@ -58,8 +58,9 @@ void auxKMP(string pattern,  int *afixo_mais_longo)
 	        }
 }
 
-void ExactStringMatchingKMP(string pattern, string text){
+bool StringAlgorithms::ExactStringMatchingKMP(string pattern, string text){
 
+			bool found = false;
 	        int afixo_mais_longo[pattern.length()];
 	        auxKMP(pattern,afixo_mais_longo);
 
@@ -75,8 +76,8 @@ void ExactStringMatchingKMP(string pattern, string text){
 	            }
 	            if (j == pattern.length())
 	            {
-	                cout << "Padrao encontrado em" << (i-j);
 	                j = afixo_mais_longo[j-1];
+	                found = true;
 	            }
 
 
@@ -88,9 +89,11 @@ void ExactStringMatchingKMP(string pattern, string text){
 	                    i = i+1;
 	            }
 	        }
+
+	        return found;
 }
 
-int ApproximateStringMatchingEditDistance(string string1, string string2){
+int  StringAlgorithms::ApproximateStringMatchingEditDistance(string string1, string string2){
 
 	vector<vector<int>> matrizDinamica;
 	int velho, novo;
