@@ -70,6 +70,7 @@ public:
 	string searchInYourDestinations(vector<string> destinos, vector<string> locals);
 	vector<string> searchInAllDestinations(vector<string> destinos, string local);
 	void calculateMultiplePaths(Date date, vector<string> locals);
+	string aproxSearchInYourDestinations(vector<string> destinos, vector<string> locals);
 
 
 	void calculatePathAcorddingToDistance();

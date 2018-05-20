@@ -463,10 +463,34 @@ void Agency::escolheGeral() {
 				cout << "\nProcurando nos seus destinos pelos locais que inseriu.\n\n";
 		}
 
-		if((resultado = searchInYourDestinations(destinos,locais)) != "EXISTE")
+		int opcaoPesquisa;
+
+		cout << "+--------------------------------------------------------------+\n";
+		cout << "| Escolha o tipo de pesquisa que prefere :                     |\n";
+		cout << "+--------------------------------------------------------------+\n";
+		cout << "| 1 - Pesquisa Exacta                                          |\n";
+		cout << "| 2 - Pesquisa Aproximada                                      |\n";
+		cout << "+--------------------------------------------------------------+\n";
+		cout << "\n";
+
+		cin >> opcaoPesquisa;
+
+		cout << "\n";
+
+		switch(opcaoPesquisa){
+
+		case 1:
+			if((resultado = searchInYourDestinations(destinos,locais)) != "EXISTE")
 			novosDestinos = searchInAllDestinations(destinos,resultado);
 
-		calculateMultiplePaths(dateInput,novosDestinos);
+			calculateMultiplePaths(dateInput,novosDestinos);
+
+			break;
+		case 2:
+
+		break;
+
+		}
 
 	}
 
@@ -544,15 +568,18 @@ void Agency::calculateMultiplePaths(Date date, vector<string> locals){
 
 string Agency::searchInYourDestinations(vector<string> destinos, vector<string> locals){
 
-
 	string local;
 
 	for(unsigned int n = 0; n < vec.size(); n++){
+
 		for(unsigned int m = 0; m < destinos.size(); m++){
 
-			if(destinos[m] == vec[n]->getName()){
+			if(algorithm.ExactStringMatchingKMP(destinos[m], vec[n]->getName())){
+
 				for(unsigned int v = 0; v < vec[n]->getTouristAttractions().size(); v++){
+
 					for(unsigned int p = 0; p < locals.size(); p++){
+
 						if(algorithm.ExactStringMatchingKMP(locals[p], vec[n]->getTouristAttractions()[v]))
 						{
 							cout << locals[p] << " encontra-se em " << vec[n]->getName() << ", que já está incluido na sua viagem.\n";
@@ -561,11 +588,7 @@ string Agency::searchInYourDestinations(vector<string> destinos, vector<string> 
 
 						else
 							local = locals[p];
-					}
-				}
-			}
-		}
-	}
+					}}}}}
 
 	return local;
 }
@@ -582,6 +605,11 @@ vector<string> Agency::searchInAllDestinations(vector<string> destinos, string l
 	}
 
 	return destinos;
+}
+
+string Agency::aproxSearchInYourDestinations(vector<string> destinos, vector<string> locals){
+
+
 }
 
 void Agency::menuViagem(){
