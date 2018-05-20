@@ -7,8 +7,6 @@
 
 #include "StringAlgorithms.h"
 
-
-
 StringAlgorithms::StringAlgorithms(){};
 
 void ExactStringMatchingNaive(string pattern, string text){
@@ -32,7 +30,6 @@ void ExactStringMatchingFiniteAutomaton(string pattern, string text){
 
 	//TO DO se acharem necessário
 }
-
 
 void auxKMP(string pattern,  int *afixo_mais_longo)
 {
@@ -60,8 +57,6 @@ void auxKMP(string pattern,  int *afixo_mais_longo)
 	            }
 	        }
 }
-
-
 
 void ExactStringMatchingKMP(string pattern, string text){
 
@@ -94,8 +89,6 @@ void ExactStringMatchingKMP(string pattern, string text){
 	            }
 	        }
 }
-
-
 
 int ApproximateStringMatchingEditDistance(string string1, string string2){
 

@@ -63,8 +63,13 @@ public:
 	void escolheDireto();
 	void escolheGeral();
 	void destinosCidade();
+
+	//UTIL
 	void map();
 	float setSeason(Date date);
+	string searchInYourDestinations(vector<string> destinos, vector<string> locals);
+	vector<string> searchInAllDestinations(vector<string> destinos, string local);
+	void calculateMultiplePaths(Date date, vector<string> locals);
 
 
 	void calculatePathAcorddingToDistance();

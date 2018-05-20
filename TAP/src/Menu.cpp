@@ -7,6 +7,7 @@
 #include "Client.h"
 #include <limits.h>
 #include "Date.h"
+#include "StringAlgorithms.h"
 
 #define HIGH_S_M 1.40
 
@@ -408,7 +409,7 @@ void Agency::escolheGeral() {
 
 	string temp;
 	vector<string> destinos;
-	vector<string> destinations;
+	vector<string> novosDestinos;
 
 	cout << "\n";
 
@@ -423,9 +424,7 @@ void Agency::escolheGeral() {
 
 	cout << "\n";
 
-	Date date(data);
-
-	//float mul = setSeason(date);
+	Date dateInput(data);
 
 	cout << "+-------------------------------------------------------------+\n";
 	cout << "| Indique os destinos a adicionar (escreva FIM para terminar):|\n";
@@ -437,24 +436,76 @@ void Agency::escolheGeral() {
 	{
 		getline(cin, temp);
 		if(temp != "FIM")
-		destinos.push_back(temp);
+			destinos.push_back(temp);
+	}
+
+	string response;
+
+	cout << "\n\n";
+	cout << "+-------------------------------------------------------------+\n";
+	cout << "| Pretende visitar locais específicos? (Format : Y|N)         |\n";
+	cout << "+-------------------------------------------------------------+\n";
+	cout << "\n";
+
+	getline(cin,response);
+
+	cout << "\n";
+
+	if(response == "Y"){
+
+		vector<string> locais;
+		string resultado;
+		string tempcin;
+
+		cout << "+--------------------------------------------------------------+\n";
+		cout << "| Insira aqui a lista de locais a visitar : (FIM para terminar)|\n";
+		cout << "+--------------------------------------------------------------+\n";
+		cout << "\n";
+
+		while(tempcin != "FIM"){
+
+			getline(cin,tempcin);
+
+			if(tempcin!= "FIM")
+				locais.push_back(tempcin);
+
+			else
+				cout << "\nSearching your cities for these attractions.\n\n";
+		}
+
+		if((resultado = searchInYourDestinations(destinos,locais)) != "EXISTE")
+			novosDestinos = searchInAllDestinations(destinos,resultado);
+
+		calculateMultiplePaths(dateInput,novosDestinos);
 
 	}
 
+	else
+		calculateMultiplePaths(dateInput,destinos);
+}
+
+void Agency::calculateMultiplePaths(Date date, vector<string> locals){
+
+	vector<string> destinations;
+	float cost, mul;
+	Vertex<City>* last;
+
+	mul = setSeason(date);
+
 	cout << "\nYour Route :\n";
 
-	for(unsigned int i = 0; i < destinos.size() -1; i++) {
+	for(unsigned int i = 0; i < locals.size() -1; i++) {
 
 		Vertex<City>* vertex1;
 		Vertex<City>* vertex2;
 
 
-		if((vertex1 = getGraph().findVertexName(destinos[i])) == NULL){
+		if((vertex1 = getGraph().findVertexName(locals[i])) == NULL){
 			cout << " Destino não existe.\n";
 			break;
 		}
 
-		if((vertex2 = getGraph().findVertexName(destinos[i+1])) == NULL){
+		if((vertex2 = getGraph().findVertexName(locals[i+1])) == NULL){
 			cout << "Destino não existe!\n";
 			break;
 		}
@@ -467,49 +518,79 @@ void Agency::escolheGeral() {
 		for(City city: path){
 			cout << city.getName() << "; ";
 			destinations.push_back(city.getName());
+
 		}
 	}
 
-	/*gv = new GraphViewer(1360,625, false);
-	gv->setBackground("worldmap.jpg");
-	gv->defineVertexColor(BLACK);
-	gv->defineEdgeColor(RED);
-	gv->defineEdgeCurved(true);
-	gv->createWindow(750,450);
+	for(unsigned int i = 0; i < destinations.size(); i++){
+
+		if(destinations[i] == destinations[i+1]){
+			destinations.erase(destinations.begin() + i);
+
+		}
+	}
+
+	last = getGraph().findVertexName(destinations[destinations.size() -1]);
+
+	cost = last->getInfo().getHotels()[0]->getPrice() * mul;
 
 	for(unsigned int i = 0; i < vec.size(); i++){
 		for(unsigned int j = 0; j < destinations.size(); j++){
-
-			if(destinations[j] == destinations[j+1])
-			j++;
-
-			else if(vec[i]->getName() == destinations[j]){
-
-				gv->addNode(vec.at(i)->getID(), vec[i]->getCoordinates().getX(), vec[i]->getCoordinates().getY());
-				gv->setVertexLabel(vec[i]->getID(),vec[i]->getName());
-				gv->setVertexColor(vec[i]->getID(), GRAY);
-				gv->setVertexSize(vec[i]->getID(), 3);
+			if(vec[i]->getName() == destinations[j]){
+				for(unsigned int m = 0; m < vec.size(); m++){
+					for(unsigned k = 0; k < 3; k++){
+						if(destinations[j + 1] == vec[m]->getName()){
+							if(vec[m]->getID() == vec[i]->getIDDestinies(k))
+								cost += vec[m]->getPlaneTicket(k);
+						}
+					}
+				}
 			}
 		}
 	}
 
-	int id = 0;
+	cout << "\nCost : " << cost <<  "€\n\n";
+}
 
-	for(unsigned int i = 0; i < vec.size(); i++){
-		for(unsigned int j = 0; j < destinations.size(); j++){
+string Agency::searchInYourDestinations(vector<string> destinos, vector<string> locals){
 
-			if(destinations[j] == destinations[j+1])
-				j++;
 
-			else if(vec[i]->getName() == destinations[j]){
+	string local;
 
-				gv->addEdge(id, vec[i]->getID(), vec[i+1]->getID(), EdgeType::DIRECTED);
-				id++;
+	for(unsigned int n = 0; n < vec.size(); n++){
+		for(unsigned int m = 0; m < destinos.size(); m++){
+
+			if(destinos[m] == vec[n]->getName()){
+				for(unsigned int v = 0; v < vec[n]->getTouristAttractions().size(); v++){
+					for(unsigned int p = 0; p < locals.size(); p++){
+						if(locals[p] == vec[n]->getTouristAttractions()[v]){
+							cout << locals[p] << " is located in " << vec[n]->getName() << " which is in your trip already.\n";
+							local = "EXISTE";
+						}
+
+						else
+							local = locals[p];
+					}
+				}
 			}
 		}
 	}
 
-	gv->rearrange();*/
+	return local;
+}
+
+vector<string> Agency::searchInAllDestinations(vector<string> destinos, string local){
+
+	for(unsigned int i = 0; i < vec.size(); i++){
+		for(unsigned int j = 0; j < vec[i]->getTouristAttractions().size(); j++){
+			if(local == vec[i]->getTouristAttractions()[j]){
+				destinos.push_back(vec[i]->getName());
+				cout << local << " is located in " << vec[i]->getName() <<". It has been included in your trip.\n";
+			}
+		}
+	}
+
+	return destinos;
 }
 
 void Agency::menuViagem(){

@@ -45,10 +45,6 @@
 		return this->possibleDestinations;
 	}
 
-/*	int City::getQueueIndex(){
-
-		return this->queueIndex;
-	}*/
 
 	int City::getIDDestinies(int n){
 
@@ -58,6 +54,11 @@
 	int City::getPlaneTicket(int n){
 
 		return possibleDestinations[(n*3) + 1];
+	}
+
+	vector<string> City::getTouristAttractions(){
+
+		return touristAttraction;
 	}
 
 	void City::setID(int id){

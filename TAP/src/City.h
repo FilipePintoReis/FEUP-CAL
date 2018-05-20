@@ -16,7 +16,7 @@ private:
 	vector<Hotel*> hotels;
 	vector<int> possibleDestinations;//{id1,cost1,flightDuration1,...}
 	vector<string> touristAttraction;
-	//int queueIndex;
+
 
 public:
 	City(int id, string n, Coordinates c, vector<Hotel*> ht, vector<int> pd, vector <string> ta);
@@ -31,7 +31,6 @@ public:
 	int getIDDestinies(int n);
 	int getPlaneTicket(int n);
 	vector<string> getTouristAttractions();
-	//int getQueueIndex();
 
 	void setID(int id);
 	void setName(string n);
