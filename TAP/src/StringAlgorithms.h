@@ -36,7 +36,7 @@ public:
 	int checkSimilarity(string string1, string string2);
 
 	int ApproximateStringMatchingEditDistance(string string1, string string2); //usar isto para ver o quão proximo uma string é de outra e depois ordenar destinos a partir daí
-	int findApproxMatchingStrings(string userInput, vector<string> sentencesVec);
+	int findApproxMatchingStrings(string userInput, string sentencesVec);
 };
 
 

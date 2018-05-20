@@ -624,7 +624,7 @@ string Agency::aproxSearchInYourDestinations(vector<string> destinos, vector<str
 
 					for(unsigned int p = 0; p < locals.size(); p++){
 
-						if((algorithm.ApproximateStringMatchingEditDistance(locals[p], vec[n]->getTouristAttractions()[v])) >= 5)
+						if(algorithm.findApproxMatchingStrings(locals[p], vec[n]->getTouristAttractions()[v]) <= 10)
 						{
 							possible.push_back(vec[n]->getTouristAttractions()[v]);
 							local = "EXISTE";
@@ -646,7 +646,7 @@ vector<string> Agency::aproxSearchInAllDestinations(vector<string> destinos, str
 
 	for(unsigned int i = 0; i < vec.size(); i++){
 			for(unsigned int j = 0; j < vec[i]->getTouristAttractions().size(); j++){
-				if((algorithm.ApproximateStringMatchingEditDistance(local, vec[i]->getTouristAttractions()[j])) == 0){
+				if(algorithm.findApproxMatchingStrings(local, vec[i]->getTouristAttractions()[j]) < 5){
 					possible.push_back(vec[i]->getTouristAttractions()[j]);
 				}
 			}

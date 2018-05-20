@@ -101,17 +101,17 @@ int  StringAlgorithms::ApproximateStringMatchingEditDistance(string pattern, str
 
 	int velho, novo;
 
-	for(unsigned int j = 0; j < n; j++)
+	for(int j = 0; j < n; j++)
 		d[j] = j;
 
 	int m = pattern.length();
 
-	for(unsigned int i = 1; i < m; i++)
+	for(int i = 1; i <= m; i++)
 	{
 		velho = d[0];
 		d[0] = i;
 
-		for(unsigned int j = 1; j <= n; j++)
+		for(int j = 1; j <= n; j++)
 		{
 			if(pattern[i -1] == text[j-1])
 				novo = velho;
@@ -130,8 +130,22 @@ int  StringAlgorithms::ApproximateStringMatchingEditDistance(string pattern, str
 	return d[n];
 }
 
-int StringAlgorithms::findApproxMatchingStrings(string userInput, vector<string> sentencesVec){
+int StringAlgorithms::findApproxMatchingStrings(string userInput, string sentencesVec){
 
+	int counter = 0;
+	int n = 0;
 
+	float carChange = 99999, compare;
 
+		counter = ApproximateStringMatchingEditDistance(sentencesVec, userInput);
+		n++;
+		carChange = (float) counter/n;
+		compare = 0.8*sentencesVec.size();
+
+		if(carChange < compare){
+			return carChange;
+		}
+
+		else
+	   return carChange;
 }
