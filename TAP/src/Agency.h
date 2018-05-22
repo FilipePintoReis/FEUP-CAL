@@ -73,6 +73,7 @@ public:
 	void calculateMultiplePaths(Date date, vector<string> locals);
 	string aproxSearchInYourDestinations(vector<string> destinos, vector<string> locals);
 	vector<string> aproxSearchInAllDestinations(vector<string> destinos, string local);
+	Hotel* cheapestHotel(vector<Hotel*> hotels);
 
 
 	void calculatePathAcorddingToDistance();

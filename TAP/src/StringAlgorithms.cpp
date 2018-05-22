@@ -135,7 +135,7 @@ int StringAlgorithms::findApproxMatchingStrings(string userInput, string sentenc
 	int counter = 0;
 	int n = 0;
 
-	float carChange = 99999, compare;
+	float carChange, compare;
 
 		counter = ApproximateStringMatchingEditDistance(sentencesVec, userInput);
 		n++;
@@ -147,5 +147,6 @@ int StringAlgorithms::findApproxMatchingStrings(string userInput, string sentenc
 		}
 
 		else
+			carChange = 0;
 	   return carChange;
 }

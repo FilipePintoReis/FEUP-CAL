@@ -12,6 +12,7 @@
 
 GraphViewer *gv;
 float multiplier = 1;
+int custo;
 
 StringAlgorithms algorithm;
 
@@ -397,6 +398,7 @@ void Agency::escolheGeral() {
 	string temp;
 	vector<string> destinos;
 	vector<string> novosDestinos;
+	int numeroOption;
 
 	cout << "\n";
 
@@ -414,17 +416,24 @@ void Agency::escolheGeral() {
 	Date dateInput(data);
 
 	cout << "+-------------------------------------------------------------+\n";
-	cout << "| Indique os destinos a adicionar (escreva FIM para terminar):|\n";
+	cout << "| Número de destinos que pretende visitar :                   |\n";
+	cout << "+-------------------------------------------------------------+\n";
+	cout << "\n";
+
+	cin >> numeroOption;
+
+	cout << "+-------------------------------------------------------------+\n";
+	cout << "| Indique os destinos a adicionar:|\n";
 	cout << "+-------------------------------------------------------------+\n";
 	cout << "\n";
 
 
-	while (temp != "FIM")
+/*	while (temp != "FIM")
 	{
 		getline(cin, temp);
 		if(temp != "FIM")
 			destinos.push_back(temp);
-	}
+	}*/
 
 	string response;
 
@@ -503,10 +512,13 @@ void Agency::calculateMultiplePaths(Date date, vector<string> locals){
 	vector<string> destinations;
 	float cost, mul;
 	Vertex<City>* last;
+	Hotel* chosenHotel;
 
+	cout <<"\nData de viagem : " << date.getString() <<"\n";
 	mul = setSeason(date);
 
-	cout << "\nYour Route :\n";
+
+	cout << "\nA sua rota :\n";
 
 	for(unsigned int i = 0; i < locals.size() -1; i++) {
 
@@ -546,7 +558,20 @@ void Agency::calculateMultiplePaths(Date date, vector<string> locals){
 
 	last = getGraph().findVertexName(destinations[destinations.size() -1]);
 
+	if(custo == 1){
+
+		chosenHotel = cheapestHotel(last->getInfo().getHotels());
+		cost = chosenHotel->getPrice() * mul;
+
+		cout << "\n\nEstadia\n " << chosenHotel->getName() << " - " << chosenHotel->getPrice()* mul <<"€/dia.";
+	}
+
+	else {
+
 	cost = last->getInfo().getHotels()[0]->getPrice() * mul;
+	cout << "\nEstadia : " << last->getInfo().getHotels()[0]->getName() << " - " << last->getInfo().getHotels()[0]->getPrice()* mul <<"€/dia.\n";
+
+	}
 
 	for(unsigned int i = 0; i < vec.size(); i++){
 		for(unsigned int j = 0; j < destinations.size(); j++){
@@ -562,6 +587,7 @@ void Agency::calculateMultiplePaths(Date date, vector<string> locals){
 			}
 		}
 	}
+
 
 	cout << "\nCusto : " << cost <<  "€\n\n";
 }
@@ -582,7 +608,7 @@ string Agency::searchInYourDestinations(vector<string> destinos, vector<string> 
 
 						if(algorithm.ExactStringMatchingKMP(locals[p], vec[n]->getTouristAttractions()[v]))
 						{
-							cout << locals[p] << " encontra-se em " << vec[n]->getName() << ", que já está incluido na sua viagem.\n";
+							cout <<  vec[n]->getTouristAttractions()[v] << " encontra-se em " << vec[n]->getName() << ", que já está incluido na sua viagem.\n";
 							local = "EXISTE";
 						}
 
@@ -599,7 +625,7 @@ vector<string> Agency::searchInAllDestinations(vector<string> destinos, string l
 		for(unsigned int j = 0; j < vec[i]->getTouristAttractions().size(); j++){
 			if(algorithm.ExactStringMatchingKMP(local, vec[i]->getTouristAttractions()[j])){
 				destinos.push_back(vec[i]->getName());
-				cout << local << " encontra-se em " << vec[i]->getName() <<". Adicionámos esta paragem à sua viagem.\n";
+				cout << vec[i]->getTouristAttractions()[j] << " encontra-se em " << vec[i]->getName() <<". Adicionámos esta paragem à sua viagem.\n";
 			}
 		}
 	}
@@ -624,7 +650,7 @@ string Agency::aproxSearchInYourDestinations(vector<string> destinos, vector<str
 
 					for(unsigned int p = 0; p < locals.size(); p++){
 
-						if(algorithm.findApproxMatchingStrings(locals[p], vec[n]->getTouristAttractions()[v]) <= 10)
+						if(algorithm.findApproxMatchingStrings(locals[p], vec[n]->getTouristAttractions()[v]) != 0)
 						{
 							possible.push_back(vec[n]->getTouristAttractions()[v]);
 							local = "EXISTE";
@@ -646,7 +672,7 @@ vector<string> Agency::aproxSearchInAllDestinations(vector<string> destinos, str
 
 	for(unsigned int i = 0; i < vec.size(); i++){
 			for(unsigned int j = 0; j < vec[i]->getTouristAttractions().size(); j++){
-				if(algorithm.findApproxMatchingStrings(local, vec[i]->getTouristAttractions()[j]) < 5){
+				if(algorithm.findApproxMatchingStrings(local, vec[i]->getTouristAttractions()[j]) != 0){
 					possible.push_back(vec[i]->getTouristAttractions()[j]);
 				}
 			}
@@ -701,6 +727,7 @@ void Agency::menuViagem(){
 		case 1:
 			calculatePathAcorddingToDistance();
 			escolheDireto();
+			custo = 0;
 			cin.get();
 			cin.get();
 			break;
@@ -708,6 +735,7 @@ void Agency::menuViagem(){
 		case 2:
 			calculatePathAcorddingToCost();
 			escolheDireto();
+			custo = 1;
 			cin.get();
 			cin.get();
 			break;
@@ -773,6 +801,7 @@ void Agency::menuViagem2(){
 		case 1:
 			calculatePathAcorddingToDistance();
 			escolheGeral();
+			custo = 0;
 			cin.get();
 			cin.get();
 			break;
@@ -780,6 +809,7 @@ void Agency::menuViagem2(){
 		case 2:
 			calculatePathAcorddingToCost();
 			escolheGeral();
+			custo = 1;
 			cin.get();
 			cin.get();
 			break;
@@ -850,6 +880,8 @@ void Agency::escolheDireto() {
 
 	string origem;
 	string destino;
+	int cost;
+	Hotel* chosenHotel;
 
 	cout << "+----------------------------------------------------------+\n";
 	cout << "|	Indique a origem da sua viagem:                         |\n";
@@ -889,6 +921,7 @@ void Agency::escolheDireto() {
 
 	Date date(data);
 
+	cout << "Data da viagem : " << date.getString() << "\n";
 	float mul = setSeason(date);
 
 	Vertex<City>* destVertex;
@@ -909,6 +942,21 @@ void Agency::escolheDireto() {
 		cout << i << " - ";
 		cout << city.getName() <<"\n";
 		i++;
+	}
+
+	if(custo == 1){
+
+			chosenHotel = cheapestHotel(path[(path.size()-1)].getHotels());
+			cost = chosenHotel->getPrice() * mul;
+
+			cout << "\n\nEstadia\n " << chosenHotel->getName() << " - " << chosenHotel->getPrice()* mul <<"€/dia.";
+		}
+
+		else {
+
+		cost =path[(path.size()-1)].getHotels()[0]->getPrice() * mul;
+		cout << "\nEstadia : " << path[(path.size()-1)].getHotels()[0]->getName() << " - " << path[(path.size()-1)].getHotels()[0]->getPrice()* mul <<"€/dia.\n";
+
 	}
 
 	int cost = path[(path.size()-1)].getHotels()[0]->getPrice() * mul;
@@ -954,6 +1002,7 @@ void Agency::destinationsList(){
 	ifstream in;
 
 	string temp;
+	int i = 1;
 	string fich = assets + ".txt";
 	const char *nomeFich;
 	nomeFich = fich.c_str();
@@ -965,7 +1014,8 @@ void Agency::destinationsList(){
 	while(!in.eof()){
 
 		getline(in,temp);
-		cout << " | "<< temp;
+		cout << i << " - "<< temp << "\n";
+		i++;
 	}
 
 	in.close();
@@ -1071,6 +1121,17 @@ void Agency::map(){
 
 	gv->rearrange();
 
+}
+
+Hotel* Agency::cheapestHotel(vector<Hotel*> hotels){
+
+	Hotel* cheapestHotel = hotels[0];
+
+	for(unsigned int i = 0; i < hotels.size(); i++){
+		if(cheapestHotel->getPrice() >= hotels[i]->getPrice())
+			cheapestHotel = hotels[i];
+	}
+	return cheapestHotel;
 }
 
 float Agency::setSeason(Date date) {
