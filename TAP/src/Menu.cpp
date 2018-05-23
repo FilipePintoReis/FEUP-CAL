@@ -398,7 +398,6 @@ void Agency::escolheGeral() {
 	string temp;
 	vector<string> destinos;
 	vector<string> novosDestinos;
-	int numeroOption;
 
 	cout << "\n";
 
@@ -415,25 +414,26 @@ void Agency::escolheGeral() {
 
 	Date dateInput(data);
 
-	cout << "+-------------------------------------------------------------+\n";
-	cout << "| Número de destinos que pretende visitar :                   |\n";
-	cout << "+-------------------------------------------------------------+\n";
-	cout << "\n";
-
-	cin >> numeroOption;
 
 	cout << "+-------------------------------------------------------------+\n";
-	cout << "| Indique os destinos a adicionar:|\n";
+	cout << "| Indique os destinos a adicionar:  (FIM para terminar)       |\n";
 	cout << "+-------------------------------------------------------------+\n";
 	cout << "\n";
 
 
-/*	while (temp != "FIM")
+	while (temp != "FIM")
 	{
 		getline(cin, temp);
-		if(temp != "FIM")
-			destinos.push_back(temp);
-	}*/
+		if(temp != "FIM"){
+			if(searchInAllCities(temp) == "EXISTE")
+				destinos.push_back(temp);
+			else{
+				aproxSearchInAllCities(temp);
+				cin.clear();
+				cin.clear();
+			}
+		}
+	}
 
 	string response;
 
@@ -488,18 +488,20 @@ void Agency::escolheGeral() {
 
 		case 1:
 			if((resultado = searchInYourDestinations(destinos,locais)) != "EXISTE"){
-			novosDestinos = searchInAllDestinations(destinos,resultado);
-			calculateMultiplePaths(dateInput,novosDestinos);
+				novosDestinos = searchInAllDestinations(destinos,resultado);
+				calculateMultiplePaths(dateInput,novosDestinos);
 			}
 			break;
 		case 2:
 			if((resultado = aproxSearchInYourDestinations(destinos,locais)) != "EXISTE"){
-			novosDestinos = aproxSearchInAllDestinations(destinos,resultado);
-			calculateMultiplePaths(dateInput,novosDestinos);
+				novosDestinos = aproxSearchInAllDestinations(destinos,resultado);
+				calculateMultiplePaths(dateInput,novosDestinos);
 			}
 			cin.get();
 			cin.get();
-		    break;
+			break;
+		default:
+			cout << "Introduza uma opção válida.\n";
 		}
 	}
 
@@ -568,8 +570,8 @@ void Agency::calculateMultiplePaths(Date date, vector<string> locals){
 
 	else {
 
-	cost = last->getInfo().getHotels()[0]->getPrice() * mul;
-	cout << "\nEstadia : " << last->getInfo().getHotels()[0]->getName() << " - " << last->getInfo().getHotels()[0]->getPrice()* mul <<"€/dia.\n";
+		cost = last->getInfo().getHotels()[0]->getPrice() * mul;
+		cout << "\nEstadia : " << last->getInfo().getHotels()[0]->getName() << " - " << last->getInfo().getHotels()[0]->getPrice()* mul <<"€/dia.\n";
 
 	}
 
@@ -671,18 +673,46 @@ vector<string> Agency::aproxSearchInAllDestinations(vector<string> destinos, str
 	vector<string> possible;
 
 	for(unsigned int i = 0; i < vec.size(); i++){
-			for(unsigned int j = 0; j < vec[i]->getTouristAttractions().size(); j++){
-				if(algorithm.findApproxMatchingStrings(local, vec[i]->getTouristAttractions()[j]) != 0){
-					possible.push_back(vec[i]->getTouristAttractions()[j]);
-				}
+		for(unsigned int j = 0; j < vec[i]->getTouristAttractions().size(); j++){
+			if(algorithm.findApproxMatchingStrings(local, vec[i]->getTouristAttractions()[j]) != 0){
+				possible.push_back(vec[i]->getTouristAttractions()[j]);
 			}
 		}
+	}
 
 	for(unsigned int i = 0; i < possible.size(); i++){
 
 		cout << possible[i] << "\n";
 	}
-		return destinos;
+	return destinos;
+}
+
+string Agency::searchInAllCities(string city){
+
+	string found = "NAO";
+
+	for(unsigned int i = 0; i < vec.size(); i++){
+		if(city == vec[i]->getName())
+			found = "EXISTE";
+	}
+	return found;
+}
+
+void Agency::aproxSearchInAllCities(string city){
+
+	vector<string> possibilities;
+
+	for(unsigned int i = 0; i < vec.size(); i++){
+		if(algorithm.findApproxMatchingStrings(city, vec[i]->getName()) != 0){
+			possibilities.push_back(vec[i]->getName());
+		}
+	}
+
+	cout << "\nSerá que quis dizer : \n" ;
+	for(unsigned int j = 0; j < possibilities.size(); j++){
+		cout << j+1 << " - " << possibilities[j] << "\n";
+	}
+	cout << "\n";
 }
 
 void Agency::menuViagem(){
@@ -881,6 +911,7 @@ void Agency::escolheDireto() {
 	string origem;
 	string destino;
 	int cost;
+	int valido = 0;
 	Hotel* chosenHotel;
 
 	cout << "+----------------------------------------------------------+\n";
@@ -888,23 +919,47 @@ void Agency::escolheDireto() {
 	cout << "+----------------------------------------------------------+\n";
 	cout << "\n";
 
-	getline(cin, origem);
+	while(valido != 1){
+
+		getline(cin, origem);
+
+		if(searchInAllCities(origem) != "EXISTE"){
+			aproxSearchInAllCities(origem);
+			valido = 0;;
+			cin.clear();
+		}
+		else
+			valido = 1;
+	}
 
 	cout << "\n";
+
 
 	Vertex<City>* originVertex;
 	if ((originVertex = getGraph().findVertexName(origem)) == NULL){//VERIFICAR SE EXISTE
 		cout << " Origem nao existe!\n";
-		return;
 	}
 
+
+	valido = 0;
 
 	cout << "+----------------------------------------------------------+\n";
 	cout << "|	Indique o destino que quer visitar:                     |\n";
 	cout << "+----------------------------------------------------------+\n";
 	cout << "\n";
 
-	getline(cin, destino);
+	while(valido != 1){
+
+		getline(cin, destino);
+
+		if(searchInAllCities(destino) != "EXISTE"){
+			aproxSearchInAllCities(destino);
+			valido = 0;;
+			cin.clear();
+		}
+		else
+			valido = 1;
+	}
 
 	cout << "\n";
 
@@ -946,20 +1001,20 @@ void Agency::escolheDireto() {
 
 	if(custo == 1){
 
-			chosenHotel = cheapestHotel(path[(path.size()-1)].getHotels());
-			cost = chosenHotel->getPrice() * mul;
+		chosenHotel = cheapestHotel(path[(path.size()-1)].getHotels());
+		cost = chosenHotel->getPrice() * mul;
 
-			cout << "\n\nEstadia\n " << chosenHotel->getName() << " - " << chosenHotel->getPrice()* mul <<"€/dia.";
-		}
+		cout << "\n\nEstadia\n " << chosenHotel->getName() << " - " << chosenHotel->getPrice()* mul <<"€/dia.";
+	}
 
-		else {
+	else {
 
-		cost =path[(path.size()-1)].getHotels()[0]->getPrice() * mul;
+		cost = path[(path.size()-1)].getHotels()[0]->getPrice() * mul;
 		cout << "\nEstadia : " << path[(path.size()-1)].getHotels()[0]->getName() << " - " << path[(path.size()-1)].getHotels()[0]->getPrice()* mul <<"€/dia.\n";
 
 	}
 
-	int cost = path[(path.size()-1)].getHotels()[0]->getPrice() * mul;
+	cost = path[(path.size()-1)].getHotels()[0]->getPrice() * mul;
 
 	for(unsigned int j = 0; j < path.size(); j++){
 		for(int i = 0; i < 3; i++) {

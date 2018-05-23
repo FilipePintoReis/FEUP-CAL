@@ -74,7 +74,8 @@ public:
 	string aproxSearchInYourDestinations(vector<string> destinos, vector<string> locals);
 	vector<string> aproxSearchInAllDestinations(vector<string> destinos, string local);
 	Hotel* cheapestHotel(vector<Hotel*> hotels);
-
+	string searchInAllCities(string city);
+	void aproxSearchInAllCities(string city);
 
 	void calculatePathAcorddingToDistance();
 	void calculatePathAcorddingToCost();
